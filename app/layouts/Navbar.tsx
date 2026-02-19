@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -13,7 +14,7 @@ const TOP_NAV_LINKS = [
 ];
 
 const BOTTOM_NAV_LINKS = [
-    { label: 'AI Chatbot', href: '#ai-chatbot' },
+    { label: 'AI Chatbot', href: '/ai-chatbot' },
     { label: 'ERP System', href: '#erp' },
     { label: 'HRIS and Payroll System', href: '#hris' },
     { label: 'School Management System', href: '#school' },
@@ -28,6 +29,7 @@ const LANGUAGES = [
 ];
 
 export default function Navbar() {
+    const router = useRouter();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeTop, setActiveTop] = useState('');
@@ -68,26 +70,31 @@ export default function Navbar() {
                     <div className="max-w-[1280px] w-full mx-auto grid grid-cols-3 items-center">
 
                         {/* Left — Logo */}
-                        <a href="#home" className="flex items-center gap-2.5 no-underline w-fit">
+                        <button
+                            onClick={() => router.push('/')}
+                            className="bg-transparent border-none p-0 flex items-center gap-2.5 cursor-pointer w-fit"
+                        >
                             <span className="text-lg font-extrabold text-primary tracking-tight">
                                 Decode Technologies
                             </span>
-                        </a>
+                        </button>
 
                         {/* Center — Nav links */}
                         <nav className="hidden lg:flex items-center justify-center gap-x-6">
                             {TOP_NAV_LINKS.map(link => (
-                                <a
+                                <button
                                     key={link.label}
-                                    href={link.href}
-                                    onClick={() => setActiveTop(link.label)}
-                                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out ${activeTop === link.label
+                                    onClick={() => {
+                                        setActiveTop(link.label);
+                                        router.push(link.href);
+                                    }}
+                                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out border-none cursor-pointer ${activeTop === link.label
                                         ? 'bg-primary/5 text-primary'
-                                        : 'text-primary/70 hover:text-primary hover:bg-primary/5'
+                                        : 'text-primary/70 hover:text-primary hover:bg-primary/5 bg-transparent'
                                         }`}
                                 >
                                     {link.label}
-                                </a>
+                                </button>
                             ))}
                         </nav>
 
@@ -107,33 +114,12 @@ export default function Navbar() {
                                 </button>
                             </Dropdown>
 
-                            <a href="#contact" className="glow-btn ml-4 whitespace-nowrap hidden lg:inline-flex">
-                                <span>Get a Quote</span>
-                            </a>
-
-                            {/* Hamburger */}
-                            {/* Hamburger removed as per request */}
-                            {/* <button
-                                id="hamburger-btn"
-                                aria-label="Toggle menu"
-                                onClick={() => setMobileOpen(o => !o)}
-                                className="lg:hidden flex flex-col gap-[5px] items-center justify-center bg-transparent border border-primary/15 rounded-lg p-2 cursor-pointer"
+                            <button
+                                onClick={() => router.push('#contact')}
+                                className="glow-btn ml-4 whitespace-nowrap hidden lg:inline-flex"
                             >
-                                {[0, 1, 2].map(i => (
-                                    <span
-                                        key={i}
-                                        className="block w-5 h-0.5 bg-primary rounded-sm transition-all duration-300"
-                                        style={{
-                                            transform: mobileOpen
-                                                ? i === 0 ? 'translateY(7px) rotate(45deg)'
-                                                    : i === 2 ? 'translateY(-7px) rotate(-45deg)'
-                                                        : 'scaleX(0)'
-                                                : 'none',
-                                            opacity: mobileOpen && i === 1 ? 0 : 1,
-                                        }}
-                                    />
-                                ))}
-                            </button> */}
+                                <span>Get a Quote</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -145,17 +131,19 @@ export default function Navbar() {
                 >
                     <div className="max-w-[1280px] w-full mx-auto flex items-center justify-between px-2">
                         {BOTTOM_NAV_LINKS.map(link => (
-                            <a
+                            <button
                                 key={link.label}
-                                href={link.href}
-                                onClick={() => setActiveBottom(link.label)}
-                                className={`text-[0.8rem] font-medium no-underline whitespace-nowrap px-4 py-1.5 rounded-full transition-all duration-300 ease-out border border-transparent ${activeBottom === link.label
+                                onClick={() => {
+                                    setActiveBottom(link.label);
+                                    router.push(link.href);
+                                }}
+                                className={`text-[0.8rem] font-medium whitespace-nowrap px-4 py-1.5 rounded-full transition-all duration-300 ease-out border border-transparent cursor-pointer ${activeBottom === link.label
                                     ? 'bg-white/15 text-white shadow-sm'
-                                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                                    : 'text-white/70 hover:text-white hover:bg-white/10 bg-transparent'
                                     }`}
                             >
                                 {link.label}
-                            </a>
+                            </button>
                         ))}
                     </div>
                 </div>

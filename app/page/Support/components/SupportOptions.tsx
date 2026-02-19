@@ -5,19 +5,19 @@ import Link from 'next/link';
 
 const SUPPORT_OPTIONS = [
     {
-        icon: <QuestionOutlined className="text-5xl text-accent mb-6" />,
+        icon: <QuestionOutlined className="text-5xl text-accent" />,
         title: "Frequently Asked Questions",
         action: "Browse FAQs",
         href: "#faqs"
     },
     {
-        icon: <CustomerServiceOutlined className="text-5xl text-accent mb-6" />,
+        icon: <CustomerServiceOutlined className="text-5xl text-accent" />,
         title: "Contact our Support Team",
         action: "Get Help",
         href: "#contact"
     },
     {
-        icon: <MessageOutlined className="text-5xl text-accent mb-6" />,
+        icon: <MessageOutlined className="text-5xl text-accent" />,
         title: "Community Forums",
         action: "Join Discussion",
         href: "#community"

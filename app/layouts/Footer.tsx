@@ -8,6 +8,7 @@ import {
     CheckCircleFilled
 } from '@ant-design/icons';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -35,17 +36,74 @@ const ROWS_DATA = [
 
 const LOGOS = ['Mercury', 'Instacart', 'Retool', 'Duolingo', 'Hugging Face'];
 
-const FOOTER_LINKS = {
-    Product: ['Features', 'Pricing', 'Changelog', 'Roadmap'],
-    Company: ['About', 'Blog', 'Careers', 'Press'],
-    Resources: ['Documentation', 'Support', 'Community', 'Status'],
-    Legal: ['Privacy', 'Terms', 'Cookies', 'Licenses'],
-};
+// Updated Column Data for the new layout
+const FOOTER_COLUMNS = [
+    {
+        title: 'Product',
+        links: [
+            { label: 'How it works', href: '#' },
+            { label: 'Pricing', href: '#' },
+            { label: 'Integrations', href: '#' },
+            { label: 'Features', href: '#' },
+            { label: 'Compare Decode', href: '#' },
+        ]
+    },
+    {
+        title: 'Use Cases',
+        links: [
+            { label: 'Business VPN', href: '#' },
+            { label: 'CI/CD', href: '#' },
+            { label: 'Infra Access', href: '#' },
+            { label: 'Cloud Connectivity', href: '#' },
+            { label: 'Zero Trust Networking', href: '#' },
+            { label: 'Homelab', href: '#' },
+        ]
+    },
+    {
+        title: 'Resources',
+        links: [
+            { label: 'Blog', href: '/blog' },
+            { label: 'Events & Webinars', href: '#' },
+            { label: 'Partnerships', href: '#' },
+        ]
+    },
+    {
+        title: 'Company',
+        links: [
+            { label: 'Company', href: '#' },
+            { label: 'Careers', href: '#' },
+            { label: 'Press', href: '#' },
+        ]
+    },
+    {
+        title: 'Help & Support',
+        links: [
+            { label: 'Support', href: '/support' },
+            { label: 'Sales', href: '#' },
+            { label: 'Security', href: '#' },
+            { label: 'Legal', href: '#' },
+            { label: 'Open Source', href: '#' },
+            { label: 'Changelog', href: '#' },
+            { label: 'System Status', href: '#' },
+        ]
+    },
+    {
+        title: 'Learn',
+        links: [
+            { label: 'SSH keys', href: '#' },
+            { label: 'Docker SSH', href: '#' },
+            { label: 'NAT Traversal', href: '#' },
+            { label: 'MagicDNS', href: '#' },
+            { label: 'PAM', href: '#' },
+            { label: 'All articles', href: '#' },
+        ]
+    },
+];
 
-const SOCIALS = [
-    { label: 'Twitter / X', href: '#', icon: <TwitterOutlined /> },
-    { label: 'LinkedIn', href: '#', icon: <LinkedinFilled /> },
-    { label: 'GitHub', href: '#', icon: <GithubFilled /> },
+const NEW_SOCIALS = [
+    { label: 'X', icon: <TwitterOutlined /> },
+    { label: 'LinkedIn', icon: <LinkedinFilled /> },
+    { label: 'GitHub', icon: <GithubFilled /> },
 ];
 
 export default function Footer() {
@@ -211,47 +269,21 @@ export default function Footer() {
                     </div>
 
 
-                    {/* ── Main Footer Links ── */}
-                    <div className="grid grid-cols-2 lg:grid-cols-6 gap-10">
-
-                        {/* Brand Column */}
-                        <div className="col-span-2 lg:col-span-2">
-                            <a href="#home" className="flex items-center gap-2 mb-6 text-primary no-underline">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-light flex items-center justify-center shadow-lg shadow-accent/20 text-white">
-                                    <span className="font-bold text-lg">D</span>
-                                </div>
-                                <span className="text-xl font-bold tracking-tight">
-                                    Decode<span className="text-accent">Tech</span>
-                                </span>
-                            </a>
-                            <p className="text-gray-500 text-sm leading-relaxed max-w-xs mb-6">
-                                Building the future, one pixel at a time. Premium experiences for modern brands.
-                            </p>
-                            <div className="flex gap-3">
-                                {SOCIALS.map(s => (
-                                    <a
-                                        key={s.label}
-                                        href={s.href}
-                                        className="w-9 h-9 rounded-lg border border-gray-200 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary hover:bg-gray-50 transition-all"
-                                    >
-                                        {s.icon}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Link Columns */}
-                        {Object.entries(FOOTER_LINKS).map(([group, links]) => (
-                            <div key={group} className="col-span-1">
-                                <h4 className="text-xs font-bold uppercase tracking-widest text-primary mb-6 font-primary">
-                                    {group}
-                                </h4>
-                                <ul className="space-y-4">
-                                    {links.map(link => (
-                                        <li key={link}>
-                                            <a href="#" className="text-sm text-gray-500 hover:text-accent transition-colors">
-                                                {link}
-                                            </a>
+                    {/* ── Main Footer Links (New Layout) ── */}
+                    {/* 1. Links Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-16">
+                        {FOOTER_COLUMNS.map((col) => (
+                            <div key={col.title}>
+                                <h4 className="font-bold text-gray-900 mb-4 text-sm">{col.title}</h4>
+                                <ul className="space-y-3">
+                                    {col.links.map((link) => (
+                                        <li key={link.label}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-gray-500 hover:text-gray-900 transition-colors text-sm"
+                                            >
+                                                {link.label}
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -259,14 +291,60 @@ export default function Footer() {
                         ))}
                     </div>
 
-                    {/* Bottom Copyright */}
-                    <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
-                        <p>© {year} Decode Technologies. All rights reserved.</p>
-                        <div className="flex gap-6">
-                            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+                    {/* Divider */}
+                    <div className="border-t border-gray-100 mb-12"></div>
+
+                    {/* 2. Middle Section - Branding & Legal */}
+                    <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-12">
+
+                        {/* Brand Logo */}
+                        <div className="mb-4 lg:mb-0">
+                            <h2 className="text-2xl font-bold text-primary tracking-tight">
+                                Decode Technologies
+                            </h2>
                         </div>
+
+                        {/* Legal Links Column */}
+                        <div className="flex flex-col gap-2 items-center lg:items-start">
+                            <div className="flex flex-col gap-2 text-sm text-gray-500 underline decoration-gray-300 underline-offset-4 items-center lg:items-start">
+                                <Link href="#" className="hover:text-primary">Terms of Service</Link>
+                                <Link href="#" className="hover:text-primary">Privacy Policy</Link>
+                                <Link href="#" className="hover:text-primary">California Notice</Link>
+                                <Link href="#" className="hover:text-primary">Cookie Notice</Link>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                                <div className="w-8 h-4 bg-primary rounded-full relative">
+                                    <div className="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+                                </div>
+                                <Link href="#" className="underline decoration-gray-300 underline-offset-4 hover:text-primary">Your Privacy Choices</Link>
+                            </div>
+                        </div>
+
+                        {/* Trademark Text */}
+                        <div className="text-xs text-gray-400 max-w-xs leading-relaxed text-center lg:text-left">
+                            WireGuard is a registered trademark of Jason A. Donenfeld.
+                        </div>
+
+                        {/* Social Icons */}
+                        <div className="flex items-center gap-3">
+                            {NEW_SOCIALS.map((social) => (
+                                <a
+                                    key={social.label}
+                                    href="#"
+                                    className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/80 transition-colors"
+                                >
+                                    {social.icon}
+                                </a>
+                            ))}
+                        </div>
+
                     </div>
+
+                    {/* 3. Bottom Section - Copyright */}
+                    <div className="text-xs text-gray-400 text-center">
+                        © {year} Decode Technologies Inc. All rights reserved.
+                    </div>
+
                 </div>
             </div>
         </footer>
