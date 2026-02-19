@@ -4,12 +4,12 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/all'; // Import from 'gsap/all' to ensure registration works in Next.js environment
+import { ScrollTrigger } from 'gsap/all';
 import { ArrowRightOutlined } from '@ant-design/icons';
 
 // Placeholder images
 import imgApp1 from '../assets/image 25.png';
-import imgApp2 from '../assets/image 26.png'; // Reusing for demo
+import imgApp2 from '../assets/image 26.png';
 
 // Register ScrollTrigger
 if (typeof window !== 'undefined') {
@@ -36,10 +36,6 @@ const APPS_DATA = [
                 title: 'Seamless Handoff',
                 desc: 'Intelligently routes complex issues to human agents with full context history.'
             },
-            {
-                title: 'Custom Knowledge Base',
-                desc: 'Train the bot on your specific documents, FAQs, and brand guidelines in minutes.'
-            }
         ]
     },
     {
@@ -61,10 +57,6 @@ const APPS_DATA = [
                 title: 'Performance Metrics',
                 desc: 'Track response times, resolution rates, and bot accuracy with detailed dashboards.'
             },
-            {
-                title: 'Export & Integration',
-                desc: 'Sync data with your CRM or data warehouse for unified reporting.'
-            }
         ]
     },
     {
@@ -72,7 +64,7 @@ const APPS_DATA = [
         category: 'Automated Outreach',
         title: 'Proactive Engagement at Scale',
         description: 'Don\'t just wait for customers to come to you. Reach out with personalized messages that drive conversion and retention automatically.',
-        image: imgApp1, // Reusing
+        image: imgApp1,
         features: [
             {
                 title: 'Smart Segmentation',
@@ -86,64 +78,83 @@ const APPS_DATA = [
                 title: 'A/B Testing',
                 desc: 'Experiment with different messages and timing to optimize engagement rates.'
             },
-            {
-                title: 'Personalized Content',
-                desc: 'Dynamically insert user data to create messages that feel truly personal.'
-            }
         ]
     }
 ];
 
 export default function Apps() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const rightColRef = useRef<HTMLDivElement>(null);
     const [activeAppIndex, setActiveAppIndex] = useState(0);
 
     useGSAP(() => {
-        APPS_DATA.forEach((app, index) => {
-            ScrollTrigger.create({
-                trigger: `#app-section-${index}`,
-                start: 'top center', // When top of right section hits center of viewport
-                end: 'bottom center', // When bottom of right section hits center
-                onEnter: () => setActiveAppIndex(index),
-                onEnterBack: () => setActiveAppIndex(index),
-                // markers: true, // Uncomment for debugging
-            });
+        const container = containerRef.current;
+        const rightCol = rightColRef.current;
+
+        if (!container || !rightCol) return;
+
+        // Calculate scroll distance based on right column height
+        // We want the user to scroll through the entire right column
+        const scrollDistance = rightCol.offsetHeight - window.innerHeight;
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: container,
+                start: "top top",
+                end: () => `+=${Math.max(scrollDistance + 200, 2000)}`, // Ensure enough scroll space
+                pin: true,
+                scrub: 1,
+                onUpdate: (self) => {
+                    // Update active index based on progress
+                    const idx = Math.min(
+                        Math.floor(self.progress * APPS_DATA.length),
+                        APPS_DATA.length - 1
+                    );
+                    setActiveAppIndex(idx);
+                }
+            }
         });
+
+        // Translate the right column up as we scroll
+        // If content is shorter than viewport, we don't need to scroll it much, but let's assume it's taller
+        if (scrollDistance > 0) {
+            tl.to(rightCol, {
+                y: -scrollDistance,
+                ease: "none"
+            });
+        } else {
+            // Fallback for short content - just scrub timing
+            tl.to({}, { duration: 1 });
+        }
+
     }, { scope: containerRef });
 
     const activeApp = APPS_DATA[activeAppIndex];
 
     return (
-        <section ref={containerRef} className="py-16 bg-white relative">
-            <div className="max-w-5xl mx-auto px-6 flex flex-col lg:flex-row gap-12 md:gap-16">
+        <section ref={containerRef} className="h-screen w-full bg-white relative overflow-hidden flex items-start">
+            <div className="max-w-7xl mx-auto px-6 w-full h-full flex flex-col lg:flex-row gap-12 md:gap-16">
 
-                {/* Left Side - Sticky Content */}
-                <div className="lg:w-1/2 h-fit lg:sticky lg:top-24 transition-all duration-500 ease-in-out">
-                    <div className="flex flex-col items-start space-y-6 animate-fadeIn">
+                {/* Left Side - Fixed Position (Visual) */}
+                <div className="flex-1 h-full py-24 flex flex-col justify-center">
+                    <div className="flex flex-col items-start space-y-6 animate-fadeIn transition-all duration-500">
                         {/* Category Pill */}
-                        <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full tracking-wide uppercase shadow-lg shadow-primary/20">
-                            {activeApp.category}
-                        </span>
+                        <div key={activeApp.id + '-cat'} className="animate-fadeIn">
+                            <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full tracking-wide uppercase shadow-lg shadow-primary/20">
+                                {activeApp.category}
+                            </span>
+                        </div>
 
                         {/* Title & Desc */}
                         <div className="space-y-6">
-                            <h2 className="text-4xl md:text-5xl font-black text-primary leading-tight">
+                            <h2 className="text-4xl md:text-5xl font-black text-primary leading-tight min-h-[3em]">
                                 {activeApp.title}
                             </h2>
-                            <p className="text-xl text-gray-500 leading-relaxed max-w-lg">
+                            <p className="text-xl text-gray-500 leading-relaxed max-w-lg min-h-[4em]">
                                 {activeApp.description}
                             </p>
                         </div>
 
-                        {/* App Image Card */}
-                        <div className="w-full aspect-[4/3] relative rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50 mt-8">
-                            <Image
-                                src={activeApp.image}
-                                alt={activeApp.title}
-                                fill
-                                className="object-cover transition-opacity duration-500"
-                            />
-                        </div>
 
                         <button className="flex items-center gap-2 text-primary font-bold text-lg hover:text-accent transition-colors group mt-4">
                             Explore {activeApp.category}
@@ -152,34 +163,40 @@ export default function Apps() {
                     </div>
                 </div>
 
-                {/* Right Side - Scrollable Features List */}
-                <div className="lg:w-1/2 flex flex-col pt-8">
-                    {APPS_DATA.map((app, appIndex) => (
-                        <div
-                            key={app.id}
-                            id={`app-section-${appIndex}`}
-                            className="min-h-[50vh] py-12 flex flex-col justify-center gap-6"
-                        >
-                            {/* Mobile Title (visible only on small screens where sticky doesn't apply well) */}
-                            <div className="lg:hidden mb-8">
-                                <h3 className="text-3xl font-bold text-primary">{app.category}</h3>
-                            </div>
-
-                            {app.features.map((feature, fIndex) => (
+                {/* Right Side - Scrolling Content */}
+                {/* We offset padding-top to align with the first item 'waiting' for the scroll */}
+                <div className="flex-1 h-full overflow-hidden relative">
+                    <div ref={rightColRef} className="flex flex-col pt-32 pb-32">
+                        {APPS_DATA.map((app, appIndex) => {
+                            const isActive = appIndex === activeAppIndex;
+                            return (
                                 <div
-                                    key={fIndex}
-                                    className="p-8 rounded-2xl bg-surface border border-gray-100 hover:border-accent/30 hover:shadow-lg transition-all duration-300 group"
+                                    key={app.id}
+                                    id={`app-section-${appIndex}`}
+                                    className={`py-12 flex flex-col justify-center gap-6 transition-all duration-500 ${isActive ? 'opacity-100 scale-100 blur-none' : 'opacity-30 scale-95 blur-sm'}`}
                                 >
-                                    <h4 className="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
-                                        {feature.title}
-                                    </h4>
-                                    <p className="text-gray-500 leading-relaxed">
-                                        {feature.desc}
-                                    </p>
+                                    {/* Mobile Title (Hidden on desktop as it's on the left) */}
+                                    <div className="lg:hidden mb-8">
+                                        <h3 className="text-3xl font-bold text-primary">{app.category}</h3>
+                                    </div>
+
+                                    {app.features.map((feature, fIndex) => (
+                                        <div
+                                            key={fIndex}
+                                            className="p-8 rounded-2xl bg-surface border border-gray-100 hover:border-accent/30 hover:shadow-lg transition-all duration-300 group"
+                                        >
+                                            <h4 className="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
+                                                {feature.title}
+                                            </h4>
+                                            <p className="text-gray-500 leading-relaxed">
+                                                {feature.desc}
+                                            </p>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    ))}
+                            );
+                        })}
+                    </div>
                 </div>
 
             </div>

@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import imgLeft from '../assets/image 25.png';
 import imgRight from '../assets/image 26.png';
+import logoImg from '../assets/logo.jpg';
 
 const TRUSTED_LOGOS = [
-    { name: 'Edgard & Cooper', src: 'https://logo.clearbit.com/edgardcooper.com' },
-    { name: 'AMS', src: 'https://logo.clearbit.com/ams-osram.com' },
-    { name: 'Raleigh', src: 'https://logo.clearbit.com/raleigh.co.uk' },
-    { name: 'Huel', src: 'https://logo.clearbit.com/huel.com' },
-    { name: 'Wethenew', src: 'https://logo.clearbit.com/wethenew.com' },
+    { name: 'Edgard & Cooper', src: logoImg },
+    { name: 'AMS', src: logoImg },
+    { name: 'Raleigh', src: logoImg },
+    { name: 'Huel', src: logoImg },
+    { name: 'Wethenew', src: logoImg },
 ];
 
 export default function Hero() {
@@ -75,11 +76,10 @@ export default function Hero() {
                 <div className="flex items-center justify-center flex-wrap gap-8 md:gap-14">
                     {TRUSTED_LOGOS.map(logo => (
                         <div key={logo.name} className="relative group">
-                            <img
+                            <Image
                                 src={logo.src}
                                 alt={`${logo.name} logo`}
-                                className="h-8 md:h-10 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
-                                loading="lazy"
+                                className="h-12 md:h-12 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
                             />
                         </div>
                     ))}

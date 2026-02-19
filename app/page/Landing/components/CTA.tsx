@@ -8,7 +8,7 @@ export default function CTA() {
     return (
         <section className="w-full">
             <div className="max-w-5xl mx-auto px-6">
-                <div className="relative bg-primary rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl overflow-hidden group">
+                <div className="relative bg-primary bg-opacity-10 rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl overflow-hidden group">
 
                     <div className="absolute inset-0 z-0">
                         <Image
@@ -22,15 +22,15 @@ export default function CTA() {
                     </div>
 
                     {/* Gradient Accents */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/20 blur-[120px] rounded-full pointer-events-none z-0" />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/0 blur-[120px] rounded-full pointer-events-none z-0" />
                     <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-accent-light/10 blur-[80px] rounded-full pointer-events-none z-0" />
 
                     <div className="relative z-10 flex flex-col items-center">
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-tight">
+                        <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-6 leading-tight">
                             Ready to Transform Your Business?
                         </h2>
 
-                        <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
+                        <p className="md:text-lg text-white/80 mb-10 max-w-2xl leading-relaxed">
                             Join the innovative companies using our platform to turn data into growth.
                             Get started with a personalized demo today.
                         </p>

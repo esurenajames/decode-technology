@@ -2,6 +2,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import CTA from './components/CTA';
 import Apps from './components/Apps';
+import About from './components/About';
 import Blogs from './components/Blogs';
 
 export default function LandingPage() {
@@ -11,6 +12,7 @@ export default function LandingPage() {
             <Features />
             <CTA />
             <Apps />
+            <About />
             <Blogs />
         </>
     );

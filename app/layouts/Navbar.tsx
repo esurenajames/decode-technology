@@ -7,9 +7,9 @@ import type { MenuProps } from 'antd';
 
 const TOP_NAV_LINKS = [
     { label: 'About', href: '#about' },
-    { label: 'Blogs', href: '#blogs' },
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Support', href: '#support' },
+    { label: 'Blogs', href: '/blog' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Support', href: '/support' },
 ];
 
 const BOTTOM_NAV_LINKS = [

@@ -13,6 +13,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 import imgApp from '../page/Landing/assets/image 26.png'; // Reusing existing asset
+import logoImg from '../page/Landing/assets/logo.jpg';
 
 // Mock Data
 const TESTIMONIALS = [
@@ -197,7 +198,14 @@ export default function Footer() {
                         <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
                             {/* Text placeholders */}
                             {LOGOS.map(logo => (
-                                <span key={logo} className="text-xl md:text-2xl font-black text-gray-300 hover:text-primary transition-colors cursor-pointer">{logo}</span>
+                                <div key={logo} className="relative h-8 md:h-10 w-32 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                                    <Image
+                                        src={logoImg}
+                                        alt={`${logo} logo`}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
                             ))}
                         </div>
                     </div>
