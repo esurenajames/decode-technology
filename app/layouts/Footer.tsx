@@ -14,7 +14,30 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 import imgApp from '../page/Landing/assets/image 26.png'; // Reusing existing asset
-import logoImg from '../page/Landing/assets/logo.jpg';
+// Import logos
+import BCG from '../assets/BCG-removebg-preview.png';
+import C3 from '../assets/C3-removebg-preview.png';
+import KLL1 from '../assets/KLL1-removebg-preview.png';
+import LSC from '../assets/LSC-removebg-preview.png';
+import PLX from '../assets/PLX-removebg-preview.png';
+import PVA from '../assets/PVA-removebg-preview.png';
+import RPDOTRCAB from '../assets/RP-DOTRCAB-removebg-preview.png';
+import CRK from '../assets/crk-removebg-preview.png';
+import EDAMAMA from '../assets/edamama-removebg-preview.png';
+import GOLDPLAN from '../assets/goldplan-removebg-preview.png';
+import JINZAI from '../assets/jinzai-copy-removebg-preview.png';
+import SPROBE from '../assets/sprobe-removebg-preview.png';
+import ONE from '../assets/1-removebg-preview.png';
+import ONE_1 from '../assets/1__1_-removebg-preview.png';
+import FOUR_P from '../assets/4P-removebg-preview.png';
+import ACM from '../assets/ACM-removebg-preview.png';
+import AMS from '../assets/AMS-removebg-preview.png';
+import ASG2 from '../assets/ASG2-removebg-preview.png';
+import BANDWELL from '../assets/BANDWELL-removebg-preview.png';
+import VANITY from '../assets/VANITY-removebg-preview.png';
+import VXI from '../assets/VXI-removebg-preview.png';
+import ZBIZ from '../assets/ZBIZ-removebg-preview.png';
+import ZOOMLION from '../assets/zoomlion-removebg-preview.png';
 
 // Mock Data
 const TESTIMONIALS = [
@@ -34,7 +57,31 @@ const ROWS_DATA = [
     [...TESTIMONIALS.slice(2), ...TESTIMONIALS.slice(0, 2)],
 ];
 
-const LOGOS = ['Mercury', 'Instacart', 'Retool', 'Duolingo', 'Hugging Face'];
+const FOOTER_LOGOS = [
+    { name: 'BCG', src: BCG },
+    { name: 'C3', src: C3 },
+    { name: 'KLL1', src: KLL1 },
+    { name: 'LSC', src: LSC },
+    { name: 'PLX', src: PLX },
+    { name: 'PVA', src: PVA },
+    { name: 'RP-DOTRCAB', src: RPDOTRCAB },
+    { name: 'CRK', src: CRK },
+    { name: 'EDAMAMA', src: EDAMAMA },
+    { name: 'GOLDPLAN', src: GOLDPLAN },
+    { name: 'JINZAI', src: JINZAI },
+    { name: 'SPROBE', src: SPROBE },
+    { name: '1', src: ONE },
+    { name: '1_1', src: ONE_1 },
+    { name: '4P', src: FOUR_P },
+    { name: 'ACM', src: ACM },
+    { name: 'AMS', src: AMS },
+    { name: 'ASG2', src: ASG2 },
+    { name: 'BANDWELL', src: BANDWELL },
+    { name: 'VANITY', src: VANITY },
+    { name: 'VXI', src: VXI },
+    { name: 'ZBIZ', src: ZBIZ },
+    { name: 'ZOOMLION', src: ZOOMLION },
+];
 
 // Updated Column Data for the new layout
 const FOOTER_COLUMNS = [
@@ -251,15 +298,13 @@ export default function Footer() {
                     </div>
 
 
-                    {/* 3. Trusted By Logos */}
                     <div className="border-b border-gray-100 pb-16 mb-16">
-                        <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                            {/* Text placeholders */}
-                            {LOGOS.map(logo => (
-                                <div key={logo} className="relative h-8 md:h-10 w-32 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+                            {FOOTER_LOGOS.map((logo) => (
+                                <div key={logo.name} className="relative h-12 w-32 hover:scale-105 transition-all duration-500 transform">
                                     <Image
-                                        src={logoImg}
-                                        alt={`${logo} logo`}
+                                        src={logo.src}
+                                        alt={`${logo.name} logo`}
                                         fill
                                         className="object-contain"
                                     />

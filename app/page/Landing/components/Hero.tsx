@@ -20,7 +20,6 @@ export default function Hero() {
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/5 blur-[120px] rounded-full mix-blend-multiply" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-primary/20 to-transparent" />
             </div>
             <div className="w-full max-w-5xl mx-auto text-center pt-16 md:pt-24 px-6">
                 <p className="text-sm md:text-base text-muted mb-5">
@@ -45,10 +44,10 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="w-full mt-12 mb-16 flex flex-col overflow-hidden bg-white/50 border-y border-primary/5 py-12">
+            <div className="w-full mt-12 mb-16 flex flex-col overflow-hidden bg-white/50 py-12">
 
                 {/* Header */}
-                <div className="w-full max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between">
+                <div className="w-full max-w-5xl mx-auto px-6 mb-8 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-1 h-5 bg-primary rounded-full shadow-[0_0_12px_rgba(47,127,245,0.5)]" />
                         <span className="text-sm font-bold text-primary tracking-wide uppercase opacity-90">Made by Decode</span>
@@ -101,7 +100,7 @@ export default function Hero() {
                     </div>
                 </div>
 
-                <div className="w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center gap-4 animate-fadein">
+                <div className="w-full max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center gap-4 animate-fadein">
                     {/* Avatars */}
                     <div className="flex -space-x-2 shrink-0">
                         {[1, 2, 3, 4].map(i => (

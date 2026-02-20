@@ -1,4 +1,5 @@
 import Hero from './components/Hero';
+import TrustedBy from './components/TrustedBy';
 import Features from './components/Features';
 import CTA from './components/CTA';
 import Apps from './components/Apps';
@@ -9,6 +10,7 @@ export default function LandingPage() {
     return (
         <>
             <Hero />
+            <TrustedBy />
             <Features />
             <CTA />
             <Apps />
