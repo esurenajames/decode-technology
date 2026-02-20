@@ -13,7 +13,8 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
-import imgApp from '../page/Landing/assets/image 26.png'; // Reusing existing asset
+import mobileImg from '../assets/mobile.jpg';
+import footerBg from '../assets/Footer.png';
 // Import logos
 import BCG from '../assets/BCG-removebg-preview.png';
 import C3 from '../assets/C3-removebg-preview.png';
@@ -41,12 +42,12 @@ import ZOOMLION from '../assets/zoomlion-removebg-preview.png';
 
 // Mock Data
 const TESTIMONIALS = [
-    { handle: '@techguru', name: 'Alex Chen', text: 'Decode Tech completely transformed our workflow. The ERP system is a game-changer.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex' },
-    { handle: '@startup_jane', name: 'Jane Doe', text: 'Best IT solutions provider in the Philippines. Hands down.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jane' },
-    { handle: '@dev_mike', name: 'Mike Ross', text: 'Their school management system is intuitive and robust. Highly recommend.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mike' },
-    { handle: '@sarah_ceo', name: 'Sarah Lee', text: 'Seamless outsourcing experience. They feel like part of our internal team.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah' },
-    { handle: '@cloud_master', name: 'David Kim', text: 'Data security and uptime have been flawless since we switched.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David' },
-    { handle: '@frontend_wiz', name: 'Emily White', text: 'Beautiful UI/UX on all their delivered apps. A pleasure to use.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily' },
+    { handle: '@techguru', name: 'Alex Chen', text: 'Decode Tech completely transformed our workflow. The ERP system is a game-changer.', avatar: 'https://i.pravatar.cc/150?img=11' },
+    { handle: '@startup_jane', name: 'Jane Doe', text: 'Best IT solutions provider in the Philippines. Hands down.', avatar: 'https://i.pravatar.cc/150?img=5' },
+    { handle: '@dev_mike', name: 'Mike Ross', text: 'Their school management system is intuitive and robust. Highly recommend.', avatar: 'https://i.pravatar.cc/150?img=8' },
+    { handle: '@sarah_ceo', name: 'Sarah Lee', text: 'Seamless outsourcing experience. They feel like part of our internal team.', avatar: 'https://i.pravatar.cc/150?img=9' },
+    { handle: '@cloud_master', name: 'David Kim', text: 'Data security and uptime have been flawless since we switched.', avatar: 'https://i.pravatar.cc/150?img=12' },
+    { handle: '@frontend_wiz', name: 'Emily White', text: 'Beautiful UI/UX on all their delivered apps. A pleasure to use.', avatar: 'https://i.pravatar.cc/150?img=24' },
 ];
 
 // Create 4 rows of data for variety
@@ -234,28 +235,31 @@ export default function Footer() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-24">
 
                         {/* Left Card: CTA */}
-                        <div className="relative bg-[#111a2b] rounded-[2.5rem] p-10 md:p-14 overflow-hidden border border-gray-100 flex flex-col justify-between min-h-[500px] text-white">
-                            {/* Background Shapes */}
-                            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#d97706] rounded-full blur-[120px] opacity-20 pointer-events-none translate-x-1/2 -translate-y-1/2" />
-                            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/20 rounded-full blur-[100px] opacity-20 pointer-events-none -translate-x-1/2 translate-y-1/2" />
+                        <div className="relative rounded-lg p-10 overflow-hidden border border-gray-100 flex flex-col justify-between text-white">
+                            <Image
+                                src={footerBg}
+                                alt="CTA Background"
+                                fill
+                                className="object-cover z-0"
+                            />
+                            <div className="absolute inset-0 bg-black/20 z-0" />
 
                             <div className="relative z-10">
                                 <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-6">
-                                    Try <span className="text-[#d97706]">Decode Tech</span> <br />
-                                    for free
+                                    Partner with Confidence
                                 </h2>
                                 <ul className="space-y-3 mb-10 text-lg text-white/70">
                                     <li className="flex items-center gap-3">
                                         <CheckCircleFilled className="text-accent" />
-                                        <span>No credit card required</span>
+                                        <span>Enterprise-Grade Security</span>
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <CheckCircleFilled className="text-accent" />
-                                        <span>Full access to all features</span>
+                                        <span>99.9% Uptime Guarantee</span>
                                     </li>
                                     <li className="flex items-center gap-3">
                                         <CheckCircleFilled className="text-accent" />
-                                        <span>24/7 Priority Support</span>
+                                        <span>Dedicated Expert Support</span>
                                     </li>
                                 </ul>
                             </div>
@@ -271,24 +275,20 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Right Card: Mobile App Preview */}
-                        <div className="relative bg-[#2e1065] rounded-[2.5rem] p-10 md:p-14 overflow-hidden border border-gray-100 flex items-center justify-center min-h-[500px]">
-                            {/* Background Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#2e1065] to-[#4c1d95]" />
-
-                            {/* Phone Mockup */}
-                            <div className="relative w-[300px] h-[600px] bg-black rounded-[3rem] border-8 border-gray-900 shadow-2xl translate-y-16 rotate-12 hover:rotate-0 transition-transform duration-500 ease-out">
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20" />
-                                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                        <div className="relative bg-[#19253b] rounded-lg p-10 overflow-hidden border border-gray-100 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-[#19253b]" />
+                            <div className="relative w-[240px] h-[480px] bg-black rounded-[2.5rem] border-8 border-gray-900 shadow-2xl translate-y-8 rotate-12 hover:rotate-0 transition-transform duration-500 ease-out">
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-lg z-20" />
+                                <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
                                     <Image
-                                        src={imgApp}
+                                        src={mobileImg}
                                         alt="App Interface"
                                         fill
                                         className="object-cover"
                                     />
                                     {/* Overlay UI elements to make it look like app */}
-                                    <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                                        <div className="font-bold">Decode Mobile</div>
+                                    <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/80 to-transparent p-5 text-white">
+                                        <div className="font-bold">EES Mobile</div>
                                         <div className="text-xs opacity-70">Control everything on the go.</div>
                                     </div>
                                 </div>

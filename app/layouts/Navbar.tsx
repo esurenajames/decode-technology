@@ -15,7 +15,7 @@ const TOP_NAV_LINKS = [
 
 const BOTTOM_NAV_LINKS = [
     { label: 'AI Chatbot', href: '/ai-chatbot' },
-    { label: 'ERP System', href: '#erp' },
+    { label: 'ERP System', href: '/erp' },
     { label: 'HRIS and Payroll System', href: '#hris' },
     { label: 'School Management System', href: '#school' },
     { label: 'Training Management System', href: '#training' },

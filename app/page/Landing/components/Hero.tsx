@@ -104,14 +104,13 @@ export default function Hero() {
                     {/* Avatars */}
                     <div className="flex -space-x-2 shrink-0">
                         {[1, 2, 3, 4].map(i => (
-                            <div key={i} className="w-6 h-6 rounded-full border border-white bg-surface-2 overflow-hidden relative shadow-sm hover:scale-110 transition-transform">
-                                {i === 1 ? (
-                                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-indigo-600" />
-                                ) : i === 2 ? (
-                                    <Image src={logoImg} alt="avatar" fill className="object-cover grayscale opacity-80" />
-                                ) : (
-                                    <div className="w-full h-full bg-gradient-to-tr from-emerald-400 to-teal-500" />
-                                )}
+                            <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-surface-2 overflow-hidden relative shadow-sm hover:scale-110 transition-transform z-10">
+                                <Image
+                                    src={`https://i.pravatar.cc/150?img=${i + 5}`}
+                                    alt="avatar"
+                                    fill
+                                    className="object-cover"
+                                />
                             </div>
                         ))}
                     </div>

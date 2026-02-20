@@ -8,6 +8,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined, BulbOutlined } from '@ant-design
 // Using the same placeholder image from Hero for now
 import imgDashboard from '../assets/image 26.png';
 import imgDashboardDef from '../assets/image 25.png';
+import FeaturesGrid from './FeaturesGrid';
 
 const FEATURES_DATA = [
     {
@@ -209,40 +210,7 @@ export default function Features() {
                         }
                     }}
                 >
-                    <div className="mb-16">
-                        <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight leading-tight">
-                            We Handle the Systems.
-                            <br />
-                            <span className="text-primary">You Focus on Growing Your Business.</span>
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                        <div className="rounded-2xl overflow-hidden shadow-xl">
-                            <Image
-                                src={imgDashboardDef}
-                                alt="Dashboard Preview 1"
-                                className="w-full h-auto object-cover"
-                                placeholder="blur"
-                            />
-                        </div>
-                        <div className="rounded-2xl overflow-hidden shadow-xl">
-                            <Image
-                                src={imgDashboardDef}
-                                alt="Dashboard Preview 2"
-                                className="w-full h-auto object-cover"
-                                placeholder="blur"
-                            />
-                        </div>
-                        <div className="rounded-2xl overflow-hidden shadow-xl">
-                            <Image
-                                src={imgDashboardDef}
-                                alt="Dashboard Preview 3"
-                                className="w-full h-auto object-cover"
-                                placeholder="blur"
-                            />
-                        </div>
-                    </div>
+                    {/* <FeaturesGrid /> */}
 
                     <div className="rounded-3xl overflow-hidden shadow-xl shadow-primary/5 bg-white border-2 border-gray-200">
                         <Tabs
