@@ -46,7 +46,7 @@ export default function RelatedCaseStudies() {
     return (
         <div className="border-t border-gray-100 mt-24">
             <div className="max-w-7xl mx-auto px-6 py-24">
-                <h3 className="text-3xl font-black text-primary mb-12 text-center">More Case Studies</h3>
+                <h3 className="text-3xl font-bold text-primary mb-12 text-center">More Case Studies</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                     {RELATED_CASE_STUDIES.map((post) => (

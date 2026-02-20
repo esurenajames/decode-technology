@@ -84,7 +84,7 @@ export default function AIChatbotCTA() {
                     </div>
 
                     {/* Headline */}
-                    <h2 className="text-4xl md:text-5xl font-black leading-tight">
+                    <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                         See It In Action.<br />
                         <span className="text-gray-400">Book a Live Demo.</span>
                     </h2>

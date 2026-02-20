@@ -55,7 +55,7 @@ export default function CaseStudiesHero() {
                             <span>Jan 15, 2025</span>
                         </div>
 
-                        <h2 className="text-2xl font-black text-primary leading-tight mb-6">
+                        <h2 className="text-2xl font-bold text-primary leading-tight mb-6">
                             How We Helped FinTech Corp Scale Their Infrastructure by 300%
                         </h2>
 

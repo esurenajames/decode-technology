@@ -64,7 +64,7 @@ export default function AIChatbotCoreFeatures() {
                 <div className="flex items-start justify-between mb-16">
                     <div>
                         <span className="text-gray-400 text-sm font-mono tracking-widest mb-3 block">[ CORE ]</span>
-                        <h2 className="text-4xl font-black tracking-tight uppercase">
+                        <h2 className="text-4xl font-bold tracking-tight uppercase">
                             Decode AI Chatbot
                         </h2>
                     </div>

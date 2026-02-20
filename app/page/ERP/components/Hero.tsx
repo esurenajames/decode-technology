@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import heroImg from '../assets/hero.png';
+import heroImg from '../assets/hero.jpg';
 import hero1Img from '../assets/hero1.png';
 
 export default function Hero() {
@@ -32,72 +32,56 @@ export default function Hero() {
                 duration: 1
             }, "-=0.8");
 
-        // Floating animation for the device image
-        gsap.to(imageRef.current, {
-            y: -15,
-            duration: 2.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: 1.2
-        });
-
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full overflow-hidden bg-white min-h-screen flex items-center pt-20 lg:pt-0">
-            <div className="container max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section ref={containerRef} className="relative w-full overflow-hidden bg-white min-h-[90vh] lg:min-h-screen flex items-center pt-20 lg:pt-0">
+            {/* Background Shape & Image */}
+            <div className="absolute top-0 right-0 w-[95%] md:w-[80%] lg:w-[65%] h-full lg:h-[80%] bg-primary rounded-bl-[150px] md:rounded-bl-[300px] lg:rounded-bl-[100%] overflow-hidden z-0">
+                <Image
+                    src={heroImg}
+                    alt="ERP System Background"
+                    fill
+                    className="object-cover opacity-20 mix-blend-overlay"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/40"></div>
+            </div>
 
-                    {/* Left Content */}
-                    <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-tight mb-6">
-                            <span className="text-accent italic">ERP System</span> That Fits Your Business,
-                            <br className="hidden md:block" />
-                            Right Out of the Box
+            <div className="container max-w mx-auto z-30 h-full flex flex-col justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-full">
+                    <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0 lg:mb-20">
+                        <h1 className="text-5xl font-extrabold tracking-tight text-primary leading-[1.1] mb-6">
+                            <span className="text-accent italic">ERP System</span> That Fits <br />Your Business,
+                            <br />Right Out of the Box
                         </h1>
-                        <p className="text-lg text-muted mb-10 leading-relaxed max-w-lg">
+                        <p className="text-lg md:text-xl text-muted/80 mb-10 leading-relaxed max-w-lg font-medium">
                             A ready-to-use ERP system that adapts to your business needs—combining core modules, local compliance, and scalable features without complex customization.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <button className="px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                            <button className="px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-1">
                                 Start free trial
                             </button>
-                            <button className="px-8 py-4 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-all border border-transparent hover:border-accent/20">
+                            <button className="px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-50 transition-all border border-gray-200 hover:border-accent/50 shadow-sm">
                                 Book a demo
                             </button>
                         </div>
                     </div>
 
-                    {/* Right Content - Devices Image */}
-                    <div className="relative z-20 mt-12 lg:mt-0 flex justify-center lg:justify-end">
-                        <div ref={imageRef} className="relative w-full max-w-[650px] aspect-[4/3] opacity-0">
+                    <div className="relative lg:absolute lg:bottom-0 lg:right-0 lg:w-[55%] z-20 mt-12 mx-32 lg:mt-0 flex ">
+                        <div ref={imageRef} className="relative w-full aspect-[16/10] opacity-0">
                             <Image
                                 src={hero1Img}
                                 alt="ERP System Dashboard on Devices"
                                 fill
-                                className="object-contain"
+                                className="object-contain object-bottom drop-shadow-2xl"
                                 priority
                             />
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Background Image */}
-            <div className="absolute top-0 right-0 w-full lg:w-[55%] h-full">
-                <div className="relative w-full h-full">
-                    <Image
-                        src={heroImg}
-                        alt="ERP System Background"
-                        fill
-                        className="object-contain object-top"
-                        priority
-                    />
-                </div>
-            </div>
-
         </section>
     );
 }

@@ -181,6 +181,7 @@ Only when Tailwind cannot express the value, for example:
 - **Buttons are rectangular with rounded corners** — use `rounded-lg` (never `rounded-full` or pill shapes). Buttons should feel solid and professional, not circular.
 - **Use antd components** where they fit (forms, tables, modals, etc.) rather than building from scratch.
 - **No borders on images** — images should be clean and borderless. Use shadows for depth if needed, but never borders.
+- **Layout Constraint** — Most page content (excluding Landing Page and CTA sections) must be contained within a `max-w-5xl` container to ensure optimal readability and design consistency.
 
 ---
 
