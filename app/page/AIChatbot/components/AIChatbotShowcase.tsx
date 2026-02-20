@@ -80,7 +80,7 @@ export default function AIChatbotShowcase() {
                         <span className="text-gray-500 text-xs font-mono tracking-widest block mb-3">
                             {item.tag}
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-black uppercase leading-tight whitespace-pre-line">
+                        <h2 className="text-4xl md:text-5xl font-bold uppercase leading-tight whitespace-pre-line">
                             {item.headerTitle}
                         </h2>
                     </div>
@@ -127,7 +127,7 @@ export default function AIChatbotShowcase() {
                 {/* ── Bottom — static, no animation ── */}
                 <div className="flex items-start justify-between gap-6">
                     <div className="flex-1 max-w-lg">
-                        <h3 className="text-xl font-black uppercase tracking-tight leading-snug mb-3">
+                        <h3 className="text-xl font-bold uppercase tracking-tight leading-snug mb-3">
                             {item.cardTitle}
                         </h3>
                         <p className="text-gray-400 text-sm leading-relaxed">

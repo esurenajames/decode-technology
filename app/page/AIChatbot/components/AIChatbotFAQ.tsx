@@ -65,7 +65,7 @@ export default function AIChatbotFAQ() {
                         <span className="text-primary text-xs font-mono tracking-widest block mb-3">
                             [ FAQ ]
                         </span>
-                        <h2 className="text-4xl font-black text-gray-900 leading-tight">
+                        <h2 className="text-4xl font-bold text-gray-900 leading-tight">
                             AI Chatbot FAQs
                         </h2>
                     </div>

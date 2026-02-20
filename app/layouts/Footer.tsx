@@ -245,7 +245,7 @@ export default function Footer() {
                             <div className="absolute inset-0 bg-black/20 z-0" />
 
                             <div className="relative z-10">
-                                <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-6">
+                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-6">
                                     Partner with Confidence
                                 </h2>
                                 <ul className="space-y-3 mb-10 text-lg text-white/70">

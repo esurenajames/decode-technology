@@ -182,6 +182,7 @@ Only when Tailwind cannot express the value, for example:
 - **Use antd components** where they fit (forms, tables, modals, etc.) rather than building from scratch.
 - **No borders on images** — images should be clean and borderless. Use shadows for depth if needed, but never borders.
 - **Layout Constraint** — Most page content (excluding Landing Page and CTA sections) must be contained within a `max-w-5xl` container to ensure optimal readability and design consistency.
+- **Font weights** — Never use `font-black` unless it's a Landing page component. For all other pages, use `font-bold` or lighter.
 
 ---
 

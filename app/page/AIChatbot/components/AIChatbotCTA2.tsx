@@ -35,7 +35,7 @@ export default function AIChatbotCTA2() {
                 </div>
 
                 {/* Headline */}
-                <h2 className="text-4xl md:text-6xl font-black leading-tight max-w-3xl">
+                <h2 className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
                     Start Automating Your Customer Service Today.
                 </h2>
 

@@ -124,7 +124,7 @@ export default function AIChatbotChannels() {
                     <span className="text-gray-500 text-xs font-mono tracking-widest block mb-4">
                         [ CHANNELS ]
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-black leading-tight mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
                         Reach Customers Wherever They Are.
                     </h2>
                     <p className="text-gray-400 text-base leading-relaxed">

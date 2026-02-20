@@ -30,7 +30,7 @@ export default function AIChatbotHero() {
                 </div>
 
                 {/* Main Headline */}
-                <h1 className="text-5xl md:text-6xl font-black text-white leading-[1.1] tracking-tight mb-16">
+                <h1 className="text-5xl md:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-16">
                     For Every Business. Every<br />
                     Community. Everyone.
                 </h1>

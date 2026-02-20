@@ -1,10 +1,11 @@
 'use client';
 
-import gifBg from '../assets/gif.gif';
+import { ArrowRightOutlined } from '@ant-design/icons';
+import gifBg from '../assets/erpgif.gif';
 
-export default function AIChatbotQuote() {
+export default function ERPCTA() {
     return (
-        <section className="relative py-32 px-6 overflow-hidden text-white text-center">
+        <section className="relative py-32 px-6 overflow-hidden text-white text-center w-full">
 
             {/* GIF background */}
             <div className="absolute inset-0 z-0">
@@ -35,18 +36,21 @@ export default function AIChatbotQuote() {
             />
 
             {/* Content */}
-            <div className="relative z-20 max-w-3xl mx-auto flex flex-col items-center gap-6">
+            <div className="relative z-20 max-w-3xl mx-auto flex flex-col items-center gap-4">
 
-                <blockquote className="text-2xl md:text-3xl font-bold leading-snug tracking-tight">
-                    &ldquo;Decode AI stands out because it only pulls clean, first-party data from public companies. In investing, that&apos;s everything.&rdquo;
-                </blockquote>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-2">
+                    Ready to Elevate Your Enterprise?
+                </h2>
 
-                {/* Attribution */}
-                <div className="flex flex-col items-center gap-1">
-                    <p className="text-white/70 text-sm font-semibold tracking-wide">
-                        — Business Owner, Financial Services
-                    </p>
-                </div>
+                <p className="md:text-lg text-white/80 mb-8 max-w-2xl leading-relaxed">
+                    Join the innovative companies using our ERP platform to streamline operations, cut costs, and scale faster.
+                    Get started with a personalized demo today.
+                </p>
+
+                <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+                    Schedule a Consultation
+                    <ArrowRightOutlined className="text-sm" />
+                </button>
 
             </div>
         </section>
