@@ -7,6 +7,7 @@ import Image from 'next/image';
 import imgBlog1 from '../assets/blog1.png';
 import imgBlog2 from '../assets/blog2.png';
 import imgBlog3 from '../assets/blog3.png';
+import imgBlog4 from '../assets/blog4.png';
 
 const BLOG_POSTS = [
     {
@@ -36,7 +37,7 @@ const BLOG_POSTS = [
         date: "Jan 02, 2024",
         category: "Product Management",
         excerpt: "Learn how to write release notes for product releases. Follow best practices and find tools to streamline the process.",
-        image: imgBlog1
+        image: imgBlog4
     }
 ];
 

@@ -210,7 +210,7 @@ export default function Features() {
                     }}
                 >
                     <div className="mb-16">
-                        <h2 className="text-3xl md:text-5xl font-black text-primary tracking-tight leading-tight">
+                        <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight leading-tight">
                             We Handle the Systems.
                             <br />
                             <span className="text-primary">You Focus on Growing Your Business.</span>

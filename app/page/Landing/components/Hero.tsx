@@ -17,12 +17,11 @@ export default function Hero() {
             id="home"
             className="relative bg-white overflow-hidden flex flex-col items-center w-full"
         >
-            {/* ── Background Texture ── */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/5 blur-[120px] rounded-full mix-blend-multiply" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-primary/20 to-transparent" />
             </div>
-            {/* ── Text Content ── */}
             <div className="w-full max-w-5xl mx-auto text-center pt-16 md:pt-24 px-6">
                 <p className="text-sm md:text-base text-muted mb-5">
                     Powering growth for over{' '}
@@ -46,44 +45,84 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* ── Dashboard Screenshots ── */}
-            <div className="w-full mx-auto mt-16 mb-8 px-4 flex items-stretch justify-center gap-6 md:gap-10">
-                <div className="w-[65%] rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
-                    <Image
-                        src={imgLeft}
-                        alt="Decode Technologies - Applications Dashboard"
-                        className="w-full h-full object-cover"
-                        priority
-                        placeholder="blur"
-                    />
-                </div>
-                <div className="w-[65%] rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
-                    <Image
-                        src={imgRight}
-                        alt="Decode Technologies - Quick Overview Dashboard"
-                        className="w-full h-full object-cover"
-                        priority
-                        placeholder="blur"
-                    />
-                </div>
-            </div>
+            <div className="w-full mt-12 mb-16 flex flex-col overflow-hidden bg-white/50 border-y border-primary/5 py-12">
 
-            {/* ── Trusted By Section ── */}
-            <div className="w-full border-t border-primary/[0.06] py-10 px-6 flex flex-col items-center">
-                <p className="text-sm font-semibold mb-8">
-                    Trusted by leading organizations worldwide
-                </p>
-                <div className="flex items-center justify-center flex-wrap gap-8 md:gap-14">
-                    {TRUSTED_LOGOS.map(logo => (
-                        <div key={logo.name} className="relative group">
-                            <Image
-                                src={logo.src}
-                                alt={`${logo.name} logo`}
-                                className="h-12 md:h-12 w-auto object-contain grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
-                            />
+                {/* Header */}
+                <div className="w-full max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-1 h-5 bg-primary rounded-full shadow-[0_0_12px_rgba(47,127,245,0.5)]" />
+                        <span className="text-sm font-bold text-primary tracking-wide uppercase opacity-90">Made by Decode</span>
+                    </div>
+                    <div className="flex gap-4 text-primary/30">
+                        <div className="cursor-pointer hover:text-primary transition-colors hover:scale-110 transform duration-200">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                         </div>
-                    ))}
+                        <div className="cursor-pointer hover:text-primary transition-colors hover:scale-110 transform duration-200">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                        </div>
+                    </div>
                 </div>
+
+                <div className="relative flex flex-col gap-4 mb-10">
+                    <div
+                        className="absolute inset-0 z-20 pointer-events-none"
+                        style={{
+                            background: 'radial-gradient(ellipse 60% 100% at 50% 50%, transparent 50%, #ffffff 100%)'
+                        }}
+                    />
+
+                    <div className="flex gap-4 min-w-max px-4 -ml-[120px]">
+                        {[...Array(8)].map((_, idx) => (
+                            <div key={`r1-${idx}`} className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer">
+                                <Image
+                                    src={idx % 2 === 0 ? imgLeft : imgRight}
+                                    alt="Showcase"
+                                    fill
+                                    className="object-cover"
+                                    sizes="220px"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Row 2 - Offset Right/Center */}
+                    <div className="flex gap-4 min-w-max px-4 ml-0">
+                        {[...Array(8)].map((_, idx) => (
+                            <div key={`r2-${idx}`} className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer">
+                                <Image
+                                    src={idx % 2 !== 0 ? imgLeft : imgRight}
+                                    alt="Showcase"
+                                    fill
+                                    className="object-cover"
+                                    sizes="220px"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center gap-4 animate-fadein">
+                    {/* Avatars */}
+                    <div className="flex -space-x-2 shrink-0">
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="w-6 h-6 rounded-full border border-white bg-surface-2 overflow-hidden relative shadow-sm hover:scale-110 transition-transform">
+                                {i === 1 ? (
+                                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-indigo-600" />
+                                ) : i === 2 ? (
+                                    <Image src={logoImg} alt="avatar" fill className="object-cover grayscale opacity-80" />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-tr from-emerald-400 to-teal-500" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <p className="text-sm font-medium text-primary/80 leading-snug">
+                        “The Canvas completely changed how I plan and organize animations.”
+                        <span className="text-muted ml-2 font-normal">– 0xFramer, AI Artist</span>
+                    </p>
+                </div>
+
             </div>
         </section>
     );

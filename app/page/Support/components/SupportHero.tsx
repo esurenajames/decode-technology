@@ -30,7 +30,7 @@ export default function SupportHero() {
                 <div className="relative max-w-2xl mx-auto bg-white">
                     <input
                         type="text"
-                        placeholder="Search topics chuchu"
+                        placeholder="Search topics..."
                         className="w-full pl-6 pr-14 py-4 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-accent/30 shadow-xl text-lg transition-all"
                     />
                     <button className="absolute right-2 top-2 h-[calc(100%-16px)] w-12 bg-accent hover:bg-accent-light text-white rounded-md flex items-center justify-center transition-colors">
