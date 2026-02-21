@@ -31,7 +31,7 @@ const HEADLINE_LOGOS = [
 
 export default function TrustedBy() {
     return (
-        <section className="pb-12 bg-white">
+        <section className="pb-24 bg-gray-50">
             <div className="max-w-5xl mx-auto text-center">
                 <h2 className="text-lg font-bold mb-12 uppercase tracking-widest">
                     Trusted by leading companies worldwide

@@ -202,8 +202,18 @@ export default function ERPFeatures() {
     }));
 
     return (
-        <section className="py-24 bg-white w-full">
+        <section id="features" className="py-24 bg-white w-full">
             <div className="max-w-5xl mx-auto px-6">
+                {/* Header */}
+                <div className="text-center mb-16 space-y-4">
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-[#19253b] leading-tight">
+                        One System. Endless Possibilities.
+                    </h2>
+                    <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                        Empowered Enterprise Suite (EES) provides a unified digital ecosystem to streamline every aspect of your business operations.
+                    </p>
+                </div>
+
                 <ConfigProvider
                     theme={{
                         components: {

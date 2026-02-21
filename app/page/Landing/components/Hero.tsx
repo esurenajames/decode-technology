@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { CalendarOutlined } from '@ant-design/icons';
 import imgLeft from '../assets/image 25.png';
 import imgRight from '../assets/image 26.png';
 import logoImg from '../assets/logo.jpg';
@@ -15,13 +16,13 @@ export default function Hero() {
     return (
         <section
             id="home"
-            className="relative bg-white overflow-hidden flex flex-col items-center w-full"
+            className="relative bg-white overflow-hidden flex flex-col items-center w-full h-screen min-h-[700px] max-h-[1000px]"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/5 blur-[120px] rounded-full mix-blend-multiply" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
             </div>
-            <div className="w-full max-w-5xl mx-auto text-center pt-16 md:pt-24 px-6">
+            <div className="w-full max-w-5xl mx-auto text-center pt-20 px-6 relative z-10 flex flex-col items-center">
                 <p className="text-sm md:text-base text-muted mb-5">
                     Powering growth for over{' '}
                     <span className="font-bold text-primary">1,000 businesses</span>
@@ -35,7 +36,8 @@ export default function Hero() {
                 </h1>
 
                 <div className="flex items-center justify-center gap-4">
-                    <a href="#contact" className="glow-btn">
+                    <a href="#contact" className="glow-btn flex items-center gap-2">
+                        <CalendarOutlined />
                         <span>Book a demo</span>
                     </a>
                     <a href="#contact" className="outline-btn">
@@ -44,7 +46,7 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="w-full mt-12 mb-16 flex flex-col overflow-hidden bg-white/50 py-12">
+            <div className="w-full mt-auto mb-12 flex flex-col overflow-hidden bg-white/50 py-8">
 
                 {/* Header */}
                 <div className="w-full max-w-5xl mx-auto px-6 mb-8 flex items-center justify-between">
@@ -52,14 +54,7 @@ export default function Hero() {
                         <div className="w-1 h-5 bg-primary rounded-full shadow-[0_0_12px_rgba(47,127,245,0.5)]" />
                         <span className="text-sm font-bold text-primary tracking-wide uppercase opacity-90">Made by Decode</span>
                     </div>
-                    <div className="flex gap-4 text-primary/30">
-                        <div className="cursor-pointer hover:text-primary transition-colors hover:scale-110 transform duration-200">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-                        </div>
-                        <div className="cursor-pointer hover:text-primary transition-colors hover:scale-110 transform duration-200">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                        </div>
-                    </div>
+                    <span className="text-sm font-medium text-primary opacity-60">Let's make it happen</span>
                 </div>
 
                 <div className="relative flex flex-col gap-4 mb-10">

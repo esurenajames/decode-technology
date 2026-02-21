@@ -232,7 +232,7 @@ export default function Footer() {
                 <div className="max-w-7xl mx-auto">
 
                     {/* 2. Dual CTA Cards */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-24">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
 
                         {/* Left Card: CTA */}
                         <div className="relative rounded-lg p-10 overflow-hidden border border-gray-100 flex flex-col justify-between text-white">
@@ -298,7 +298,8 @@ export default function Footer() {
                     </div>
 
 
-                    <div className="border-b border-gray-100 pb-16 mb-16">
+                    <div className="border-b border-gray-100 pb-16 mb-16 flex flex-col items-center gap-10">
+                        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em] text-center">Join the list of our happy clients</h3>
                         <div className="flex flex-wrap justify-center gap-8 md:gap-12">
                             {FOOTER_LOGOS.map((logo) => (
                                 <div key={logo.name} className="relative h-12 w-32 hover:scale-105 transition-all duration-500 transform">

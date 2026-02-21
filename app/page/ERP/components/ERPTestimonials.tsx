@@ -58,17 +58,14 @@ export default function ERPTestimonials() {
                             <div className="w-10 h-10 rounded bg-[#FFEDE0] flex items-center justify-center shrink-0 border border-transparent font-black text-[#FF632E] text-xs text-center leading-none">
                                 ERP
                             </div>
-                            <div className="flex gap-1 text-[#FFB61B] text-sm">
-                                <StarFilled /> <StarFilled /> <StarFilled /> <StarFilled /> <StarFilled />
-                            </div>
                         </div>
                         <div className="mt-auto">
                             <div className="text-5xl font-black text-[#19253b] mb-3 tracking-tighter">1,500+</div>
                             <div className="font-bold text-gray-800 text-sm mb-1 leading-tight flex items-center gap-2">
-                                App installs
+                                Happy Clients
                             </div>
                             <div className="text-sm text-gray-500 mt-2 border-t border-gray-100 pt-3">
-                                On the App Marketplace
+                                Successfully Approved & Served
                             </div>
                         </div>
                     </div>
@@ -100,26 +97,9 @@ export default function ERPTestimonials() {
                         </div>
                     </div>
 
-                    {/* Card 5: G2 Stats */}
-                    <div className="col-span-1 rounded-2xl bg-white border border-gray-100 shadow-sm p-8 flex flex-col justify-between min-h-[320px]">
-                        <div className="flex items-center gap-3">
-                            <div className="font-black text-3xl text-[#FF492C] tracking-tighter relative flex items-start">
-                                G<span className="text-lg relative -top-0.5">2</span>
-                            </div>
-                            <div className="flex gap-1 text-[#FFB61B] text-sm">
-                                <StarFilled /> <StarFilled /> <StarFilled /> <StarFilled /> <StarFilled />
-                            </div>
-                        </div>
-                        <div className="mt-auto">
-                            <div className="text-[52px] font-black text-[#19253b] mb-4 tracking-tighter">4.8</div>
-                            <div className="text-sm text-gray-500 leading-relaxed font-medium">
-                                Average review on G2, an independent review site
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Card 6: Long Quote (Span 2) */}
-                    <div className="col-span-1 md:col-span-2 lg:col-span-2 rounded-2xl bg-white border border-gray-100 shadow-sm p-8 flex flex-col justify-between min-h-[320px]">
+                    {/* Card 6: Long Quote (Span 3) */}
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 rounded-2xl bg-white border border-gray-100 shadow-sm p-8 flex flex-col justify-between min-h-[320px]">
                         <p className="text-[17px] md:text-[19px] text-gray-700 leading-relaxed max-w-[480px] font-medium pr-4 mt-2">
                             "We're seeing <span className="text-[#0E906F] font-bold">higher average closed revenue</span> with sales rooms and <span className="text-[#0E906F] font-bold">faster days to close</span>—it's showing us a material impact on sales velocity."
                         </p>
@@ -137,7 +117,7 @@ export default function ERPTestimonials() {
                 </div>
 
                 {/* Bottom Logos */}
-                <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-10 mt-20 opacity-80 pb-4">
+                <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-10 mt-20 pb-4">
                     {[
                         { src: BCG, caseStudy: false },
                         { src: C3, caseStudy: true },
@@ -147,7 +127,7 @@ export default function ERPTestimonials() {
                         { src: EDAMAMA, caseStudy: false }
                     ].map((logo, idx) => (
                         <div key={idx} className="flex flex-col items-center gap-4">
-                            <div className="relative h-7 w-20 md:w-24 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                            <div className="relative h-7 w-20 md:w-24 transition-all cursor-pointer">
                                 <Image src={logo.src} fill className="object-contain" alt="Client Logo" />
                             </div>
                         </div>

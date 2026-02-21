@@ -1,46 +1,60 @@
 'use client';
 
-import Image from 'next/image';
-import { ArrowRightOutlined } from '@ant-design/icons';
-import CtaBackground from '../assets/CTA.png';
+import { CalendarOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import gifBg from '../../ERP/assets/erpgif.gif';
 
 export default function CTA() {
     return (
-        <section className="w-full">
-            <div className="max-w-5xl mx-auto px-6">
-                <div className="relative bg-primary bg-opacity-10 rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl overflow-hidden group">
+        <section className="relative py-32 px-6 overflow-hidden text-white text-center w-full">
 
-                    <div className="absolute inset-0 z-0">
-                        <Image
-                            src={CtaBackground}
-                            alt="Office Background"
-                            fill
-                            className="object-cover mix-blend-overlay"
-                            placeholder="blur"
-                        />
-                        <div className="absolute inset-0 bg-primary/90" />
-                    </div>
+            {/* GIF background */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src={gifBg.src}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover"
+                    style={{ filter: 'blur(2px)', transform: 'scale(1.16)' }}
+                />
+            </div>
 
-                    {/* Gradient Accents */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/0 blur-[120px] rounded-full pointer-events-none z-0" />
-                    <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-accent-light/10 blur-[80px] rounded-full pointer-events-none z-0" />
+            {/* Dark overlay */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 z-10"
+                style={{ background: 'rgba(5,5,8,0.78)' }}
+            />
 
-                    <div className="relative z-10 flex flex-col items-center">
-                        <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-6 leading-tight">
-                            Ready to Transform Your Business?
-                        </h2>
+            {/* Radial vignette — strong blur on left & right edges */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                    background:
+                        'radial-gradient(ellipse 55% 100% at 50% 50%, transparent 20%, rgba(0,0,0,0.92) 100%)',
+                }}
+            />
 
-                        <p className="md:text-lg text-white/80 mb-10 max-w-2xl leading-relaxed">
-                            Join the innovative companies using our platform to turn data into growth.
-                            Get started with a personalized demo today.
-                        </p>
+            {/* Content */}
+            <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center gap-6">
 
-                        <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 group-hover:scale-105 transition-transform duration-300">
-                            Book a Demo
-                            <ArrowRightOutlined className="text-sm" />
-                        </button>
-                    </div>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+                    Ready to transform your business<br />
+                    with smarter IT solutions?
+                </h2>
+
+                <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium">
+                    Join the innovative companies using Decode to turn complex operations into seamless growth.
+                    Get started with a personalized demo today.
+                </p>
+
+                <div className="flex justify-center pt-4">
+                    <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <CalendarOutlined className="text-xl" />
+                        Book a Demo
+                    </button>
                 </div>
+
             </div>
         </section>
     );

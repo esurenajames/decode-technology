@@ -8,7 +8,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined, BulbOutlined } from '@ant-design
 // Using the same placeholder image from Hero for now
 import imgDashboard from '../assets/image 26.png';
 import imgDashboardDef from '../assets/image 25.png';
-import FeaturesGrid from './FeaturesGrid';
+
 
 const FEATURES_DATA = [
     {
@@ -210,7 +210,6 @@ export default function Features() {
                         }
                     }}
                 >
-                    {/* <FeaturesGrid /> */}
 
                     <div className="rounded-3xl overflow-hidden shadow-xl shadow-primary/5 bg-white border-2 border-gray-200">
                         <Tabs
