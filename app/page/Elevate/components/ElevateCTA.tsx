@@ -1,9 +1,9 @@
 'use client';
 
-import { CalendarOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import gifBg from '../../ERP/assets/erpgif.gif';
 
-export default function CTA() {
+export default function ElevateCTA() {
     return (
         <section className="relative py-32 px-6 overflow-hidden text-white text-center w-full">
 
@@ -25,7 +25,7 @@ export default function CTA() {
                 style={{ background: 'rgba(5,5,8,0.78)' }}
             />
 
-            {/* Radial vignette — strong blur on left & right edges */}
+            {/* Radial vignette */}
             <div
                 aria-hidden="true"
                 className="absolute inset-0 z-10 pointer-events-none"
@@ -36,24 +36,21 @@ export default function CTA() {
             />
 
             {/* Content */}
-            <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center gap-6">
+            <div className="relative z-20 max-w-3xl mx-auto flex flex-col items-center gap-4">
 
-                <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                    Ready to transform your business<br />
-                    with IT solutions that actually works?
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-2">
+                    Ready to Unlock Your Team's Potential?
                 </h2>
 
-                <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium">
-                    Join the innovative companies using Decode to turn complex operations into seamless growth.
-                    Get started with a personalized demo today.
+                <p className="md:text-lg text-white/80 mb-8 max-w-2xl leading-relaxed">
+                    Join the top-performing organizations using Elevate to build a culture of continuous learning and excellence.
+                    Start your transformation today.
                 </p>
 
-                <div className="flex justify-center pt-4">
-                    <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <CalendarOutlined className="text-xl" />
-                        Let's make it happen
-                    </button>
-                </div>
+                <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+                    Get a Free Demo
+                    <ArrowRightOutlined className="text-sm" />
+                </button>
 
             </div>
         </section>

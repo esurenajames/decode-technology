@@ -51,11 +51,11 @@ export default function Hero() {
             <div className="container max-w mx-auto z-30 h-full flex flex-col justify-center">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-full">
                     <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0 lg:mb-20">
-                        <h1 className="text-5xl font-extrabold tracking-tight text-primary leading-[1.1] mb-6">
-                            <span className="text-accent italic">ERP System</span> That Fits <br />Your Business,
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
+                            <span className="text-primary italic">ERP System</span> That Fits <br />Your Business,
                             <br />Right Out of the Box
                         </h1>
-                        <p className="text-lg md:text-xl text-muted/80 mb-10 leading-relaxed max-w-lg font-medium">
+                        <p className="text-gray-600 text-lg font-medium max-w-2xl mb-10 leading-relaxed">
                             A ready-to-use ERP system that adapts to your business needs—combining core modules, local compliance, and scalable features without complex customization.
                         </p>
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarOutlined } from '@ant-design/icons';
 import imgLeft from '../assets/image 25.png';
@@ -30,9 +31,7 @@ export default function Hero() {
                 </p>
 
                 <h1 className="text-2xl md:text-5xl font-black tracking-tight text-primary leading-[1.15] mb-8">
-                    Transforming businesses of every size with
-                    <br className="hidden md:block" />
-                    {' '}IT solutions that actually works
+                    Transforming businesses of every size with IT solutions that actually works
                 </h1>
 
                 <div className="flex items-center justify-center gap-4">
@@ -66,32 +65,62 @@ export default function Hero() {
                     />
 
                     <div className="flex gap-4 min-w-max px-4 -ml-[120px]">
-                        {[...Array(8)].map((_, idx) => (
-                            <div key={`r1-${idx}`} className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer">
-                                <Image
-                                    src={idx % 2 === 0 ? imgLeft : imgRight}
-                                    alt="Showcase"
-                                    fill
-                                    className="object-cover"
-                                    sizes="220px"
-                                />
-                            </div>
-                        ))}
+                        {[...Array(8)].map((_, idx) => {
+                            const routes = ['/erp', '/hris', '/ai-chatbot', '/elevate'];
+                            const route = routes[idx % routes.length];
+                            const images = [
+                                'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1504868584819-f8eec1843b3d?q=80&w=2070&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?q=80&w=2070&auto=format&fit=crop'
+                            ];
+                            return (
+                                <Link
+                                    key={`r1-${idx}`}
+                                    href={route}
+                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block"
+                                >
+                                    <Image
+                                        src={images[idx % images.length]}
+                                        alt="Showcase"
+                                        fill
+                                        className="object-cover"
+                                        sizes="220px"
+                                        unoptimized
+                                    />
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     {/* Row 2 - Offset Right/Center */}
                     <div className="flex gap-4 min-w-max px-4 ml-0">
-                        {[...Array(8)].map((_, idx) => (
-                            <div key={`r2-${idx}`} className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer">
-                                <Image
-                                    src={idx % 2 !== 0 ? imgLeft : imgRight}
-                                    alt="Showcase"
-                                    fill
-                                    className="object-cover"
-                                    sizes="220px"
-                                />
-                            </div>
-                        ))}
+                        {[...Array(8)].map((_, idx) => {
+                            const routes = ['/elevate', '/ai-chatbot', '/hris', '/erp'];
+                            const route = routes[idx % routes.length];
+                            const images = [
+                                'https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?q=80&w=2070&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1504868584819-f8eec1843b3d?q=80&w=2070&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
+                                'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop'
+                            ];
+                            return (
+                                <Link
+                                    key={`r2-${idx}`}
+                                    href={route}
+                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block"
+                                >
+                                    <Image
+                                        src={images[idx % images.length]}
+                                        alt="Showcase"
+                                        fill
+                                        className="object-cover"
+                                        sizes="220px"
+                                        unoptimized
+                                    />
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -111,8 +140,8 @@ export default function Hero() {
                     </div>
 
                     <p className="text-sm font-medium text-primary/80 leading-snug">
-                        “The Canvas completely changed how I plan and organize animations.”
-                        <span className="text-muted ml-2 font-normal">– 0xFramer, AI Artist</span>
+                        “Decode completely transformed our operations. We've scaled 3x faster since integrating their solutions.”
+                        <span className="text-muted ml-2 font-normal">Operations Director</span>
                     </p>
                 </div>
 

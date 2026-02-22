@@ -187,7 +187,7 @@ export default function Footer() {
         <footer ref={containerRef} className="w-full flex flex-col">
 
             {/* ── Top Section: Testimonials (Dark) ── */}
-            <div ref={testimonialRef} className="bg-primary text-white py-24 overflow-hidden relative w-full">
+            <div ref={testimonialRef} className="bg-primary text-white overflow-hidden relative w-full">
                 <div className="relative text-center w-full py-12">
                     {/* Floating Badge */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -16,11 +16,11 @@ const TOP_NAV_LINKS = [
 const BOTTOM_NAV_LINKS = [
     { label: 'AI Chatbot', href: '/ai-chatbot' },
     { label: 'ERP System', href: '/erp' },
-    { label: 'HRIS and Payroll System', href: '#hris' },
-    { label: 'School Management System', href: '#school' },
-    { label: 'Training Management System', href: '#training' },
-    { label: 'Custom Software Development', href: '#custom' },
-    { label: 'IT Outsourcing', href: '#it-outsourcing' },
+    { label: 'HRIS and Payroll System', href: '/ees' },
+    { label: 'School Management System', href: '/empac' },
+    { label: 'Training Management System', href: '/elevate' },
+    { label: 'Custom Software Development', href: '/sd' },
+    { label: 'IT Outsourcing', href: '/outsource' },
 ];
 
 const LANGUAGES = [
@@ -30,17 +30,34 @@ const LANGUAGES = [
 
 export default function Navbar() {
     const router = useRouter();
+    const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [activeTop, setActiveTop] = useState('');
-    const [activeBottom, setActiveBottom] = useState('');
     const [selectedLang, setSelectedLang] = useState(LANGUAGES[0]);
+    const [showBottomBar, setShowBottomBar] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 10);
+        const onScroll = () => {
+            const currentScrollY = window.scrollY;
+            setScrolled(currentScrollY > 10);
+
+            if (currentScrollY > 100) {
+                // If scrolling up, show bottom bar. If scrolling down, hide it.
+                if (currentScrollY < lastScrollY) {
+                    setShowBottomBar(true);
+                } else {
+                    setShowBottomBar(false);
+                }
+            } else {
+                setShowBottomBar(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    }, [lastScrollY]);
 
     useEffect(() => {
         const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
@@ -85,11 +102,10 @@ export default function Navbar() {
                                 <button
                                     key={link.label}
                                     onClick={() => {
-                                        setActiveTop(link.label);
                                         router.push(link.href);
                                     }}
-                                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out border-none cursor-pointer ${activeTop === link.label
-                                        ? 'bg-primary/5 text-primary'
+                                    className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
+                                        ? 'bg-gray-200 text-primary font-bold'
                                         : 'text-primary/70 hover:text-primary hover:bg-primary/5 bg-transparent'
                                         }`}
                                 >
@@ -126,7 +142,7 @@ export default function Navbar() {
 
                 {/* Bottom bar — service links (Hidden on scroll) */}
                 <div
-                    className={`hidden lg:flex bg-primary items-center justify-center px-8 transition-all duration-300 ease-in-out overflow-hidden relative z-10 ${scrolled ? 'h-0 opacity-0' : 'h-12 opacity-100'
+                    className={`hidden lg:flex bg-primary items-center justify-center px-8 transition-all duration-300 ease-in-out overflow-hidden relative z-10 ${showBottomBar ? 'h-12 opacity-100' : 'h-0 opacity-0'
                         }`}
                 >
                     <div className="max-w-[1280px] w-full mx-auto flex items-center justify-between px-2">
@@ -134,11 +150,10 @@ export default function Navbar() {
                             <button
                                 key={link.label}
                                 onClick={() => {
-                                    setActiveBottom(link.label);
                                     router.push(link.href);
                                 }}
-                                className={`text-[0.8rem] font-medium whitespace-nowrap px-4 py-1.5 rounded-full transition-all duration-300 ease-out border border-transparent cursor-pointer ${activeBottom === link.label
-                                    ? 'bg-white/15 text-white shadow-sm'
+                                className={`text-[0.8rem] font-bold whitespace-nowrap px-4 py-1.5 rounded-full transition-all duration-300 ease-out border border-transparent cursor-pointer ${pathname === link.href
+                                    ? 'bg-white text-primary shadow-md'
                                     : 'text-white/70 hover:text-white hover:bg-white/10 bg-transparent'
                                     }`}
                             >
