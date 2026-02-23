@@ -57,12 +57,8 @@ export default function ElevateHero() {
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#19253b] to-transparent" />
             </div>
 
-            <div className="container mx-auto px-4 lg:px-8 relative z-10 flex flex-col items-center justify-center h-full">
-
-                {/* Hero Content Wrapper */}
+            <div className="container mx-auto px-8 relative z-10 flex flex-col items-center justify-center h-full">
                 <div className="w-full flex flex-col items-center">
-
-                    {/* Header Text Section */}
                     <div ref={contentRef} className="text-center w-full max-w-6xl mx-auto mb-16 relative">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
                             Redefine Training. <span className="text-primary italic">Elevate</span>{' '}
@@ -84,7 +80,7 @@ export default function ElevateHero() {
                     </div>
 
                     {/* Dashboard/Devices Mockup Section */}
-                    <div ref={deviceRef} className="relative w-full max-w-4xl mx-auto z-10 -mb-2">
+                    <div ref={deviceRef} className="relative w-full max-w-5xl mx-auto z-10 -mb-2">
                         <div className="relative w-full aspect-[16/9]">
                             <Image
                                 src={deviceImg}
