@@ -35,9 +35,8 @@ export default function EESHero() {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-screen pt-20 overflow-hidden flex flex-col items-center bg-white">
+        <section ref={containerRef} className="relative w-full max-h-[95vh] pt-20 overflow-hidden flex flex-col items-center bg-white">
 
-            {/* Background at the very bottom - Exact approach provided */}
             <div className="absolute bottom-0 left-0 w-full h-[45%] bg-primary z-0">
                 <Image
                     src={bgImg}
