@@ -15,6 +15,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 import mobileImg from '../assets/mobile.jpg';
 import footerBg from '../assets/Footer.png';
+import footerDeviceBg from '../assets/footer device.png';
 // Import logos
 import BCG from '../assets/BCG-removebg-preview.png';
 import C3 from '../assets/C3-removebg-preview.png';
@@ -275,24 +276,13 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        <div className="relative bg-[#19253b] rounded-lg p-10 overflow-hidden border border-gray-100 flex items-center justify-center">
-                            <div className="absolute inset-0 bg-[#19253b]" />
-                            <div className="relative w-[240px] h-[480px] bg-black rounded-[2.5rem] border-8 border-gray-900 shadow-2xl translate-y-8 rotate-12 hover:rotate-0 transition-transform duration-500 ease-out">
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-lg z-20" />
-                                <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
-                                    <Image
-                                        src={mobileImg}
-                                        alt="App Interface"
-                                        fill
-                                        className="object-cover"
-                                    />
-                                    {/* Overlay UI elements to make it look like app */}
-                                    <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/80 to-transparent p-5 text-white">
-                                        <div className="font-bold">EES Mobile</div>
-                                        <div className="text-xs opacity-70">Control everything on the go.</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="relative bg-[#19253b] rounded-lg overflow-hidden border border-gray-100 flex items-center justify-center min-h-[500px]">
+                            <Image
+                                src={footerDeviceBg}
+                                alt="Device Interface"
+                                fill
+                                className="object-cover"
+                            />
                         </div>
 
                     </div>

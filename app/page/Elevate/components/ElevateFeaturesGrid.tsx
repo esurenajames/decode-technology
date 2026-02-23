@@ -107,8 +107,8 @@ export default function ElevateFeaturesGrid() {
                                     className="relative bg-white flex flex-col items-center justify-center group cursor-pointer aspect-square overflow-hidden"
                                 >
                                     <Image
-                                        src={item.feature?.img}
-                                        alt={item.feature?.name}
+                                        src={item.feature?.img || ""}
+                                        alt={item.feature?.name || "feature"}
                                         fill
                                         className="object-cover opacity-10 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 grayscale group-hover:grayscale-0"
                                         unoptimized
