@@ -110,21 +110,22 @@ export default function EESTechnology() {
                         <div
                             key={idx}
                             onClick={() => setActiveIndex(idx)}
-                            className={`tech-card p-8 rounded-2xl transition-all duration-500 cursor-pointer min-h-[380px] flex flex-col justify-between group border ${activeIndex === idx
-                                ? 'bg-white border-gray-100 shadow-xl shadow-gray-100/50'
-                                : 'bg-white border-transparent'
+                            className={`tech-card p-10 rounded-2xl transition-all duration-500 cursor-pointer min-h-[380px] flex flex-col justify-between group border ${activeIndex === idx
+                                ? 'bg-white border-primary shadow-xl shadow-primary/5 ring-1 ring-primary/5'
+                                : 'bg-white border-gray-100 hover:border-gray-200'
                                 }`}
                         >
-                            <div className="w-14 h-14 rounded-xl bg-gray-50 flex items-center justify-center text-xl mb-10 text-primary/40 group-hover:text-primary transition-colors duration-500">
+                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-12 transition-colors duration-500 ${activeIndex === idx ? 'bg-primary text-white' : 'bg-gray-50 text-gray-300'
+                                }`}>
                                 {item.icon}
                             </div>
 
                             <div className="text-left">
-                                <h3 className={`text-xl font-bold mb-4 leading-tight transition-colors duration-500 ${activeIndex === idx ? 'text-primary' : 'text-gray-300'
+                                <h3 className={`text-xl font-bold mb-4 leading-tight transition-colors duration-500 ${activeIndex === idx ? 'text-primary' : 'text-gray-400'
                                     }`}>
                                     {item.title}
                                 </h3>
-                                <p className={`text-sm leading-relaxed transition-colors duration-500 ${activeIndex === idx ? 'text-gray-500' : 'text-gray-100'
+                                <p className={`text-sm leading-relaxed transition-colors duration-500 ${activeIndex === idx ? 'text-gray-600' : 'text-gray-300'
                                     }`}>
                                     {item.description}
                                 </p>
