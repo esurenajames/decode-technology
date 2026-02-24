@@ -23,7 +23,7 @@ export default function AIChatbotHero() {
 
                 {/* Badge/Label */}
                 <div className="flex items-center gap-3 mb-12">
-                    <div className="w-4 h-4 bg-gray-400 opacity-80" /> {/* Placeholder for the small icon in image */}
+                    {/* <div className="w-4 h-4 bg-gray-400 opacity-80" /> Placeholder for the small icon in image */}
                     <span className="text-white text-lg font-bold tracking-tight">
                         AIAA <span className="font-normal opacity-80">AI Chatbot</span>
                     </span>

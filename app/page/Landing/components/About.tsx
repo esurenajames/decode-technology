@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import workLifeBalanceImg from '@/app/assets/work-life-balance.jpg';
+import continuousLearningImg from '@/app/assets/continuous-learning.jpg';
+import collaborativeImg from '@/app/assets/collaborative.jpg';
 
 const SLIDES = [
     {
@@ -19,7 +22,7 @@ const SLIDES = [
     {
         id: 'culture-1',
         type: 'culture',
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2940&auto=format&fit=crop',
+        image: collaborativeImg.src,
         subtitle: 'People & Culture',
         title: 'Collaborative Spirit',
         description: 'We believe that great ideas come from everywhere. Our open culture encourages every team member to share their voice and innovation.'
@@ -27,7 +30,7 @@ const SLIDES = [
     {
         id: 'culture-2',
         type: 'culture',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2940&auto=format&fit=crop',
+        image: continuousLearningImg.src,
         subtitle: 'People & Culture',
         title: 'Continuous Learning',
         description: 'Technology never stops evolving, and neither do we. We invest in the growth of our people through workshops, mentorship, and challenges.'
@@ -35,7 +38,7 @@ const SLIDES = [
     {
         id: 'culture-3',
         type: 'culture',
-        image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2940&auto=format&fit=crop',
+        image: workLifeBalanceImg.src,
         subtitle: 'People & Culture',
         title: 'Work-Life Balance',
         description: 'We work hard to deliver excellence, but we also value the well-being of our team. A healthy mind drives the best results.'

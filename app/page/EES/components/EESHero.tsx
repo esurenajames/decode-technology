@@ -55,7 +55,7 @@ export default function EESHero() {
                 <div className="w-full flex flex-col items-center">
 
                     {/* Header Text Section */}
-                    <div ref={contentRef} className="text-center w-full max-w-6xl mx-auto mb-16 relative">
+                    <div ref={contentRef} className="text-center w-full max-w-6xl mx-auto mb-4 relative">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
                             Made your HRIS and Payroll System<br />
                             Simple with <span className="text-primary italic">EES</span>
@@ -77,8 +77,8 @@ export default function EESHero() {
                     </div>
 
                     {/* Dashboard/Devices Mockup Section */}
-                    <div ref={deviceRef} className="relative w-full max-w-6xl mx-auto z-10 -mb-2">
-                        <div className="relative w-full aspect-[21/9]">
+                    <div ref={deviceRef} className="relative w-full max-w-6xl mx-auto z-10 ">
+                        <div className="relative w-full aspect-[21/10]">
                             <Image
                                 src={deviceImg}
                                 alt="EES Dashboard Preview"
