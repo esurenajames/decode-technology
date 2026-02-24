@@ -1,0 +1,64 @@
+'use client';
+
+import { ArrowRightOutlined } from '@ant-design/icons';
+// Using the same background for consistency but we can shift the color overlay to blue for EES
+import gifBg from '../../ERP/assets/erpgif.gif';
+
+export default function EESCTA() {
+    return (
+        <section className="relative py-32 px-6 overflow-hidden text-white text-center w-full">
+
+            {/* GIF background */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src={gifBg.src}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover"
+                    style={{ filter: 'blur(3px) grayscale(0.5)', transform: 'scale(1.1)' }}
+                />
+            </div>
+
+            {/* Blue/Dark overlay for EES branding */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 z-10"
+                style={{ background: 'linear-gradient(135deg, rgba(25, 37, 59, 0.9) 0%, rgba(10, 20, 40, 0.8) 100%)' }}
+            />
+
+            {/* Radial vignette */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                    background:
+                        'radial-gradient(ellipse 60% 100% at 50% 50%, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                }}
+            />
+
+            {/* Content */}
+            <div className="relative z-20 max-w-3xl mx-auto flex flex-col items-center gap-4">
+
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-2">
+                    Ready to Transform Your Workforce?
+                </h2>
+
+                <p className="md:text-lg text-white/80 mb-8 max-w-2xl leading-relaxed">
+                    Experience the future of HR and Payroll management. Join hundreds of companies that have already
+                    digitalized their operations with EES Workforce.
+                </p>
+
+                <div className="flex flex-wrap gap-4 justify-center">
+                    <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300 bg-accent text-white rounded-lg shadow-xl shadow-accent/30">
+                        Get Started Free
+                        <ArrowRightOutlined className="text-sm" />
+                    </button>
+                    <button className="px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-lg">
+                        Watch Live Demo
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    );
+}
