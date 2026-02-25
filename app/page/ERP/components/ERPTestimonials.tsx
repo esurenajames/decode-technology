@@ -40,7 +40,7 @@ export default function ERPTestimonials() {
 
                         <div className="relative z-20 max-w-sm mt-auto mb-6">
                             <h3 className="text-2xl md:text-[28px] font-bold text-white mb-3 leading-snug">
-                                Our customers activated 30% faster with Decode ERP.
+                                Our customers activated 30% faster with EES ERP.
                             </h3>
                             <p className="text-white/80 text-sm font-medium">Cate McCaffery, Senior Manager</p>
                         </div>
@@ -82,13 +82,13 @@ export default function ERPTestimonials() {
                             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Avatar" className="w-full h-full object-cover" />
                         </div>
                         <p className="font-bold text-[17px] leading-tight relative z-10 px-2 mt-auto">
-                            Decode cut implementation time by 58%
+                            EES ERP cut implementation time by 58%
                         </p>
                     </div>
 
                     {/* Card 4: Blue Background */}
                     <div className="col-span-1 rounded-2xl bg-[#1D91FF] text-white shadow-sm p-8 flex flex-col justify-between min-h-[320px]">
-                        <h4 className="text-2xl font-black tracking-widest opacity-90 drop-shadow-sm uppercase">DECODE<br />PLATFORM.</h4>
+                        <h4 className="text-2xl font-black tracking-widest opacity-90 drop-shadow-sm uppercase">EES<br />ERP.</h4>
                         <div className="mt-auto">
                             <div className="text-6xl font-black mb-4 tracking-tighter drop-shadow-sm">2.5x</div>
                             <div className="text-white/90 text-sm font-medium leading-relaxed max-w-[120px]">

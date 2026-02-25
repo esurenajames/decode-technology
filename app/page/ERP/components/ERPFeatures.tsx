@@ -3,11 +3,30 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Tabs, ConfigProvider } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined, TeamOutlined, InboxOutlined, ShoppingCartOutlined, LineChartOutlined } from '@ant-design/icons';
+import {
+    ArrowLeftOutlined, ArrowRightOutlined, TeamOutlined, InboxOutlined, ShoppingCartOutlined, LineChartOutlined,
+    SolutionOutlined, IdcardOutlined, DeploymentUnitOutlined, AppstoreOutlined, ShopOutlined, FundOutlined,
+    ContactsOutlined, RiseOutlined
+} from '@ant-design/icons';
 
-// Reusing existing assets
+// Basic assets
 import imgDashboard from '../../Landing/assets/image 26.png';
 import imgDashboardDef from '../../Landing/assets/image 25.png';
+
+// Inventory assets
+import invDashboard1 from '../assets/INVENTORY/inventory dashboard.1.png';
+import invBranches from '../assets/INVENTORY/list of branches.png';
+import invCats from '../assets/INVENTORY/list of item categories.png';
+
+// Purchasing assets
+import purDashboard1 from '../assets/PURCHASING/purchasing dashboard.1.png';
+import purSuppliers from '../assets/PURCHASING/List of Suppliers.png';
+import purOverview from '../assets/PURCHASING/supplier overview.png';
+
+// Sales assets
+import salesDashboard1 from '../assets/SALES/sales dashboard.1.png';
+import salesCustomers from '../assets/SALES/List of customers.png';
+import salesRevenue from '../assets/SALES/revenue.png';
 
 const FEATURES_DATA = [
     {
@@ -20,10 +39,11 @@ const FEATURES_DATA = [
                 tags: ['HUMAN RESOURCES', 'PAYROLL', 'COMPLIANCE'],
                 featureTitle: 'Comprehensive Employee Profiles',
                 featureDesc: [
-                    'Centralize employee data, track attendance, and manage performance reviews.',
-                    'Automate payroll processing with built-in tax and compliance checks.'
+                    'Centralize employee data, track attendance, and manage performance reviews with zero friction.',
+                    'Automate localized payroll processing with built-in tax, loan management, and compliance checks.',
+                    'Manage employee lifecycle stages from onboarding to offboarding in a single unified view.'
                 ],
-                icon: <TeamOutlined style={{ fontSize: '24px' }} />,
+                icon: <SolutionOutlined style={{ fontSize: '24px' }} />,
                 image: imgDashboard
             },
             {
@@ -31,10 +51,11 @@ const FEATURES_DATA = [
                 tags: ['EMPLOYEE ENGAGEMENT', 'OPERATIONS'],
                 featureTitle: 'Self-Service Made Simple',
                 featureDesc: [
-                    'Allow employees to access paystubs, request leave, and update details independently.',
-                    'Reduce HR overhead and streamline approval workflows.'
+                    'Allow employees to access paystubs, request leave, and update details independently via web or mobile.',
+                    'Reduce HR overhead by 40% and streamline approval workflows for a faster, more responsive organization.',
+                    'Enable manager-level approvals for timely processing of requests and time-offs.'
                 ],
-                icon: <TeamOutlined style={{ fontSize: '24px' }} />,
+                icon: <IdcardOutlined style={{ fontSize: '24px' }} />,
                 image: imgDashboardDef
             }
         ]
@@ -49,11 +70,36 @@ const FEATURES_DATA = [
                 tags: ['WAREHOUSING', 'LOGISTICS'],
                 featureTitle: 'Smart Stock Management',
                 featureDesc: [
-                    'Track stock movements across multiple warehouses instantly.',
-                    'Set automated reorder points to prevent stockouts and reduce excess inventory.'
+                    'Track stock movements across multiple warehouses instantly and accurately.',
+                    'Set automated reorder points to prevent stockouts and reduce excess inventory costs.',
+                    'Generate comprehensive stock reports with a single click to monitor turnover rates.'
                 ],
                 icon: <InboxOutlined style={{ fontSize: '24px' }} />,
-                image: imgDashboardDef
+                image: invDashboard1
+            },
+            {
+                heading: 'Multi-Branch & Brand Control',
+                tags: ['BRANCHES', 'BRANDING'],
+                featureTitle: 'Unified Multi-Location View',
+                featureDesc: [
+                    'Synchronize inventory across multiple branches and manage a diverse portfolio of brands.',
+                    'Maintain consistent product availability regardless of location with centralized visibility.',
+                    'Track brand-specific performance and stock distribution effectively.'
+                ],
+                icon: <DeploymentUnitOutlined style={{ fontSize: '24px' }} />,
+                image: invBranches
+            },
+            {
+                heading: 'Structured Warehouse Categorization',
+                tags: ['CATEGORIES', 'LOCATIONS'],
+                featureTitle: 'Organized Stock Tracking',
+                featureDesc: [
+                    'Organize your products with smart categorization and precise bin locations.',
+                    'Track items by category, brand, and exact warehouse location for maximum picking efficiency.',
+                    'Streamline stock audits with structured data organization.'
+                ],
+                icon: <AppstoreOutlined style={{ fontSize: '24px' }} />,
+                image: invCats
             }
         ]
     },
@@ -67,11 +113,36 @@ const FEATURES_DATA = [
                 tags: ['PROCUREMENT', 'FINANCE'],
                 featureTitle: 'Automated Purchase Orders',
                 featureDesc: [
-                    'Streamline approval workflows for purchase requests to ensure policy compliance.',
-                    'Track vendor performance and manage supplier contracts seamlessly.'
+                    'Streamline approval workflows for purchase requests to ensure organizational policy compliance.',
+                    'Track vendor performance metrics and manage supplier contracts seamlessly in one place.',
+                    'Convert approved requests into purchase orders automatically to avoid manual errors.'
                 ],
                 icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
-                image: imgDashboard
+                image: purDashboard1
+            },
+            {
+                heading: 'Supplier Intelligence & Management',
+                tags: ['SUPPLIERS', 'VENDORS'],
+                featureTitle: 'Comprehensive Vendor Profiles',
+                featureDesc: [
+                    'Maintain detailed vendor profiles and track supplier performance history.',
+                    'Centralize all contact information, trade terms, and historical procurement data easily.',
+                    'Evaluate suppliers based on lead times, pricing, and fulfillment accuracy.'
+                ],
+                icon: <ShopOutlined style={{ fontSize: '24px' }} />,
+                image: purSuppliers
+            },
+            {
+                heading: 'Strategic Procurement Analytics',
+                tags: ['ANALYTICS', 'COST CONTROL'],
+                featureTitle: 'Procurement Insights',
+                featureDesc: [
+                    'Gain bird\'s-eye visibility into your spending patterns with historical purchasing data.',
+                    'Optimize your procurement strategy through detailed supplier overviews and cost analysis.',
+                    'Monitor budgetary compliance and identify cost-saving opportunities.'
+                ],
+                icon: <FundOutlined style={{ fontSize: '24px' }} />,
+                image: purOverview
             }
         ]
     },
@@ -85,11 +156,36 @@ const FEATURES_DATA = [
                 tags: ['SALES', 'CUSTOMER SUCCESS'],
                 featureTitle: 'Unified Sales Pipeline',
                 featureDesc: [
-                    'Manage leads, track opportunities, and forecast revenue accurately.',
-                    'Access complete customer histories to drive better engagement and retention.'
+                    'Manage leads, track opportunities, and forecast revenue accurately with real-time data.',
+                    'Access complete customer histories to drive better engagement, customer retention, and upsell.',
+                    'Automate sales orders and invoicing to close deals faster and improve cash flow.'
                 ],
                 icon: <LineChartOutlined style={{ fontSize: '24px' }} />,
-                image: imgDashboardDef
+                image: salesDashboard1
+            },
+            {
+                heading: '360° Customer Relationship Management',
+                tags: ['CRM', 'CUSTOMER DATA'],
+                featureTitle: 'Comprehensive Client Profiles',
+                featureDesc: [
+                    'Manage your customer database with ease and dive deep into individual client profiles.',
+                    'Track purchase history and preferences to deliver highly personalized customer experiences.',
+                    'Build stronger relationships with centralized communication logs and contact history.'
+                ],
+                icon: <ContactsOutlined style={{ fontSize: '24px' }} />,
+                image: salesCustomers
+            },
+            {
+                heading: 'Performance & Revenue Insights',
+                tags: ['REVENUE', 'GROWTH'],
+                featureTitle: 'Sales Performance Analytics',
+                featureDesc: [
+                    'Visualize your sales growth with real-time revenue and volume analytics dashboards.',
+                    'Make data-driven decisions using comprehensive trend monitoring and performance metrics.',
+                    'Identify your best-selling products and top-performing sales regions at a glance.'
+                ],
+                icon: <RiseOutlined style={{ fontSize: '24px' }} />,
+                image: salesRevenue
             }
         ]
     }
@@ -126,7 +222,7 @@ export default function ERPFeatures() {
                         {currentSlide.heading}
                     </h3>
 
-                    <div className="flex flex-wrap justify-center gap-2 text-[0.7rem] font-bold tracking-wider text-gray-500 uppercase">
+                    <div className="flex flex-wrap text-primary justify-center gap-2 text-[0.7rem] font-bold tracking-wider text-gray-500 uppercase">
                         {currentSlide.tags.map((tag, i) => (
                             <span key={i}>
                                 {tag} {i < currentSlide.tags.length - 1 && <span className="text-gray-300 mx-1">|</span>}
@@ -140,7 +236,7 @@ export default function ERPFeatures() {
                     <div className="flex flex-col justify-center space-y-6">
                         <div className="space-y-4">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-gray-200 text-gray-700 shadow-sm">
+                                <div className="p-2 rounded-lg bg-blue-600 text-white shadow-sm">
                                     {currentSlide.icon}
                                 </div>
                                 <h4 className="text-xl font-bold text-gray-800">
