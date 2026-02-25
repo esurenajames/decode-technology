@@ -20,8 +20,8 @@ export default function BlogPostHero() {
                 <div className="absolute inset-0 bg-primary/90" />
             </div>
 
-            <div className="absolute inset-0 z-10 flex flex-col justify-center items-center px-6">
-                <div className="max-w-7xl w-full mx-auto relative h-full flex flex-col justify-center">
+            <div className="absolute inset-0 z-10 flex flex-col justify-center items-center px-6 ">
+                <div className="max-w-7xl w-full mx-auto relative h-full flex flex-col justify-center ">
 
                     {/* Back Button - Absolute Top Left */}
                     <div className="absolute top-0 left-0 text-white/80 hover:text-white transition-colors pt-8">

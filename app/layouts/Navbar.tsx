@@ -7,7 +7,7 @@ import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 
 const TOP_NAV_LINKS = [
-    { label: 'About', href: '#about' },
+    { label: 'Calculator', href: '/calculator' },
     { label: 'Blogs', href: '/blog' },
     { label: 'Case Studies', href: '/case-studies' },
     { label: 'Support', href: '/support' },
@@ -104,7 +104,7 @@ export default function Navbar() {
                                     onClick={() => {
                                         router.push(link.href);
                                     }}
-                                    className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
+                                    className={`relative px-4 py-2 rounded-full whitespace-nowrap text-sm font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
                                         ? 'bg-gray-200 text-primary font-bold'
                                         : 'text-primary/70 hover:text-primary hover:bg-primary/5 bg-transparent'
                                         }`}

@@ -33,7 +33,7 @@ export default function BlogHero() {
                 </div>
 
                 {/* Featured Card */}
-                <div className="bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row min-h-[400px]">
+                <div className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100  flex flex-col md:flex-row min-h-[400px]">
                     {/* Image Side */}
                     <div className="relative w-full md:w-3xl md:min-h-full min-h-[300px]">
                         <Image
@@ -46,7 +46,7 @@ export default function BlogHero() {
                     </div>
 
                     {/* Content Side */}
-                    <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-start">
+                    <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-start ">
                         <div className="flex items-center gap-3 text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wide">
                             <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600">Customer Feedback</span>
                             <span className="w-1 h-1 bg-gray-400 rounded-full"></span>

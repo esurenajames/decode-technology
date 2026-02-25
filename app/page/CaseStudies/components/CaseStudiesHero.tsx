@@ -35,7 +35,7 @@ export default function CaseStudiesHero() {
                 </div>
 
                 {/* Featured Card */}
-                <div className="bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row min-h-[400px]">
+                <div className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100  flex flex-col md:flex-row min-h-[400px] ">
                     {/* Image Side */}
                     <div className="relative w-full md:w-3xl md:min-h-full min-h-[300px]">
                         <Image
