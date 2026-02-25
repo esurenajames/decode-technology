@@ -35,19 +35,18 @@ export default function ElevateCTA() {
                 }}
             />
 
-            {/* Content */}
-            <div className="relative z-20 max-w-3xl mx-auto flex flex-col items-center gap-4">
+            <div className="relative z-20 max-w-4xl mx-auto flex flex-col items-center gap-4">
 
-                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-2">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-4 text-white">
                     Ready to Unlock Your Team's Potential?
                 </h2>
 
-                <p className="md:text-lg text-white/80 mb-8 max-w-2xl leading-relaxed">
+                <p className="md:text-lg text-white/70 mb-10 max-w-2xl leading-relaxed font-medium">
                     Join the top-performing organizations using Elevate to build a culture of continuous learning and excellence.
                     Start your transformation today.
                 </p>
 
-                <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+                <button className="px-12 py-5 bg-accent text-white rounded-lg font-bold text-lg flex items-center gap-3 hover:bg-accent/90 transition-all shadow-2xl shadow-accent/20 transform hover:-translate-y-1">
                     Get a Free Demo
                     <ArrowRightOutlined className="text-sm" />
                 </button>

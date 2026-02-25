@@ -5,44 +5,52 @@ import {
     PlusOutlined,
     MinusOutlined,
     SettingOutlined,
-    LockOutlined,
     CloudSyncOutlined,
-    DollarOutlined,
     ThunderboltOutlined,
-    ReadOutlined
+    ReadOutlined,
+    MobileOutlined,
+    SafetyCertificateOutlined,
+    TeamOutlined,
+    PieChartOutlined,
+    NodeIndexOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
 
 const FAQS = [
     {
-        icon: <ThunderboltOutlined />,
-        question: "Can we migrate our existing SCORM/xAPI content?",
-        answer: "Yes, Elevate is fully compatible with industry standards like SCORM 1.2/2004 and xAPI. You can import your existing library in minutes."
-    },
-    {
         icon: <ReadOutlined />,
-        question: "Does Elevate support mobile learning?",
-        answer: "Absolutely. Our platform is fully responsive and offers a dedicated mobile app experiences, allowing your team to learn anytime, anywhere—even offline."
+        question: "How does EES Workforce Elevate centralize learning?",
+        answer: "It provides a unified platform to store, manage, and deliver learning materials. This ensures easy access to all resources, maintains consistency across the organization, and eliminates redundancy in training efforts."
     },
     {
-        icon: <DollarOutlined />,
-        question: "How is the pricing for Elevate structured?",
-        answer: "Our pricing is transparent and based on the number of active learners per month. We offer tiers for small teams up to global enterprises."
+        icon: <MobileOutlined />,
+        question: "Is the platform accessible on mobile devices?",
+        answer: "Yes, Elevate is designed for today's mobile workforce. Employees can access training materials and complete courses from any mobile device, ensuring that learning is convenient and accessible anytime, anywhere."
     },
     {
-        icon: <SettingOutlined />,
-        question: "Can we customize the platform with our own branding?",
-        answer: "Yes, you can white-label the platform with your company logo, colors, and custom domain to create a seamless brand experience for your learners."
+        icon: <PieChartOutlined />,
+        question: "What kind of analytics and tracking are provided?",
+        answer: "Trainers can monitor progress through detailed dashboards displaying completion rates, exam scores, and engagement metrics. This data-driven approach helps identify skill gaps and refine training strategies."
     },
     {
-        icon: <CloudSyncOutlined />,
-        question: "What kind of analytics and reporting are available?",
-        answer: "We provide deep insights into learner progress, course effectiveness, and skill development through customizable dashboards and automated exports."
+        icon: <TeamOutlined />,
+        question: "Does it support live sessions and web conferencing?",
+        answer: "Absolutely. Elevate includes built-in web conferencing for live interactive sessions. This allows real-time engagement between trainers and trainees without needing external tools."
     },
     {
-        icon: <LockOutlined />,
-        question: "Is the platform secure for proprietary company data?",
-        answer: "Data security is our top priority. We use enterprise-grade encryption and comply with global privacy standards to ensure your content stays protected."
+        icon: <SafetyCertificateOutlined />,
+        question: "How are assessments and certifications handled?",
+        answer: "The platform includes tools for quizzes, assessments, and automated certification. This confirms employees meet essential skill requirements and provides them with verifiable proof of completion."
+    },
+    {
+        icon: <NodeIndexOutlined />,
+        question: "Can it integrate with HRIS and Payroll systems?",
+        answer: "Yes, it integrates seamlessly with EES Workforce HRIS and Payroll. This connectivity centralizes employee data and updates training records automatically, streamlining administrative tasks."
+    },
+    {
+        icon: <ThunderboltOutlined />,
+        question: "Is the training solution cost-effective and scalable?",
+        answer: "Yes, it reduces costs associated with traditional training like travel and printing. It scales easily to accommodate a growing workforce across various locations without a proportional increase in costs."
     }
 ];
 
@@ -54,12 +62,13 @@ export default function ElevateFAQ() {
     };
 
     return (
-        <section className="bg-white py-24">
-            <div className="max-w-3xl mx-auto px-6">
+        <section className="bg-gray-50 py-24">
+            <div className="max-w-5xl mx-auto px-6">
 
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Frequently asked questions</h2>
+                <div className="text-center mb-16">
+                    <span className="text-accent font-bold uppercase tracking-widest text-xs mb-4 block">FAQ</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Frequently asked questions</h2>
                     <p className="text-gray-500 text-lg">
                         Common questions about the Elevate platform.<br className="hidden md:block" />
                         Need more help? <Link href="#contact" className="text-accent font-semibold underline decoration-accent/30 hover:decoration-accent transition-all">Chat to our friendly team!</Link>
@@ -67,7 +76,7 @@ export default function ElevateFAQ() {
                 </div>
 
                 {/* Accordion List */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 max-w-3xl mx-auto">
                     {FAQS.map((faq, idx) => (
                         <div key={idx} className="border-b border-gray-100 last:border-0 pb-6 mb-2">
                             <button
@@ -75,7 +84,7 @@ export default function ElevateFAQ() {
                                 className="w-full flex items-start gap-6 text-left group"
                             >
                                 {/* Icon */}
-                                <div className={`w-12 h-12 shrink-0 rounded-xl border flex items-center justify-center text-xl transition-colors duration-300 ${openIndex === idx ? 'bg-accent/10 border-accent/20 text-accent' : 'bg-white border-gray-200 text-gray-700 group-hover:border-accent/30'
+                                <div className={`w-12 h-12 shrink-0 rounded-lg border flex items-center justify-center text-xl transition-colors duration-300 ${openIndex === idx ? 'bg-accent/10 border-accent/20 text-accent' : 'bg-white border-gray-200 text-gray-700 group-hover:border-accent/30'
                                     }`}>
                                     {faq.icon}
                                 </div>
@@ -88,7 +97,7 @@ export default function ElevateFAQ() {
                                         </div>
                                     </div>
 
-                                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? 'max-h-40 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
                                         <p className="text-gray-500 leading-relaxed pr-8">
                                             {faq.answer}
                                         </p>
