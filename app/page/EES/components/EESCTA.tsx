@@ -19,19 +19,19 @@ export default function EESCTA() {
                 />
             </div>
 
-            {/* Blue/Dark overlay for EES branding */}
             <div
                 aria-hidden="true"
-                className="absolute inset-0 z-10 bg-primary/90"
+                className="absolute inset-0 z-10"
+                style={{ background: 'rgba(5,5,8,0.78)' }}
             />
 
-            {/* Radial vignette */}
+            {/* Radial vignette — strong blur on left & right edges */}
             <div
                 aria-hidden="true"
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
                     background:
-                        'radial-gradient(ellipse 60% 100% at 50% 50%, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                        'radial-gradient(ellipse 55% 100% at 50% 50%, transparent 20%, rgba(0,0,0,0.92) 100%)',
                 }}
             />
 
@@ -48,12 +48,9 @@ export default function EESCTA() {
                 </p>
 
                 <div className="flex flex-wrap gap-4 justify-center">
-                    <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300 bg-accent text-white rounded-lg shadow-xl shadow-accent/30">
-                        Get Started Free
-                        <ArrowRightOutlined className="text-sm" />
-                    </button>
-                    <button className="px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-lg">
-                        Watch Live Demo
+                    <button className="glow-btn px-8 py-4 text-lg font-bold flex items-center gap-3 hover:scale-105 transition-transform duration-300 bg-accent rounded-lg shadow-xl shadow-accent/30">
+                        <span className="relative z-10">Book a Demo</span>
+                        <ArrowRightOutlined className="text-sm relative z-10" />
                     </button>
                 </div>
 

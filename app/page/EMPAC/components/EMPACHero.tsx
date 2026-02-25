@@ -27,9 +27,7 @@ export default function EMPACHero() {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden grid grid-rows-[1.25fr_1fr] pt-20">
-
-            {/* Top Row — 2-column grid for Text + Device */}
+        <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden grid grid-rows-[1.25fr_1fr] ">
             <div className="grid grid-cols-1 lg:grid-cols-2 px-10 lg:px-32 relative z-10 min-h-0">
 
                 {/* Text Column */}
