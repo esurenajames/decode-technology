@@ -6,7 +6,7 @@ export default function EMPACPage() {
     return (
         <main>
             <EMPACHero />
-            <EMPACJoinSchools />
+            {/* <EMPACJoinSchools /> */}
             <EMPACLearningPossibilities />
         </main>
     );

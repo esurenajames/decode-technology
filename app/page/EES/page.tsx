@@ -1,6 +1,5 @@
 import EESHero from './components/EESHero';
 import EESAbout from './components/EESAbout';
-import EESTechnology from './components/EESTechnology';
 import EESAppsGrid from './components/EESAppsGrid';
 import EESTestimonials from './components/EESTestimonials';
 import EESDeployment from './components/EESDeployment';
@@ -17,7 +16,6 @@ export default function EESPage() {
             <EESCTA />
             <EESDeployment />
             <EESTestimonials />
-            <EESTechnology />
             <EESMobileApp />
             <EESFAQ />
         </main>

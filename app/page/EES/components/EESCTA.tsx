@@ -1,8 +1,8 @@
 'use client';
 
 import { ArrowRightOutlined } from '@ant-design/icons';
-// Using the same background for consistency but we can shift the color overlay to blue for EES
-import gifBg from '../../ERP/assets/erpgif.gif';
+// Using the EES specific gif
+import gifBg from '../assets/eesgif.gif';
 
 export default function EESCTA() {
     return (
@@ -22,8 +22,7 @@ export default function EESCTA() {
             {/* Blue/Dark overlay for EES branding */}
             <div
                 aria-hidden="true"
-                className="absolute inset-0 z-10"
-                style={{ background: 'linear-gradient(135deg, rgba(25, 37, 59, 0.9) 0%, rgba(10, 20, 40, 0.8) 100%)' }}
+                className="absolute inset-0 z-10 bg-primary/90"
             />
 
             {/* Radial vignette */}
