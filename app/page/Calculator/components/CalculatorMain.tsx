@@ -168,7 +168,7 @@ export default function CalculatorMain() {
                                                     placeholder="0.00"
                                                     prefix={<span className="text-gray-400">₱</span>}
                                                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                                    parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
+                                                    parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any}
                                                 />
                                             </Form.Item>
                                         </Col>
@@ -185,11 +185,11 @@ export default function CalculatorMain() {
                                     <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
                                         <div className="flex flex-col md:flex-row gap-6">
                                             <Form.Item name="taxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Taxable Allowance</span>} className="mb-0 flex-1">
-                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
                                             </Form.Item>
 
                                             <Form.Item name="nonTaxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Non-Taxable Allowance</span>} className="mb-0 flex-1">
-                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
                                             </Form.Item>
                                         </div>
                                     </div>
@@ -203,10 +203,10 @@ export default function CalculatorMain() {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                                         <Form.Item name="loans" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Loans</span>} className="mb-0">
-                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
                                         </Form.Item>
                                         <Form.Item name="otherDeductions" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Other Deductions</span>} className="mb-0">
-                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
                                         </Form.Item>
                                     </div>
                                 </div>
