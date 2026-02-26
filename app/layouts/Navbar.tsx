@@ -7,10 +7,10 @@ import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 
 const TOP_NAV_LINKS = [
-    { label: 'Calculator', href: '/calculator' },
     { label: 'Blogs', href: '/blog' },
     { label: 'Case Studies', href: '/case-studies' },
     { label: 'Support', href: '/support' },
+    { label: 'Calculator', href: '/calculator' },
 ];
 
 const BOTTOM_NAV_LINKS = [

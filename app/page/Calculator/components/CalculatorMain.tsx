@@ -41,6 +41,8 @@ export default function CalculatorMain() {
         sss: 0,
         philhealth: 0,
         pagibig: 0,
+        loans: 0,
+        otherDeductions: 0,
         totalDeductions: 0,
         netPay: 0,
     });
@@ -58,10 +60,12 @@ export default function CalculatorMain() {
         // Mock deductions (standard Phil govt rates approx)
         const sss = basic * 0.045;
         const philhealth = basic * 0.02;
-        const pagibig = 100;
+        const pagibig = basic > 0 ? 100 : 0;
         const withholdingTax = grossPay > 20833 ? (grossPay - 20833) * 0.2 : 0;
+        const loans = values.loans || 0;
+        const otherDeductions = values.otherDeductions || 0;
 
-        const totalDeductions = sss + philhealth + pagibig + withholdingTax;
+        const totalDeductions = sss + philhealth + pagibig + withholdingTax + loans + otherDeductions;
         const netPay = grossPay - totalDeductions;
 
         setResults({
@@ -75,6 +79,8 @@ export default function CalculatorMain() {
             sss,
             philhealth,
             pagibig,
+            loans,
+            otherDeductions,
             totalDeductions,
             netPay,
         });
@@ -93,6 +99,8 @@ export default function CalculatorMain() {
             sss: 0,
             philhealth: 0,
             pagibig: 0,
+            loans: 0,
+            otherDeductions: 0,
             totalDeductions: 0,
             netPay: 0,
         });
@@ -104,20 +112,23 @@ export default function CalculatorMain() {
                 <Row gutter={[0, 0]}>
                     {/* Input Side */}
                     <Col xs={24} lg={14} className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
-                        <div className="flex items-center gap-4 mb-10">
-                            <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center text-accent text-xl">
-                                <CalculatorOutlined />
+                        <div className="flex items-center justify-between mb-10">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center text-primary text-xl">
+                                    <CalculatorOutlined />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-primary mb-0">Step 1: Employment Details</h2>
+                                    <p className="text-gray-400 text-sm">Enter your compensation details below</p>
+                                </div>
                             </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-primary mb-0">Step 1: Employment Details</h2>
-                                <p className="text-gray-400 text-sm">Enter your compensation details below</p>
-                            </div>
+
                         </div>
 
                         <Form
                             form={form}
                             layout="vertical"
-                            onFinish={onCompute}
+                            onValuesChange={(_, allValues) => onCompute(allValues)}
                             initialValues={{
                                 employmentType: 'Minimum Wage Employee',
                                 payrollPeriod: 'Monthly',
@@ -125,109 +136,80 @@ export default function CalculatorMain() {
                             }}
                             className="calculator-form"
                         >
-                            <Row gutter={24}>
-                                <Col xs={24} md={12}>
-                                    <Form.Item name="employmentType" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Employment Type</span>}>
-                                        <Select size="large" className="w-full">
-                                            <Option value="Minimum Wage Employee">Minimum Wage Employee</Option>
-                                            <Option value="Private Employee">Private Employee</Option>
-                                            <Option value="Government Employee">Government Employee</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} md={12}>
-                                    <Form.Item name="payrollPeriod" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Payroll Period</span>}>
-                                        <Select size="large" className="w-full">
-                                            <Option value="Monthly">Monthly</Option>
-                                            <Option value="Semi-Monthly">Semi-Monthly</Option>
-                                            <Option value="Weekly">Weekly</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
+                            <div className="space-y-6">
+                                {/* Start Card */}
+                                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                                    <div className="mb-6">
+                                        <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-1 flex items-center gap-2">Start Details</h4>
+                                        <p className="text-xs text-gray-500">Provide your basic employment and salary information to establish the foundation of your calculation.</p>
+                                    </div>
+                                    <Row gutter={24}>
+                                        <Col xs={24} md={12}>
+                                            <Form.Item name="employmentType" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Employment Type</span>}>
+                                                <Select size="large" className="w-full">
+                                                    <Option value="Minimum Wage Employee">Minimum Wage Employee</Option>
+                                                    <Option value="Private Employee">Private Employee</Option>
+                                                    <Option value="Government Employee">Government Employee</Option>
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col xs={24} md={12}>
+                                            <Form.Item
+                                                name="basicPay"
+                                                label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Basic Monthly Pay</span>}
+                                                rules={[{ required: true, message: 'Please enter basic pay' }]}
+                                                className="mb-0"
+                                            >
+                                                <InputNumber
+                                                    className="!w-full"
+                                                    size="large"
+                                                    min={0}
+                                                    precision={2}
+                                                    placeholder="0.00"
+                                                    prefix={<span className="text-gray-400">₱</span>}
+                                                    formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                    parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
 
-                            <Form.Item
-                                name="basicPay"
-                                label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Basic Monthly Pay*</span>}
-                                rules={[{ required: true, message: 'Please enter basic pay' }]}
-                            >
-                                <InputNumber
-                                    className="!w-full"
-                                    size="large"
-                                    min={0}
-                                    precision={2}
-                                    placeholder="0.00"
-                                    prefix={<span className="text-gray-400">₱</span>}
-                                />
-                            </Form.Item>
-
-                            <Divider className="!my-8 border-gray-50" />
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                <div>
-                                    <h4 className="text-gray-500 font-bold uppercase tracking-wider text-[10px] mb-4">Allowances</h4>
-                                    <Space direction="vertical" className="w-full" size="middle">
-                                        <Form.Item name="taxableAllowance" className="mb-0">
-                                            <InputNumber className="!w-full" size="large" placeholder="Taxable (e.g. 2000)" precision={2} />
-                                        </Form.Item>
-                                        <Form.Item name="nonTaxableAllowance">
-                                            <InputNumber className="!w-full" size="large" placeholder="Non-Taxable (e.g. 500)" precision={2} />
-                                        </Form.Item>
-                                    </Space>
                                 </div>
 
-                                <div>
-                                    <h4 className="text-gray-500 font-bold uppercase tracking-wider text-[10px] mb-4">Additional Pay</h4>
-                                    <Form.Item name="addNightDiff" valuePropName="checked" className="mb-3">
-                                        <Checkbox><span className="text-gray-600 text-sm font-medium">Add Night Differential</span></Checkbox>
-                                    </Form.Item>
-                                    <Form.Item
-                                        noStyle
-                                        shouldUpdate={(prevValues, currentValues) => prevValues.addNightDiff !== currentValues.addNightDiff}
-                                    >
-                                        {({ getFieldValue }) =>
-                                            getFieldValue('addNightDiff') && (
-                                                <Form.Item name="nightDiffValue" className="mb-4">
-                                                    <InputNumber className="!w-full" size="large" placeholder="Amount" />
-                                                </Form.Item>
-                                            )
-                                        }
-                                    </Form.Item>
+                                {/* Allowance & Additionals Card */}
+                                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                                    <div className="mb-6">
+                                        <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-1 flex items-center gap-2">Allowances & Additional Pay</h4>
+                                        <p className="text-xs text-gray-500">Add extra compensation elements like variable allowances, overtime, and night differentials.</p>
+                                    </div>
+                                    <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
+                                        <div className="flex flex-col md:flex-row gap-6">
+                                            <Form.Item name="taxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Taxable Allowance</span>} className="mb-0 flex-1">
+                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                            </Form.Item>
 
-                                    <Form.Item name="addOvertime" valuePropName="checked" className="mb-3">
-                                        <Checkbox><span className="text-gray-600 text-sm font-medium">Add Overtime Pay</span></Checkbox>
-                                    </Form.Item>
-                                    <Form.Item
-                                        noStyle
-                                        shouldUpdate={(prevValues, currentValues) => prevValues.addOvertime !== currentValues.addOvertime}
-                                    >
-                                        {({ getFieldValue }) =>
-                                            getFieldValue('addOvertime') && (
-                                                <Form.Item name="overtimeValue">
-                                                    <InputNumber className="!w-full" size="large" placeholder="Amount" />
-                                                </Form.Item>
-                                            )
-                                        }
-                                    </Form.Item>
+                                            <Form.Item name="nonTaxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Non-Taxable Allowance</span>} className="mb-0 flex-1">
+                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                            </Form.Item>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 items-center">
-                                <Button
-                                    icon={<ClearOutlined />}
-                                    onClick={onClear}
-                                    className="!w-full flex-1 py-2 px-8 font-bold border-gray-200 text-gray-400 hover:!text-primary hover:!border-primary transition-all duration-300 grayscale hover:grayscale-0"
-                                >
-                                    RESET
-                                </Button>
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    icon={<CalculatorOutlined />}
-                                    className="!w-full flex-1 py-2 px-12 font-bold bg-accent hover:!bg-[#1e61c7] shadow-xl shadow-accent/40 active:scale-[0.98] transition-all duration-300 transform text-lg"
-                                >
-                                    COMPUTE NOW
-                                </Button>
+                                {/* Deductions Card */}
+                                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm relative overflow-hidden">
+                                    <div className="mb-6">
+                                        <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-1 flex items-center gap-2">Deductions</h4>
+                                        <p className="text-xs text-gray-500">Include personal loans, company charges, or any other manual salary deductions.</p>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                        <Form.Item name="loans" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Loans</span>} className="mb-0">
+                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                        </Form.Item>
+                                        <Form.Item name="otherDeductions" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Other Deductions</span>} className="mb-0">
+                                            <InputNumber className="!w-full" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number} />
+                                        </Form.Item>
+                                    </div>
+                                </div>
                             </div>
                         </Form>
                     </Col>
@@ -244,22 +226,20 @@ export default function CalculatorMain() {
                             </div>
                         </div>
 
-                        <div className="flex justify-center mb-8">
-                            <Radio.Group
-                                value={period}
-                                onChange={(e) => setPeriod(e.target.value)}
-                                buttonStyle="solid"
-                                className="custom-radio-group"
-                            >
-                                <Radio.Button value="semi-monthly" className="h-10 px-6 leading-9 font-bold !rounded-l-lg">Semi-Monthly</Radio.Button>
-                                <Radio.Button value="monthly" className="h-10 px-6 leading-9 font-bold">Monthly</Radio.Button>
-                                <Radio.Button value="annual" className="h-10 px-6 leading-9 font-bold !rounded-r-lg">Annual</Radio.Button>
-                            </Radio.Group>
-                        </div>
-
                         <div className="space-y-4">
                             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                                <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Earnings</h4>
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-accent/10 transition-colors" />
+                                <div className="relative z-10 flex flex-col items-center">
+                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Estimated Take-Home Pay</p>
+                                    <h3 className="text-3xl font-extrabold text-primary mb-3">
+                                        ₱ {results.netPay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    </h3>
+                                    <p className="text-gray-400 text-[10px] font-medium italic opacity-70">Calculated based on 2026 Philippine Tax Schedule</p>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 className="text-[10px] font-bold text-green-400 uppercase tracking-[0.2em] mb-4">Earnings</h4>
                                 <div className="space-y-3">
                                     <ResultRow label="Basic Salary" value={results.basicPay} />
                                     <ResultRow label="Taxable Allowances" value={results.taxableAllowance} />
@@ -268,7 +248,7 @@ export default function CalculatorMain() {
                                     <Divider className="!my-2 border-gray-50" />
                                     <div className="flex justify-between items-center bg-primary/5 p-3 rounded-lg border border-primary/10">
                                         <Text className="font-bold text-primary italic">Total Gross Pay</Text>
-                                        <Text className="font-bold text-primary text-lg">₱ {results.grossPay.toLocaleString()}</Text>
+                                        <Text className="font-bold text-primary text-lg">₱ {results.grossPay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
                                     </div>
                                 </div>
                             </div>
@@ -280,29 +260,20 @@ export default function CalculatorMain() {
                                     <ResultRow label="SSS/GSIS Contribution" value={results.sss} />
                                     <ResultRow label="PhilHealth Contribution" value={results.philhealth} />
                                     <ResultRow label="PAG-IBIG Contribution" value={results.pagibig} />
+                                    <ResultRow label="Loans" value={results.loans} />
+                                    <ResultRow label="Other Deductions" value={results.otherDeductions} />
                                     <Divider className="!my-2 border-gray-50" />
                                     <div className="flex justify-between items-center bg-primary/5 p-3 rounded-lg border border-primary/10">
                                         <Text className="font-bold text-primary italic">Total Deductions</Text>
-                                        <Text className="font-bold text-primary text-lg">₱ {results.totalDeductions.toLocaleString()}</Text>
+                                        <Text className="font-bold text-primary text-lg">₱ {results.totalDeductions.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-accent/10 transition-colors" />
-                                <div className="relative z-10 flex flex-col items-center">
-                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Estimated Take-Home Pay</p>
-                                    <h3 className="text-5xl font-extrabold text-primary mb-3">
-                                        ₱ {results.netPay.toLocaleString()}
-                                    </h3>
-                                    <p className="text-gray-400 text-[10px] font-medium italic opacity-70">Calculated based on 2026 Philippine Tax Schedule</p>
                                 </div>
                             </div>
                         </div>
                     </Col>
                 </Row>
 
-                <div className="p-8 rounded-lg bg-primary text-white flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="mx-8 md:mx-12 mt-4 p-8 rounded-xl bg-primary text-white flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="max-w-xl">
                         <Title level={3} className="!text-white mb-2">Need Business Payroll Solutions?</Title>
                         <Paragraph className="!text-white/70 mb-0 font-medium">
@@ -323,7 +294,7 @@ function ResultRow({ label, value }: { label: string; value: number }) {
     return (
         <div className="flex justify-between items-center py-1">
             <Text className="text-gray-500 font-medium">{label}</Text>
-            <Text className="text-primary font-semibold">{value.toFixed(2)}</Text>
+            <Text className="text-primary font-semibold">{value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
         </div>
     );
 }
