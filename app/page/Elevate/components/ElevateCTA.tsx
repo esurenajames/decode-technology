@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRightOutlined } from '@ant-design/icons';
-import gifBg from '../../ERP/assets/erpgif.gif';
+import gifBg from '../../Elevate/assets/elevate-gif.gif';
 
 export default function ElevateCTA() {
     return (

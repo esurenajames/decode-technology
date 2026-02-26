@@ -66,15 +66,14 @@ export default function ElevateFAQ() {
             <div className="max-w-5xl mx-auto px-6">
 
                 {/* Header */}
-                <div className="text-center mb-16">
-                    <span className="text-accent font-bold uppercase tracking-widest text-xs mb-4 block">FAQ</span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Frequently asked questions</h2>
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold text-[#014471] mb-4">Common Questions about Elevate</h2>
                     <p className="text-gray-500 text-lg">
-                        Common questions about the Elevate platform.<br className="hidden md:block" />
-                        Need more help? <Link href="#contact" className="text-accent font-semibold underline decoration-accent/30 hover:decoration-accent transition-all">Chat to our friendly team!</Link>
+                        Everything you need to know about our School & Learning Management System.<br className="hidden md:block" />
+                        Need more help? <Link href="#contact" className="text-[#2F7FF5] font-semibold underline decoration-[#2F7FF5]/30 hover:decoration-[#2F7FF5] transition-all">Connect with our support team!</Link>
                     </p>
                 </div>
-
+                
                 {/* Accordion List */}
                 <div className="flex flex-col gap-4 max-w-3xl mx-auto">
                     {FAQS.map((faq, idx) => (

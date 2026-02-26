@@ -10,25 +10,21 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 gsap.registerPlugin(ScrollTrigger);
 
 interface TooltipData {
-    image: string;
     description: string;
     link: string;
 }
 
 const INTERACTIVE_WORDS: Record<string, TooltipData> = {
     'software': {
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
-        description: 'Custom solutions built with modern tech stacks for maximum performance.',
+        description: 'Empowering enterprises with bespoke, high-performance digital architectures.',
         link: '/page/Services'
     },
     'future.': {
-        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop',
-        description: 'Pioneering the next generation of digital infrastructure and AI solutions.',
+        description: 'Architecting scalable, AI-driven solutions to command the next generation.',
         link: '/page/ERP'
     },
     'happen.': {
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop',
-        description: 'Turning your ambitious vision into reality through precise execution.',
+        description: 'Transforming ambitious conceptual visions into precise, market-ready realities.',
         link: '/page/Careers'
     }
 };
@@ -109,25 +105,16 @@ export default function ScrollRevealText() {
             {/* Premium Tooltip */}
             {hoveredWord && INTERACTIVE_WORDS[hoveredWord] && (
                 <div
-                    className="fixed z-[100] w-72 bg-white rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-gray-100 pointer-events-none transition-all duration-300"
+                    className="fixed z-[100] max-w-[280px] bg-white rounded-2xl p-6 shadow-2xl border border-gray-100 pointer-events-none transition-all duration-300"
                     style={{
                         left: mousePos.x,
                         top: mousePos.y + 20,
                         transform: 'translateX(-50%)'
                     }}
                 >
-                    <div className="relative h-44 w-full">
-                        <img
-                            src={INTERACTIVE_WORDS[hoveredWord].image}
-                            alt=""
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <div className="p-6">
-                        <p className="text-gray-600 text-sm leading-relaxed font-medium">
-                            {INTERACTIVE_WORDS[hoveredWord].description}
-                        </p>
-                    </div>
+                    <p className="text-gray-800 text-sm leading-relaxed font-bold">
+                        {INTERACTIVE_WORDS[hoveredWord].description}
+                    </p>
                 </div>
             )}
         </section>

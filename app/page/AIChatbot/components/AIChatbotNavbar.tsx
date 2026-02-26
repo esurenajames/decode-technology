@@ -7,20 +7,20 @@ import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 
 const TOP_NAV_LINKS = [
-    { label: 'About', href: '#about' },
     { label: 'Blogs', href: '/blog' },
     { label: 'Case Studies', href: '/case-studies' },
     { label: 'Support', href: '/support' },
+    { label: 'Calculator', href: '/calculator' },
 ];
 
 const BOTTOM_NAV_LINKS = [
     { label: 'AI Chatbot', href: '/ai-chatbot' },
     { label: 'ERP System', href: '/erp' },
-    { label: 'HRIS and Payroll System', href: '/hris' },
-    { label: 'School Management System', href: '#school' },
+    { label: 'HRIS and Payroll System', href: '/ees' },
+    { label: 'School Management System', href: '/empac' },
     { label: 'Training Management System', href: '/elevate' },
-    { label: 'Custom Software Development', href: '#custom' },
-    { label: 'IT Outsourcing', href: '#it-outsourcing' },
+    { label: 'Custom Software Development', href: '/sd' },
+    { label: 'IT Outsourcing', href: '/outsource' },
 ];
 
 const LANGUAGES = [

@@ -64,10 +64,10 @@ export default function ERPFAQ() {
 
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Frequently asked questions</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-[#014471] mb-4">Common Questions about ERP</h2>
                     <p className="text-gray-500 text-lg">
-                        These are the most commonly asked questions about our services.<br className="hidden md:block" />
-                        Can't find what you're looking for? <Link href="#contact" className="text-accent font-semibold underline decoration-accent/30 hover:decoration-accent transition-all">Chat to our friendly team!</Link>
+                        Everything you need to know about our School & Learning Management System.<br className="hidden md:block" />
+                        Need more help? <Link href="#contact" className="text-[#2F7FF5] font-semibold underline decoration-[#2F7FF5]/30 hover:decoration-[#2F7FF5] transition-all">Connect with our support team!</Link>
                     </p>
                 </div>
 

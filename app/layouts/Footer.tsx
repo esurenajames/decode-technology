@@ -358,7 +358,7 @@ export default function Footer() {
 
                         {/* Trademark Text */}
                         <div className="text-xs text-gray-400 max-w-xs leading-relaxed text-center lg:text-left">
-                            WireGuard is a registered trademark of Jason A. Donenfeld.
+                            An AI Solution Company
                         </div>
 
                         {/* Social Icons */}

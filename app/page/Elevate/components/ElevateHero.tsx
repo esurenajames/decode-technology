@@ -43,7 +43,7 @@ export default function ElevateHero() {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen max-h-[95vh] bg-white overflow-hidden flex flex-col pt-20">
+        <section ref={containerRef} className="relative w-full h-screen max-h-[90vh] bg-white overflow-hidden flex flex-col pt-20">
 
             {/* Split Background - Right Side Navy */}
             <div className="absolute top-0 right-0 w-full lg:w-[38%] h-full bg-primary z-0">
