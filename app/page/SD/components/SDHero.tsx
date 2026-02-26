@@ -1,101 +1,90 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import bgImg from '../assets/bg.png';
-import deviceImg from '../assets/device.png';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 export default function SDHero() {
     const containerRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const deviceRef = useRef<HTMLDivElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
+    const bottomRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        gsap.set(contentRef.current, { opacity: 0, x: -30 });
-        gsap.set(bgRef.current, { opacity: 0, x: 60 });
-        gsap.set(deviceRef.current, { opacity: 0, y: 50 });
+        gsap.set(contentRef.current?.children || [], { opacity: 0, y: 30 });
+        gsap.set(bottomRef.current?.children || [], { opacity: 0, y: 20 });
 
-        tl.to(contentRef.current, { opacity: 1, x: 0, duration: 1, delay: 0.2 })
-            .to(bgRef.current, { opacity: 1, x: 0, duration: 1 }, '-=0.7')
-            .to(deviceRef.current, { opacity: 1, y: 0, duration: 1 }, '-=0.5');
+        tl.to(contentRef.current?.children || [], {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.15,
+            delay: 0.2
+        })
+            .to(bottomRef.current?.children || [], {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2
+            }, "-=0.5");
 
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen bg-white overflow-hidden flex flex-col pt-16 px-20">
+        <section ref={containerRef} className="relative w-full min-h-screen bg-primary flex flex-col justify-between px-6 lg:px-20 pb-12 overflow-hidden">
 
-            {/* Main area — 2-column grid: left text | right square + person */}
-            <div className="grid grid-cols-2 flex-1 overflow-hidden">
+            {/* Top / Main Content Area */}
+            <div className="flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full">
+                <div ref={contentRef} className="max-w-[800px]">
+                    <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-medium text-white tracking-tight leading-[1.05] mb-8">
+                        Drive growth faster with software tailored to your needs
+                    </h1>
 
-                {/* Left column — Flex split: top = text, bottom = device */}
-                <div className="flex flex-col flex-1 relative z-10">
+                    <p className="text-white/70 text-lg md:text-xl font-medium max-w-2xl mb-12 leading-relaxed">
+                        Join 150+ global clients who've streamlined operations and accelerated
+                        growth with our custom software solutions—trusted for 13 years of excellence!
+                    </p>
 
-                    {/* Top half — Text block */}
-                    <div ref={contentRef} className="flex-1 flex flex-col justify-center items-center">
-                        <div className="w-[80%] pl-24 flex flex-col items-start">
-                            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5 leading-[1.1]">
-                                <span className="text-primary">Custom </span>
-                                <span className="text-accent">Software<br />Development</span>
-                                <span className="text-primary"> for Every Need</span>
-                            </h1>
+                    <div className="flex flex-wrap items-center gap-4">
+                        <button className="px-6 py-3.5 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all hover:-translate-y-0.5 shadow-lg flex items-center justify-center gap-2">
+                            <span>Book a call</span>
+                            <ArrowRightOutlined className="text-xs" />
+                        </button>
+                        <button className="px-6 py-3.5 bg-transparent text-white font-medium rounded-lg hover:bg-white/10 transition-all border border-white/30 flex items-center justify-center">
+                            sales@company.com
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-                            <p className="text-gray-500 text-lg font-medium max-w-md mb-8 leading-relaxed">
-                                We build tailored software solutions that fit your business—from web apps
-                                to enterprise systems, built to scale and grow with you.
-                            </p>
+            {/* Bottom Stats Area */}
+            <div className="max-w-7xl mx-auto w-full mt-24 lg:mt-0">
+                <div ref={bottomRef} className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8">
 
-                            <div className="flex flex-wrap gap-4">
-                                <button className="px-10 py-4 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 transform hover:-translate-y-0.5">
-                                    Start free trial
-                                </button>
-                                <button className="px-10 py-4 bg-[#e8eef7] text-primary font-bold rounded-lg hover:bg-[#dfe5ee] transition-all transform hover:-translate-y-0.5">
-                                    Book a demo
-                                </button>
-                            </div>
-                        </div>
+                    {/* Small left-aligned text */}
+                    <div className="max-w-[200px] text-white/50 text-[13px] font-medium leading-relaxed tracking-wide">
+                        See the world through <br /> the prism of technology
                     </div>
 
-                    {/* Bottom half — Device mockup */}
-                    <div ref={deviceRef} className="flex-1 flex items-end overflow-visible">
-                        <div className="relative w-[155%] aspect-[16/9]">
-                            <Image
-                                src={deviceImg}
-                                alt="Software Dashboard Preview"
-                                fill
-                                className="object-contain object-bottom-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)]"
-                                priority
-                                unoptimized
-                            />
+                    {/* Dark Glass Stats Card */}
+                    <div className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 px-10 py-8 lg:px-14 lg:py-10 flex flex-wrap items-center gap-12 sm:gap-16 lg:gap-24">
+                        <div className="flex flex-col">
+                            <span className="text-white text-3xl lg:text-4xl font-semibold mb-2">20+</span>
+                            <span className="text-white/50 text-xs font-semibold tracking-wide uppercase">Total Projects</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-white text-3xl lg:text-4xl font-semibold mb-2">$48M</span>
+                            <span className="text-white/50 text-xs font-semibold tracking-wide uppercase">Client's Revenue</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-white text-3xl lg:text-4xl font-semibold mb-2">60+</span>
+                            <span className="text-white/50 text-xs font-semibold tracking-wide uppercase">Talent Heads</span>
                         </div>
                     </div>
 
                 </div>
-
-                {/* Right column — CSS grid stack: square behind, person in front */}
-                <div ref={bgRef} className="grid grid-cols-1 grid-rows-1">
-
-                    {/* bg-primary square — bottom-center of grid cell */}
-                    <div className="col-start-1 row-start-1 self-end justify-self-center bg-primary w-[78%] h-[55%] pointer-events-none" />
-
-                    {/* Person image — same grid cell, on top */}
-                    <div className="col-start-1 row-start-1 relative pointer-events-none -mt-32">
-                        <Image
-                            src={bgImg}
-                            alt="Software Developer"
-                            fill
-                            className="object-contain object-bottom"
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                </div>
-
             </div>
 
         </section>

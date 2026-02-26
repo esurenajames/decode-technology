@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
     ArrowRightOutlined,
     AppstoreOutlined,
@@ -14,9 +15,10 @@ import {
     DesktopOutlined
 } from '@ant-design/icons';
 
-import imgERP from '../assets/solutions_erp.png';
-import imgSchool from '../assets/solutions_school.png';
-import imgDev from '../assets/solutions_dev.png';
+import imgERP from '../assets/hero/erp-dashboard.png';
+import imgSchool from '../assets/hero/elevate-dashboard.png';
+import imgHRIS from '../assets/hero/ees.png';
+import imgBot from '../assets/hero/ai-chatbot.png';
 
 export default function FeaturesGrid() {
     return (
@@ -51,10 +53,10 @@ export default function FeaturesGrid() {
                             <p className="text-white/80 text-sm font-medium leading-relaxed">We build exactly what your organization needs—unique software solutions designed for your specific goals.</p>
                         </div>
                         <div className="relative z-10 pt-6">
-                            <button className="text-white text-xs font-black uppercase tracking-widest flex items-center gap-2 group/btn">
+                            <Link href="/sd" className="text-white text-xs font-black uppercase tracking-widest flex items-center gap-2 group/btn w-fit">
                                 Start Your Project
                                 <ArrowRightOutlined className="group-hover/btn:translate-x-1 transition-transform" />
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
@@ -97,13 +99,8 @@ export default function FeaturesGrid() {
                             <h3 className="text-xl font-black mb-3 text-primary leading-tight">AI Chatbot</h3>
                             <p className="text-gray-500 text-sm font-medium leading-relaxed">Automate your customer support and sales 24/7 with intelligent assistants that learn your business.</p>
                         </div>
-                        <div className="relative z-10 mt-6 p-6 rounded-2xl bg-gray-50/50 border border-gray-100 flex items-center justify-center">
-                            <div className="relative w-24 h-24">
-                                <div className="absolute inset-0 bg-accent/20 blur-2xl animate-pulse rounded-full" />
-                                <div className="relative z-10 flex items-center justify-center h-full bg-white rounded-full shadow-lg">
-                                    <RobotOutlined className="text-3xl text-accent" />
-                                </div>
-                            </div>
+                        <div className="relative h-36 mt-6 rounded-xl overflow-hidden border border-gray-50 bg-gray-50/50">
+                            <Image src={imgBot} alt="AI Chatbot App" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                         </div>
                     </div>
 
@@ -119,11 +116,8 @@ export default function FeaturesGrid() {
                             <h3 className="text-xl font-black mb-3 text-primary leading-tight">HRIS & Payroll System</h3>
                             <p className="text-gray-500 text-sm font-medium leading-relaxed">Handle people and payroll effortlessly—track attendance, leave, and payouts with zero manual errors.</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 mt-auto">
-                            <div className="h-1 bg-accent/20 rounded-full" />
-                            <div className="h-1 bg-accent rounded-full" />
-                            <div className="h-1 bg-accent/40 rounded-full" />
-                            <div className="h-1 bg-accent/60 rounded-full" />
+                        <div className="relative h-36 mt-6 rounded-xl overflow-hidden border border-gray-50 bg-gray-50/50">
+                            <Image src={imgHRIS} alt="HRIS App" fill className="object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                         </div>
                     </div>
 

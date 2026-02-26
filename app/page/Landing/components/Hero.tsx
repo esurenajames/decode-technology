@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarOutlined } from '@ant-design/icons';
-import imgLeft from '../assets/image 25.png';
-import imgRight from '../assets/image 26.png';
-import logoImg from '../assets/logo.jpg';
 
-const TRUSTED_LOGOS = [
-    { name: 'Edgard & Cooper', src: logoImg },
-    { name: 'AMS', src: logoImg },
-    { name: 'Raleigh', src: logoImg },
-    { name: 'Huel', src: logoImg },
-    { name: 'Wethenew', src: logoImg },
-];
+// Import local hero images
+import img1 from '../assets/hero/ees-employee.png';
+import img2 from '../assets/hero/ees.png';
+import img3 from '../assets/hero/elevate-course-management.png';
+import img4 from '../assets/hero/elevate-dashboard.png';
+import img5 from '../assets/hero/erp-dashboard.png';
+import img6 from '../assets/hero/sales-dashboard.png';
 
 export default function Hero() {
     return (
@@ -64,29 +61,27 @@ export default function Hero() {
                         }}
                     />
 
+                    {/* Row 1 */}
                     <div className="flex gap-4 min-w-max px-4 -ml-[120px]">
                         {[...Array(8)].map((_, idx) => {
-                            const routes = ['/erp', '/hris', '/ai-chatbot', '/elevate'];
+                            const routes = ['/erp', '/hris', '/ai-chatbot', '/elevate', '/erp', '/hris'];
                             const route = routes[idx % routes.length];
-                            const images = [
-                                'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1504868584819-f8eec1843b3d?q=80&w=2070&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?q=80&w=2070&auto=format&fit=crop'
-                            ];
+                            const images = [img1, img2, img3, img4, img5, img6];
+                            const currentImg = images[idx % images.length];
+
                             return (
                                 <Link
                                     key={`r1-${idx}`}
                                     href={route}
-                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block"
+                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block bg-white"
                                 >
                                     <Image
-                                        src={images[idx % images.length]}
+                                        src={currentImg}
                                         alt="Showcase"
                                         fill
-                                        className="object-cover"
+                                        className="object-cover object-top"
                                         sizes="220px"
-                                        unoptimized
+                                        placeholder="blur"
                                     />
                                 </Link>
                             );
@@ -96,27 +91,25 @@ export default function Hero() {
                     {/* Row 2 - Offset Right/Center */}
                     <div className="flex gap-4 min-w-max px-4 ml-0">
                         {[...Array(8)].map((_, idx) => {
-                            const routes = ['/elevate', '/ai-chatbot', '/hris', '/erp'];
+                            const routes = ['/elevate', '/ai-chatbot', '/hris', '/erp', '/hris', '/ai-chatbot'];
                             const route = routes[idx % routes.length];
-                            const images = [
-                                'https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?q=80&w=2070&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1504868584819-f8eec1843b3d?q=80&w=2070&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-                                'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop'
-                            ];
+                            // Reverse order for row 2 visual variety
+                            const images = [img6, img5, img4, img3, img2, img1];
+                            const currentImg = images[idx % images.length];
+
                             return (
                                 <Link
                                     key={`r2-${idx}`}
                                     href={route}
-                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block"
+                                    className="relative w-[220px] aspect-[16/10] rounded-lg overflow-hidden shrink-0 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20 hover:z-10 cursor-pointer block bg-white"
                                 >
                                     <Image
-                                        src={images[idx % images.length]}
+                                        src={currentImg}
                                         alt="Showcase"
                                         fill
-                                        className="object-cover"
+                                        className="object-cover object-top"
                                         sizes="220px"
-                                        unoptimized
+                                        placeholder="blur"
                                     />
                                 </Link>
                             );
