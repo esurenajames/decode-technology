@@ -60,7 +60,7 @@ export default function Hero() {
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <button className="px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-1">
+                            <button className="px-8 py-4 bg-[#2F7FF5] text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-1">
                                 Start free trial
                             </button>
                             <button className="px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-50 transition-all border border-gray-200 hover:border-accent/50 shadow-sm">

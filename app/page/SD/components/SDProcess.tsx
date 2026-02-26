@@ -7,17 +7,32 @@ const PROCESS_STEPS = [
     {
         id: '1',
         title: 'Discover',
-        description: "Let's collaborate on what software you need."
+        description: 'We start by understanding your business, goals, and challenges. Through workshops and discussions, we identify the exact software needs that will drive real results.',
+        bg: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80'
     },
     {
         id: '2',
-        title: 'Develop',
-        description: 'Our expert team of software engineers and solutions analyst will develop your software.'
+        title: 'Plan',
+        description: 'Our team creates a strategic roadmap, defining features, timelines, and resources. This ensures your project is aligned with business objectives and set up for success from the start.',
+        bg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80'
     },
     {
         id: '3',
+        title: 'Develop',
+        description: 'Using the latest technologies, our developers and solution analysts turn your ideas into a fully functional, user-friendly software solution tailored to your needs.',
+        bg: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80'
+    },
+    {
+        id: '4',
+        title: 'Test',
+        description: 'Before launch, we rigorously test your software for performance, usability, and security. This guarantees a smooth, reliable, and bug-free experience for your team and customers.',
+        bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80'
+    },
+    {
+        id: '5',
         title: 'Deploy',
-        description: 'Use your specially developed software for your organization.'
+        description: 'We deploy your custom software seamlessly into your operations, provide training and support, and ensure it drives efficiency, growth, and business impact from day one.',
+        bg: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80'
     }
 ];
 
@@ -30,21 +45,19 @@ export default function SDProcess() {
     };
 
     return (
-        <section className="py-24 bg-white">
+        <section className="pt-24 bg-white">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                     <div>
-                        <span className="text-gray-400 font-medium text-sm mb-2 block">Our Process</span>
-                        <h2 className="text-4xl md:text-5xl font-medium text-[#111] tracking-tight">
-                            Your D3 Software Development Plan
+                        <h2 className="text-4xl md:text-5xl font-medium text-primary tracking-tight">
+                            Our Software Development Plan
                         </h2>
+                        <p className="text-gray-500 text-base md:text-lg mt-4 max-w-2xl leading-relaxed">
+                            From discovery to deployment, our proven 5-step process ensures your software is built right — on time, on budget, and tailored to your business.
+                        </p>
                     </div>
-                    <button className="flex items-center gap-2 px-6 py-2.5 border border-gray-300 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors whitespace-nowrap w-fit">
-                        <span>All Services</span>
-                        <ArrowRightOutlined className="text-xs" />
-                    </button>
                 </div>
 
                 {/* Process Accordion */}
@@ -61,9 +74,18 @@ export default function SDProcess() {
                                     : 'md:w-24 bg-[#f4f4f4] text-gray-800 hover:bg-[#eaeaea] h-16 md:h-full w-full border border-gray-100'
                                     }`}
                             >
+                                {/* Background Image */}
+                                <img
+                                    src={step.bg}
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
+                                />
+                                {/* Dark Overlay */}
+                                <div className={`absolute inset-0 pointer-events-none ${isActive ? 'bg-[#1c1c1c]/80' : 'bg-[#f4f4f4]/85'}`} />
                                 {/* Inactive State */}
                                 {!isActive && (
-                                    <div className="flex md:flex-col items-center justify-between md:justify-start w-full h-full p-5 md:py-8">
+                                    <div className="flex md:flex-col items-center justify-between md:justify-start w-full h-full p-5 md:py-8 relative z-10">
                                         <span className="text-lg font-medium mb-4">{step.id}</span>
                                         <div className="hidden md:flex flex-1 items-center justify-center -rotate-180" style={{ writingMode: 'vertical-rl' }}>
                                             <span className="whitespace-nowrap font-medium text-gray-700 tracking-wide text-[15px]">
@@ -76,7 +98,7 @@ export default function SDProcess() {
 
                                 {/* Active State */}
                                 {isActive && (
-                                    <div className="flex w-full h-full p-8 md:p-10 animate-fade">
+                                    <div className="flex w-full h-full p-8 md:p-10 animate-fade relative z-10">
 
                                         {/* Left Side vertical title & ID */}
                                         <div className="hidden md:flex flex-col items-center mr-8 h-full">
@@ -101,13 +123,15 @@ export default function SDProcess() {
                                                 {step.description}
                                             </p>
 
-                                            <button
-                                                onClick={handleNext}
-                                                className="mt-auto flex items-center gap-2 px-6 py-2.5 border border-white/20 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors w-fit tracking-wide"
-                                            >
-                                                <span>Next</span>
-                                                <ArrowRightOutlined className="text-xs" />
-                                            </button>
+                                            {idx < PROCESS_STEPS.length - 1 && (
+                                                <button
+                                                    onClick={handleNext}
+                                                    className="mt-auto flex items-center gap-2 px-6 py-2.5 border border-white/20 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors w-fit tracking-wide"
+                                                >
+                                                    <span>Next</span>
+                                                    <ArrowRightOutlined className="text-xs" />
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 )}
