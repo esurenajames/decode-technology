@@ -1,6 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
+import { CloseOutlined } from '@ant-design/icons';
+
+import thumbnailImg from '../assets/thumbnail.png';
 
 interface ShowcaseItem {
     tag: string;
@@ -40,7 +44,9 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
 
 const PEEK = 240;
 const GAP = 16;
-const TRANSITION = 'transform 0.42s ease-in-out ';
+const TRANSITION_DURATION = '0.55s';
+const TRANSITION_EASING = 'cubic-bezier(0.25, 1, 0.5, 1)';
+const TRANSITION = `transform ${TRANSITION_DURATION} ${TRANSITION_EASING}, opacity ${TRANSITION_DURATION} ${TRANSITION_EASING}, filter ${TRANSITION_DURATION} ${TRANSITION_EASING}`;
 
 function getDiff(index: number, current: number, total: number): number {
     let diff = (index - current + total) % total;
@@ -52,6 +58,11 @@ export default function AIChatbotShowcase() {
     const [current, setCurrent] = useState(0);
     const carouselRef = useRef<HTMLDivElement>(null);
     const [step, setStep] = useState(0);
+    const [showVideo, setShowVideo] = useState(false);
+
+    const closeVideo = useCallback(() => {
+        setShowVideo(false);
+    }, []);
 
     useEffect(() => {
         const el = carouselRef.current;
@@ -63,6 +74,22 @@ export default function AIChatbotShowcase() {
         return () => ro.disconnect();
     }, []);
 
+    // Video modal: lock scroll & Escape key
+    useEffect(() => {
+        if (!showVideo) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') closeVideo();
+        };
+
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showVideo, closeVideo]);
+
     const total = SHOWCASE_ITEMS.length;
     const cardWidth = Math.max(0, step - GAP);
     const item = SHOWCASE_ITEMS[current];
@@ -71,92 +98,165 @@ export default function AIChatbotShowcase() {
     const handleNext = () => setCurrent((c) => (c === total - 1 ? 0 : c + 1));
 
     return (
-        <section className="text-white py-24 px-6 md:px-12 overflow-hidden">
-            <div className="max-w-5xl mx-auto">
+        <>
+            <section className="text-white py-24 px-6 md:px-12 overflow-hidden">
+                <div className="max-w-5xl mx-auto">
 
-                {/* ── Header — static, no animation ── */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-12 gap-6">
-                    <div>
-                        <span className="text-gray-500 text-xs font-mono tracking-widest block mb-3">
-                            {item.tag}
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold uppercase leading-tight whitespace-pre-line">
-                            {item.headerTitle}
-                        </h2>
+                    {/* ── Header — static, no animation ── */}
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-12 gap-6">
+                        <div>
+                            <span className="text-gray-500 text-xs font-mono tracking-widest block mb-3">
+                                {item.tag}
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-bold uppercase leading-tight whitespace-pre-line">
+                                {item.headerTitle}
+                            </h2>
+                        </div>
                     </div>
-                </div>
 
-                {/* ── Card track — only this slides ── */}
-                <div
-                    ref={carouselRef}
-                    className="relative overflow-hidden mb-8"
-                    style={{ height: '540px', borderRadius: '1rem' }}
-                >
-                    {step > 0 && SHOWCASE_ITEMS.map((card, i) => {
-                        const diff = getDiff(i, current, total);
-                        return (
-                            <div
-                                key={i}
-                                className="absolute top-0 rounded-2xl flex items-end justify-end"
-                                style={{
-                                    left: 0,
-                                    width: `${cardWidth}px`,
-                                    height: '100%',
-                                    background: card.bgColor,
-                                    transform: `translateX(${diff * step}px)`,
-                                    transition: TRANSITION,
-                                    visibility: Math.abs(diff) > 1 ? 'hidden' : 'visible',
-                                    opacity: diff === 0 ? 1 : 0.45,
-                                }}
-                            >
-                                {diff === 0 && (
+                    {/* ── Card track — only this slides ── */}
+                    <div
+                        ref={carouselRef}
+                        className="relative overflow-hidden mb-8"
+                        style={{ height: '540px', borderRadius: '1rem' }}
+                    >
+                        {step > 0 && SHOWCASE_ITEMS.map((card, i) => {
+                            const diff = getDiff(i, current, total);
+                            const isActive = diff === 0;
+                            return (
+                                <div
+                                    key={i}
+                                    className="absolute top-0 rounded-2xl overflow-hidden will-change-transform"
+                                    style={{
+                                        left: 0,
+                                        width: `${cardWidth}px`,
+                                        height: '100%',
+                                        transform: `translateX(${diff * step}px) scale(${isActive ? 1 : 0.95})`,
+                                        transition: TRANSITION,
+                                        visibility: Math.abs(diff) > 1 ? 'hidden' : 'visible',
+                                        opacity: isActive ? 1 : 0.35,
+                                        filter: isActive ? 'blur(0px)' : 'blur(1px)',
+                                    }}
+                                >
+                                    {/* Thumbnail background */}
+                                    <Image
+                                        src={thumbnailImg}
+                                        alt="Company Overview"
+                                        fill
+                                        className="object-cover object-center"
+                                        sizes="(max-width: 768px) 100vw, 800px"
+                                        placeholder="blur"
+                                        priority={i === 0}
+                                    />
+
+                                    {/* Dark overlay for better contrast */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10" />
+
+                                    {/* Centered play button */}
                                     <button
                                         aria-label="Play video"
-                                        className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/70 flex items-center justify-center hover:bg-black transition-colors duration-200"
+                                        onClick={() => setShowVideo(true)}
+                                        className="absolute inset-0 w-full h-full flex items-center justify-center group cursor-pointer"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-5 h-5 ml-0.5">
-                                            <path d="M8 5v14l11-7z" />
-                                        </svg>
+                                        <div className="w-20 h-20 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25 group-hover:border-white/40 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1 drop-shadow-lg">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
                                     </button>
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
 
-                {/* ── Bottom — static, no animation ── */}
-                <div className="flex items-start justify-between gap-6">
-                    <div className="flex-1 max-w-lg">
-                        <h3 className="text-xl font-bold uppercase tracking-tight leading-snug mb-3">
-                            {item.cardTitle}
-                        </h3>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            {item.cardDescription}
-                        </p>
+                                    {/* Bottom-left label */}
+                                    <div className="absolute bottom-5 left-5 flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                        <span className="text-white/80 text-xs font-mono tracking-wider uppercase">Company Overview</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0 mt-1">
-                        <button
-                            onClick={handlePrev}
-                            aria-label="Previous"
-                            className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                        <button
-                            onClick={handleNext}
-                            aria-label="Next"
-                            className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+
+                    {/* ── Bottom — static, no animation ── */}
+                    <div className="flex items-start justify-between gap-6">
+                        <div className="flex-1 max-w-lg">
+                            <h3 className="text-xl font-bold uppercase tracking-tight leading-snug mb-3">
+                                {item.cardTitle}
+                            </h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                {item.cardDescription}
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-2 flex-shrink-0 mt-1">
+                            <button
+                                onClick={handlePrev}
+                                aria-label="Previous"
+                                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                aria-label="Next"
+                                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            {/* Video Modal */}
+            {showVideo && (
+                <div
+                    className="fixed inset-0 z-[999] flex items-center justify-center"
+                    onClick={closeVideo}
+                >
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/85 backdrop-blur-sm"
+                        style={{ animation: 'showcaseFadeIn 0.2s ease' }}
+                    />
+
+                    {/* Close button */}
+                    <button
+                        onClick={closeVideo}
+                        className="absolute top-6 right-6 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                        aria-label="Close video"
+                    >
+                        <CloseOutlined className="text-lg" />
+                    </button>
+
+                    {/* Video container */}
+                    <div
+                        className="relative w-full max-w-4xl mx-4 aspect-video rounded-2xl overflow-hidden shadow-2xl"
+                        style={{ animation: 'showcaseScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <video
+                            src="/COMPANY OVERVIEW 2025.mp4"
+                            controls
+                            autoPlay
+                            className="w-full h-full object-contain bg-black rounded-2xl"
+                        />
                     </div>
                 </div>
+            )}
 
-            </div>
-        </section>
+            <style jsx>{`
+                @keyframes showcaseFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes showcaseScaleIn {
+                    from { opacity: 0; transform: scale(0.92); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+            `}</style>
+        </>
     );
 }

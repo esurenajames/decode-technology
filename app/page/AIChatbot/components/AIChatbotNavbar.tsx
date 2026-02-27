@@ -96,7 +96,7 @@ export default function AIChatbotNavbar() {
                                     onClick={() => {
                                         router.push(link.href);
                                     }}
-                                    className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
+                                    className={`relative px-4 py-2 rounded-full text-sm whitespace-nowrap font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
                                         ? 'bg-white/20 text-white font-bold'
                                         : 'text-white/70 hover:text-white hover:bg-white/10 bg-transparent'
                                         }`}
