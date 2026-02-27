@@ -60,7 +60,7 @@ export default function ERPFAQ() {
 
     return (
         <section className="bg-white py-24">
-            <div className="max-w-3xl mx-auto px-6">
+            <div className="max-w-3xl mx-auto px-12">
 
                 {/* Header */}
                 <div className="text-center mb-12">

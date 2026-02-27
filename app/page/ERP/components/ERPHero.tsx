@@ -35,9 +35,19 @@ export default function Hero() {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full overflow-hidden bg-white min-h-[90vh] lg:min-h-screen flex items-center pt-20 lg:pt-0">
-            {/* Background Shape & Image */}
-            <div className="absolute top-0 right-0 w-[95%] md:w-[80%] lg:w-[65%] h-full lg:h-[80%] bg-primary rounded-bl-[150px] md:rounded-bl-[300px] lg:rounded-bl-[100%] overflow-hidden z-0">
+        <section ref={containerRef} className="relative w-full overflow-hidden bg-white min-h-[90vh] lg:min-h-screen flex flex-col lg:flex-row items-center pt-20 lg:pt-0">
+
+            {/* Background Shape & Image — desktop: top-right blob, mobile: bottom strip behind device */}
+            <div className="absolute bottom-0 left-0 right-0 h-[35%] bg-primary lg:hidden z-0 overflow-hidden">
+                <Image
+                    src={heroImg}
+                    alt="ERP System Background"
+                    fill
+                    className="object-cover opacity-20 mix-blend-overlay"
+                    priority
+                />
+            </div>
+            <div className="hidden lg:block absolute top-0 right-0 w-[65%] h-[80%] bg-primary rounded-bl-[100%] overflow-hidden z-0">
                 <Image
                     src={heroImg}
                     alt="ERP System Background"
@@ -50,16 +60,16 @@ export default function Hero() {
 
             <div className="container max-w mx-auto h-full flex flex-col justify-center">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-full">
-                    <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0 lg:mb-20">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
-                            <span className="text-primary italic">ERP System</span> That Fits <br />Your Business,
+                    <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0 lg:mb-20 text-center lg:text-left mx-auto lg:mx-0 px-6 lg:px-0">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
+                            <span className="text-primary italic">ERP System</span> That Fits <br className="hidden lg:block" />Your Business,
                             <br />Right Out of the Box
                         </h1>
-                        <p className="text-gray-600 text-lg font-medium max-w-2xl mb-10 leading-relaxed">
+                        <p className="text-gray-600 text-base md:text-lg font-medium max-w-2xl mb-10 leading-relaxed">
                             A ready-to-use ERP system that adapts to your business needs—combining core modules, local compliance, and scalable features without complex customization.
                         </p>
 
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                             <button className="px-8 py-4 bg-[#2F7FF5] text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-1">
                                 Start free trial
                             </button>
@@ -69,7 +79,8 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    <div className="relative lg:absolute lg:bottom-0 lg:right-0 lg:w-[55%] z-20 mt-12 mx-32 lg:mt-0 flex ">
+                    {/* Device image — desktop only */}
+                    <div className="hidden lg:block relative lg:absolute lg:bottom-0 lg:right-0 lg:w-[55%] z-20 mt-10 lg:mt-0 px-8 lg:px-0 mx-auto lg:mx-0 w-full max-w-md lg:max-w-none">
                         <div ref={imageRef} className="relative w-full aspect-[16/10] opacity-0">
                             <Image
                                 src={hero1Img}
