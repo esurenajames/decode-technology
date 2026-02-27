@@ -56,7 +56,7 @@ export default function AIChatbotFAQ() {
     const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
     return (
-        <section className="bg-white py-24 px-6 md:px-12">
+        <section className="bg-white py-24 px-12">
             <div className="max-w-3xl mx-auto">
 
                 {/* ── Top ── */}

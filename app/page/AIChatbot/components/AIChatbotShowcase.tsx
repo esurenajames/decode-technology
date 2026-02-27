@@ -59,20 +59,35 @@ export default function AIChatbotShowcase() {
     const carouselRef = useRef<HTMLDivElement>(null);
     const [step, setStep] = useState(0);
     const [showVideo, setShowVideo] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const closeVideo = useCallback(() => {
         setShowVideo(false);
     }, []);
 
+    // Track mobile breakpoint
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     useEffect(() => {
         const el = carouselRef.current;
         if (!el) return;
-        const compute = () => setStep(el.offsetWidth - PEEK);
+        const compute = () => {
+            if (isMobile) {
+                setStep(el.offsetWidth);
+            } else {
+                setStep(el.offsetWidth - PEEK);
+            }
+        };
         compute();
         const ro = new ResizeObserver(compute);
         ro.observe(el);
         return () => ro.disconnect();
-    }, []);
+    }, [isMobile]);
 
     // Video modal: lock scroll & Escape key
     useEffect(() => {
@@ -114,28 +129,31 @@ export default function AIChatbotShowcase() {
                         </div>
                     </div>
 
-                    {/* ── Card track — only this slides ── */}
+                    {/* ── Card track ── */}
                     <div
                         ref={carouselRef}
                         className="relative overflow-hidden mb-8"
-                        style={{ height: '540px', borderRadius: '1rem' }}
+                        style={{ height: isMobile ? '280px' : '540px', borderRadius: '1rem' }}
                     >
                         {step > 0 && SHOWCASE_ITEMS.map((card, i) => {
                             const diff = getDiff(i, current, total);
                             const isActive = diff === 0;
+                            const mobileWidth = step - GAP;
                             return (
                                 <div
                                     key={i}
                                     className="absolute top-0 rounded-2xl overflow-hidden will-change-transform"
                                     style={{
                                         left: 0,
-                                        width: `${cardWidth}px`,
+                                        width: isMobile ? `${mobileWidth}px` : `${cardWidth}px`,
                                         height: '100%',
-                                        transform: `translateX(${diff * step}px) scale(${isActive ? 1 : 0.95})`,
+                                        transform: isMobile
+                                            ? `translateX(${diff * step}px)`
+                                            : `translateX(${diff * step}px) scale(${isActive ? 1 : 0.95})`,
                                         transition: TRANSITION,
                                         visibility: Math.abs(diff) > 1 ? 'hidden' : 'visible',
-                                        opacity: isActive ? 1 : 0.35,
-                                        filter: isActive ? 'blur(0px)' : 'blur(1px)',
+                                        opacity: isActive ? 1 : (isMobile ? 0 : 0.35),
+                                        filter: isActive ? 'blur(0px)' : (isMobile ? 'blur(0px)' : 'blur(1px)'),
                                     }}
                                 >
                                     {/* Thumbnail background */}
@@ -158,34 +176,57 @@ export default function AIChatbotShowcase() {
                                         onClick={() => setShowVideo(true)}
                                         className="absolute inset-0 w-full h-full flex items-center justify-center group cursor-pointer"
                                     >
-                                        <div className="w-20 h-20 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25 group-hover:border-white/40 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1 drop-shadow-lg">
+                                        <div className={`${isMobile ? 'w-14 h-14' : 'w-20 h-20'} rounded-full bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25 group-hover:border-white/40 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className={`${isMobile ? 'w-6 h-6' : 'w-8 h-8'} ml-1 drop-shadow-lg`}>
                                                 <path d="M8 5v14l11-7z" />
                                             </svg>
                                         </div>
                                     </button>
 
                                     {/* Bottom-left label */}
-                                    <div className="absolute bottom-5 left-5 flex items-center gap-2">
+                                    <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5 flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                        <span className="text-white/80 text-xs font-mono tracking-wider uppercase">Company Overview</span>
+                                        <span className="text-white/80 text-[10px] md:text-xs font-mono tracking-wider uppercase">Company Overview</span>
                                     </div>
                                 </div>
                             );
                         })}
                     </div>
 
-                    {/* ── Bottom — static, no animation ── */}
-                    <div className="flex items-start justify-between gap-6">
+                    {/* ── Mobile: centered nav buttons ── */}
+                    <div className="flex md:hidden items-center justify-center gap-3 mb-6">
+                        <button
+                            onClick={handlePrev}
+                            aria-label="Previous"
+                            className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <span className="text-white/50 text-xs font-mono">{current + 1} / {total}</span>
+                        <button
+                            onClick={handleNext}
+                            aria-label="Next"
+                            className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 hover:bg-white/10 transition-all duration-200"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* ── Bottom — text + desktop nav buttons ── */}
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
                         <div className="flex-1 max-w-lg">
-                            <h3 className="text-xl font-bold uppercase tracking-tight leading-snug mb-3">
+                            <h3 className="text-lg md:text-xl font-bold uppercase tracking-tight leading-snug mb-2 md:mb-3">
                                 {item.cardTitle}
                             </h3>
                             <p className="text-gray-400 text-sm leading-relaxed">
                                 {item.cardDescription}
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0 mt-1">
+                        <div className="hidden md:flex items-center gap-2 flex-shrink-0 mt-1">
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous"

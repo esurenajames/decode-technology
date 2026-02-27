@@ -48,7 +48,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/40"></div>
             </div>
 
-            <div className="container max-w mx-auto z-30 h-full flex flex-col justify-center">
+            <div className="container max-w mx-auto h-full flex flex-col justify-center">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-full">
                     <div ref={contentRef} className="max-w-2xl pt-12 lg:pt-0 relative z-20 opacity-0 lg:mb-20">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 
 const TOP_NAV_LINKS = [
@@ -43,7 +43,6 @@ export default function Navbar() {
             setScrolled(currentScrollY > 10);
 
             if (currentScrollY > 100) {
-                // If scrolling up, show bottom bar. If scrolling down, hide it.
                 if (currentScrollY < lastScrollY) {
                     setShowBottomBar(true);
                 } else {
@@ -59,11 +58,22 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [lastScrollY]);
 
+    // Close mobile menu on resize to desktop
     useEffect(() => {
         const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [mobileOpen]);
 
     const langMenuItems: MenuProps['items'] = LANGUAGES.map(lang => ({
         key: lang.code,
@@ -76,6 +86,11 @@ export default function Navbar() {
         onClick: () => setSelectedLang(lang),
     }));
 
+    const navigateTo = (href: string) => {
+        setMobileOpen(false);
+        router.push(href);
+    };
+
     return (
         <>
             <div
@@ -83,12 +98,12 @@ export default function Navbar() {
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg' : 'shadow-none'}`}
             >
                 {/* Main bar */}
-                <div className="bg-white border-b border-primary/10 h-16 flex items-center justify-center px-8 relative z-20">
-                    <div className="max-w-[1280px] w-full mx-auto grid grid-cols-3 items-center">
+                <div className="bg-white border-b border-primary/10 h-16 flex items-center justify-center px-4 md:px-8 relative z-20">
+                    <div className="max-w-[1280px] w-full mx-auto flex items-center justify-between lg:grid lg:grid-cols-3 lg:items-center">
 
                         {/* Left — Logo */}
                         <button
-                            onClick={() => router.push('/')}
+                            onClick={() => navigateTo('/')}
                             className="bg-transparent border-none p-0 flex items-center gap-2.5 cursor-pointer w-fit"
                         >
                             <span className="text-lg font-extrabold text-primary tracking-tight">
@@ -96,14 +111,12 @@ export default function Navbar() {
                             </span>
                         </button>
 
-                        {/* Center — Nav links */}
+                        {/* Center — Nav links (desktop) */}
                         <nav className="hidden lg:flex items-center justify-center gap-x-6">
                             {TOP_NAV_LINKS.map(link => (
                                 <button
                                     key={link.label}
-                                    onClick={() => {
-                                        router.push(link.href);
-                                    }}
+                                    onClick={() => navigateTo(link.href)}
                                     className={`relative px-4 py-2 rounded-full whitespace-nowrap text-sm font-semibold transition-all duration-300 ease-out border-none cursor-pointer ${pathname === link.href
                                         ? 'bg-gray-200 text-primary font-bold'
                                         : 'text-primary/70 hover:text-primary hover:bg-primary/5 bg-transparent'
@@ -115,9 +128,9 @@ export default function Navbar() {
                         </nav>
 
                         {/* Right — Language + CTA + Hamburger */}
-                        <div className="flex items-center justify-end gap-4">
+                        <div className="flex items-center justify-end gap-3">
 
-                            {/* Language dropdown — antd */}
+                            {/* Language dropdown */}
                             <Dropdown
                                 menu={{ items: langMenuItems }}
                                 trigger={['click']}
@@ -131,16 +144,28 @@ export default function Navbar() {
                             </Dropdown>
 
                             <button
-                                onClick={() => router.push('#contact')}
-                                className="glow-btn ml-4 whitespace-nowrap hidden lg:inline-flex"
+                                onClick={() => navigateTo('#contact')}
+                                className="glow-btn ml-2 whitespace-nowrap hidden lg:inline-flex"
                             >
                                 <span>Get a Quote</span>
+                            </button>
+
+                            {/* Hamburger button — mobile only */}
+                            <button
+                                onClick={() => setMobileOpen(!mobileOpen)}
+                                className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-transparent border-none cursor-pointer text-primary hover:bg-primary/5 transition-colors"
+                                aria-label="Toggle menu"
+                            >
+                                {mobileOpen
+                                    ? <CloseOutlined className="text-xl" />
+                                    : <MenuOutlined className="text-xl" />
+                                }
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom bar — service links (Hidden on scroll) */}
+                {/* Bottom bar — service links (desktop, hidden on scroll) */}
                 <div
                     className={`hidden lg:flex bg-primary items-center justify-center px-8 transition-all duration-300 ease-in-out overflow-hidden relative z-10 ${showBottomBar ? 'h-12 opacity-100' : 'h-0 opacity-0'
                         }`}
@@ -149,9 +174,7 @@ export default function Navbar() {
                         {BOTTOM_NAV_LINKS.map(link => (
                             <button
                                 key={link.label}
-                                onClick={() => {
-                                    router.push(link.href);
-                                }}
+                                onClick={() => navigateTo(link.href)}
                                 className={`text-[0.8rem] font-bold whitespace-nowrap px-4 py-1.5 rounded-full transition-all duration-300 ease-out border border-transparent cursor-pointer ${pathname === link.href
                                     ? 'bg-white text-primary shadow-md'
                                     : 'text-white/70 hover:text-white hover:bg-white/10 bg-transparent'
@@ -164,49 +187,67 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile menu */}
-            {/* Mobile menu removed as per request */}
-            {/* <div
-                id="mobile-menu"
-                className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-white border-b border-primary/10 overflow-hidden transition-all duration-300"
-                style={{ maxHeight: mobileOpen ? '600px' : '0' }}
+            {/* Mobile menu overlay */}
+            <div
+                className={`lg:hidden fixed inset-0 z-40 transition-all duration-300 ${mobileOpen ? 'visible' : 'invisible'}`}
             >
-                <div className="px-6 py-4 pb-6 flex flex-col gap-1">
-                    <p className="text-[0.7rem] font-bold tracking-widest uppercase text-muted mb-1">Menu</p>
-                    {TOP_NAV_LINKS.map(link => (
-                        <a
-                            key={link.label}
-                            href={link.href}
-                            onClick={() => { setActiveTop(link.label); setMobileOpen(false); }}
-                            className={`block px-3 py-2.5 text-[0.95rem] font-medium no-underline rounded-lg border-l-[3px] transition-all duration-150 ${activeTop === link.label
-                                ? 'text-accent border-accent bg-accent/5'
-                                : 'text-primary border-transparent hover:bg-primary/5'
-                                }`}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
+                {/* Backdrop */}
+                <div
+                    className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
+                    onClick={() => setMobileOpen(false)}
+                />
 
-                    <p className="text-[0.7rem] font-bold tracking-widest uppercase text-muted mt-4 mb-1">Services</p>
-                    {BOTTOM_NAV_LINKS.map(link => (
-                        <a
-                            key={link.label}
-                            href={link.href}
-                            onClick={() => { setActiveBottom(link.label); setMobileOpen(false); }}
-                            className={`block px-3 py-2 text-sm font-medium no-underline rounded-lg transition-all duration-150 ${activeBottom === link.label
-                                ? 'text-accent bg-accent/5'
-                                : 'text-muted hover:bg-primary/5 hover:text-primary'
-                                }`}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
+                {/* Slide-down panel */}
+                <div
+                    className={`absolute top-16 left-0 right-0 bg-white border-b border-gray-200 shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ease-out ${mobileOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
+                        }`}
+                >
+                    <div className="px-6 py-6 flex flex-col gap-1">
 
-                    <a href="#contact" className="glow-btn mt-5 justify-center">
-                        <span>Get a Quote</span>
-                    </a>
+                        {/* Menu section */}
+                        <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2 px-3">Menu</p>
+                        {TOP_NAV_LINKS.map(link => (
+                            <button
+                                key={link.label}
+                                onClick={() => navigateTo(link.href)}
+                                className={`w-full text-left px-4 py-3 text-[0.95rem] font-medium rounded-xl transition-all duration-200 border-none cursor-pointer ${pathname === link.href
+                                    ? 'text-primary bg-primary/5 font-bold'
+                                    : 'text-gray-700 hover:bg-gray-50 bg-transparent'
+                                    }`}
+                            >
+                                {link.label}
+                            </button>
+                        ))}
+
+                        {/* Divider */}
+                        <div className="h-px bg-gray-100 my-3" />
+
+                        {/* Services section */}
+                        <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2 px-3">Services</p>
+                        {BOTTOM_NAV_LINKS.map(link => (
+                            <button
+                                key={link.label}
+                                onClick={() => navigateTo(link.href)}
+                                className={`w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 border-none cursor-pointer ${pathname === link.href
+                                    ? 'text-primary bg-primary/5 font-bold'
+                                    : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50 bg-transparent'
+                                    }`}
+                            >
+                                {link.label}
+                            </button>
+                        ))}
+
+                        {/* CTA */}
+                        <button
+                            onClick={() => navigateTo('#contact')}
+                            className="glow-btn mt-4 justify-center w-full"
+                        >
+                            <span>Get a Quote</span>
+                        </button>
+                    </div>
                 </div>
-            </div> */}
+            </div>
         </>
     );
 }
+
