@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
     TeamOutlined, MoneyCollectOutlined, RiseOutlined, HeartOutlined,
     ClockCircleOutlined, CalendarOutlined, UserAddOutlined, LoginOutlined,
@@ -10,45 +10,104 @@ import {
     IdcardOutlined, ReadOutlined, CarOutlined, HomeOutlined,
     BookOutlined, CrownOutlined, SmileOutlined, ThunderboltOutlined,
     MedicineBoxOutlined, FileDoneOutlined, SecurityScanOutlined, BankOutlined,
-    HourglassOutlined, ExportOutlined, DashboardOutlined, GlobalOutlined
+    HourglassOutlined, ExportOutlined, DashboardOutlined, GlobalOutlined,
+    CloseOutlined
 } from '@ant-design/icons';
 
 const smallFeatures = [
-    { name: 'Attendance', icon: ClockCircleOutlined },
-    { name: 'Leave Mgmt', icon: CalendarOutlined },
-    { name: 'Recruitment', icon: UserAddOutlined },
-    { name: 'Onboarding', icon: LoginOutlined },
-    { name: 'Offboarding', icon: LogoutOutlined },
-    { name: 'Benefits', icon: GiftOutlined },
-    { name: 'Asset Mgmt', icon: LaptopOutlined },
-    { name: 'Scheduling', icon: FieldTimeOutlined },
-    { name: 'Timesheets', icon: ContainerOutlined },
-    { name: 'Org Chart', icon: NodeIndexOutlined },
-    { name: 'Documents', icon: FileOutlined },
-    { name: 'Expenses', icon: AuditOutlined },
-    { name: 'Compliance', icon: AlertOutlined },
-    { name: 'Safety', icon: SafetyOutlined },
-    { name: 'Surveys', icon: QuestionCircleOutlined },
-    { name: 'Objectives', icon: AimOutlined },
-    { name: 'Skills', icon: IdcardOutlined },
-    { name: 'Policies', icon: ReadOutlined },
-    { name: 'Travel', icon: CarOutlined },
-    { name: 'Remote Work', icon: HomeOutlined },
-    { name: 'Handbook', icon: BookOutlined },
-    { name: 'Anniversary', icon: CrownOutlined },
-    { name: 'Birthdays', icon: SmileOutlined },
-    { name: 'Appreciation', icon: HeartOutlined },
-    { name: 'Team Events', icon: ThunderboltOutlined },
-    { name: 'Wellness', icon: MedicineBoxOutlined },
-    { name: 'Tax Filing', icon: FileDoneOutlined },
-    { name: 'Insurance', icon: SecurityScanOutlined },
-    { name: 'Loans', icon: BankOutlined },
-    { name: 'Overtime', icon: HourglassOutlined },
-    { name: 'Exits', icon: ExportOutlined },
-    { name: 'Training', icon: DashboardOutlined },
+    { name: 'Attendance', icon: ClockCircleOutlined, description: 'Track employee attendance in real time with biometric integration, geo-fencing, shift management, and automated overtime calculations for accurate records.' },
+    { name: 'Leave Mgmt', icon: CalendarOutlined, description: 'Simplify leave requests and approvals with configurable leave policies, holiday calendars, carry-forward rules, and automatic balance calculations.' },
+    { name: 'Recruitment', icon: UserAddOutlined, description: 'Attract and hire top talent with job posting management, applicant tracking, interview scheduling, candidate scoring, and offer letter automation.' },
+    { name: 'Onboarding', icon: LoginOutlined, description: 'Welcome new hires with structured onboarding workflows, document collection, task checklists, buddy assignments, and first-day orientation scheduling.' },
+    { name: 'Offboarding', icon: LogoutOutlined, description: 'Manage employee exits professionally with clearance workflows, knowledge transfer plans, exit interviews, and final settlement processing.' },
+    { name: 'Benefits', icon: GiftOutlined, description: 'Administer employee benefits including health plans, retirement contributions, flexible spending accounts, and voluntary benefit enrollments in one place.' },
+    { name: 'Asset Mgmt', icon: LaptopOutlined, description: 'Track company assets assigned to employees—laptops, phones, access cards—with issuance records, maintenance logs, and return tracking.' },
+    { name: 'Scheduling', icon: FieldTimeOutlined, description: 'Create and manage employee work schedules with shift planning, rotation patterns, availability management, and conflict detection.' },
+    { name: 'Timesheets', icon: ContainerOutlined, description: 'Log and track work hours with project-based timesheets, approval workflows, and seamless integration with payroll and billing systems.' },
+    { name: 'Org Chart', icon: NodeIndexOutlined, description: 'Visualize your organizational structure with interactive org charts showing reporting lines, departments, teams, and role hierarchies.' },
+    { name: 'Documents', icon: FileOutlined, description: 'Centralize employee documents with secure storage, version control, e-signatures, expiration alerts, and category-based organization.' },
+    { name: 'Expenses', icon: AuditOutlined, description: 'Streamline expense reporting with receipt capture, category tagging, policy enforcement, multi-level approvals, and reimbursement tracking.' },
+    { name: 'Compliance', icon: AlertOutlined, description: 'Stay compliant with labor laws and regulations through automated alerting, policy enforcement, audit trails, and regulatory change tracking.' },
+    { name: 'Safety', icon: SafetyOutlined, description: 'Ensure workplace safety with incident reporting, hazard tracking, safety training records, and compliance with occupational health standards.' },
+    { name: 'Surveys', icon: QuestionCircleOutlined, description: 'Gather employee feedback through customizable surveys, pulse checks, engagement scoring, anonymous responses, and actionable insights.' },
+    { name: 'Objectives', icon: AimOutlined, description: 'Set and track individual and team objectives with OKR frameworks, progress monitoring, alignment tracking, and quarterly review cycles.' },
+    { name: 'Skills', icon: IdcardOutlined, description: 'Map and manage employee skills and competencies with proficiency levels, gap analysis, development recommendations, and succession planning.' },
+    { name: 'Policies', icon: ReadOutlined, description: 'Create, distribute, and track acknowledgment of company policies with version management, digital sign-off, and compliance reporting.' },
+    { name: 'Travel', icon: CarOutlined, description: 'Manage business travel requests with trip planning, booking integration, itinerary management, per diem tracking, and expense pre-approval.' },
+    { name: 'Remote Work', icon: HomeOutlined, description: 'Support remote and hybrid work with check-in tracking, productivity monitoring, virtual collaboration tools, and remote work policy management.' },
+    { name: 'Handbook', icon: BookOutlined, description: 'Maintain a centralized digital employee handbook with company policies, procedures, culture guidelines, and frequently asked questions.' },
+    { name: 'Anniversary', icon: CrownOutlined, description: 'Celebrate work anniversaries with automated reminders, milestone recognition, reward distribution, and personalized messages to employees.' },
+    { name: 'Birthdays', icon: SmileOutlined, description: 'Never miss an employee birthday with automated greetings, team notifications, celebration coordination, and optional gift management.' },
+    { name: 'Appreciation', icon: HeartOutlined, description: 'Foster a culture of recognition with peer-to-peer appreciation, badge systems, reward points, public shout-outs, and recognition analytics.' },
+    { name: 'Team Events', icon: ThunderboltOutlined, description: 'Plan and manage team activities with event scheduling, RSVP tracking, budget management, venue coordination, and post-event feedback.' },
+    { name: 'Wellness', icon: MedicineBoxOutlined, description: 'Promote employee wellness with health programs, mental health resources, fitness challenges, wellness tracking, and well-being assessments.' },
+    { name: 'Tax Filing', icon: FileDoneOutlined, description: 'Simplify tax compliance with automated tax form generation, filing assistance, year-end summaries, and statutory deduction management.' },
+    { name: 'Insurance', icon: SecurityScanOutlined, description: 'Manage employee insurance plans with enrollment workflows, coverage details, claim tracking, dependent management, and renewal notifications.' },
+    { name: 'Loans', icon: BankOutlined, description: 'Administer employee loan programs with application workflows, EMI calculations, payroll deduction integration, and outstanding balance tracking.' },
+    { name: 'Overtime', icon: HourglassOutlined, description: 'Track and manage overtime hours with policy-based calculations, approval workflows, comp-off options, and integration with payroll processing.' },
+    { name: 'Exits', icon: ExportOutlined, description: 'Handle employee separations smoothly with resignation workflows, notice period tracking, final settlements, and experience letter generation.' },
+    { name: 'Training', icon: DashboardOutlined, description: 'Develop your workforce with course management, learning paths, certification tracking, training calendar, and skill development analytics.' },
 ];
 
+const coreFeatures = [
+    { key: 'profiles', name: 'Employee Central', icon: TeamOutlined, color: 'text-blue-500', description: 'A centralized employee management hub that stores all personnel data, organizational profiles, employment history, and personal details—providing a single source of truth for your entire workforce.' },
+    { key: 'payroll', name: 'Payroll & Benefits', icon: MoneyCollectOutlined, color: 'text-emerald-500', description: 'End-to-end payroll processing with automated salary calculations, tax deductions, statutory compliance, multi-currency support, and comprehensive benefits administration for your team.' },
+    { key: 'performance', name: 'Performance Hub', icon: RiseOutlined, color: 'text-amber-500', description: 'Drive employee growth with goal setting, performance reviews, 360-degree feedback, competency mapping, development plans, and data-driven insights to maximize team potential.' },
+    { key: 'engagement', name: 'Culture & Engagement', icon: HeartOutlined, color: 'text-rose-500', description: 'Build a thriving workplace culture with recognition programs, engagement surveys, pulse checks, social feeds, team celebrations, and actionable insights to boost employee satisfaction.' },
+];
+
+interface SelectedFeature {
+    name: string;
+    icon: React.ElementType;
+    description: string;
+    color?: string;
+}
+
 export default function EESAppsGrid() {
+    const [selectedFeature, setSelectedFeature] = useState<SelectedFeature | null>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    const closeDialog = useCallback(() => {
+        setIsVisible(false);
+        setTimeout(() => setSelectedFeature(null), 300);
+    }, []);
+
+    // Close on scroll
+    useEffect(() => {
+        if (!selectedFeature) return;
+
+        const handleScroll = () => {
+            closeDialog();
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [selectedFeature, closeDialog]);
+
+    const handleFeatureClick = (feature: SelectedFeature) => {
+        if (selectedFeature?.name === feature.name && isVisible) {
+            closeDialog();
+            return;
+        }
+        setSelectedFeature(feature);
+        requestAnimationFrame(() => {
+            setIsVisible(true);
+        });
+    };
+
+    const handleCoreClick = (coreType: string) => {
+        const core = coreFeatures.find(c => c.key === coreType);
+        if (core) {
+            handleFeatureClick({
+                name: core.name,
+                icon: core.icon,
+                description: core.description,
+                color: core.color,
+            });
+        }
+    };
+
     const gridItems = [];
     let smallIndex = 0;
     for (let i = 0; i < 36; i++) {
@@ -60,7 +119,7 @@ export default function EESAppsGrid() {
     }
 
     return (
-        <section className="w-full py-24 bg-white overflow-hidden relative border-t border-gray-50">
+        <section ref={sectionRef} className="w-full py-24 bg-white overflow-hidden relative border-t border-gray-50">
             <div className="max-w-5xl mx-auto px-4 relative z-10">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight">
@@ -88,7 +147,7 @@ export default function EESAppsGrid() {
                                 const isEngagement = item.coreType === 'engagement';
 
                                 return (
-                                    <div key={index} className="col-span-2 row-span-2 hidden md:flex flex-col relative overflow-hidden bg-white hover:shadow-lg transition-all duration-300 group/core">
+                                    <div key={index} className="col-span-2 row-span-2 hidden md:flex flex-col relative overflow-hidden bg-white hover:shadow-lg transition-all duration-300 group/core cursor-pointer" onClick={() => handleCoreClick(item.coreType!)}>
                                         {/* Background Decor */}
                                         <div className={`absolute inset-0 bg-gradient-to-br opacity-5 pointer-events-none ${isProfiles ? 'from-blue-500' :
                                             isPayroll ? 'from-emerald-500' :
@@ -154,15 +213,22 @@ export default function EESAppsGrid() {
                                 );
                             }
 
-                            const Icon = item.feature?.icon as React.ElementType;
+                            const feature = item.feature!;
+                            const Icon = feature.icon as React.ElementType;
                             return (
                                 <div
                                     key={index}
                                     className="bg-white p-6 flex flex-col items-center justify-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer group aspect-square"
+                                    onClick={() => handleFeatureClick({
+                                        name: feature.name,
+                                        icon: feature.icon,
+                                        description: feature.description,
+                                        color: 'text-accent',
+                                    })}
                                 >
                                     <Icon className="text-2xl text-gray-300 group-hover:text-accent transition-colors duration-300" />
                                     <span className="text-[10px] font-bold text-gray-400 group-hover:text-primary transition-colors duration-300 text-center uppercase tracking-wider">
-                                        {item.feature?.name}
+                                        {feature.name}
                                     </span>
                                 </div>
                             );
@@ -170,6 +236,63 @@ export default function EESAppsGrid() {
                     </div>
                 </div>
             </div>
+
+            {/* Bottom Dialog / Sheet */}
+            {selectedFeature && (() => {
+                const DialogIcon = selectedFeature.icon;
+                return (
+                    <div
+                        className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
+                        style={{ perspective: '800px' }}
+                    >
+                        <div
+                            className="pointer-events-auto w-full max-w-2xl mx-4 mb-6 rounded-2xl bg-white border border-gray-200 shadow-[0_-8px_40px_rgba(0,0,0,0.12)] overflow-hidden"
+                            style={{
+                                transform: isVisible
+                                    ? 'translateY(0) scale(1)'
+                                    : 'translateY(100%) scale(0.95)',
+                                opacity: isVisible ? 1 : 0,
+                                transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+                            }}
+                        >
+                            {/* Accent bar */}
+                            <div className="h-1 w-full bg-gradient-to-r from-accent via-emerald-400 to-accent" />
+
+                            <div className="p-5 md:p-6">
+                                <div className="flex items-start gap-4">
+                                    {/* Icon */}
+                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-accent/5 flex items-center justify-center">
+                                        <DialogIcon className={`text-2xl ${selectedFeature.color || 'text-accent'}`} />
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg font-bold text-[#19253b] mb-1.5 leading-tight">
+                                            {selectedFeature.name}
+                                        </h3>
+                                        <p className="text-sm text-[#6b7f9e] leading-relaxed">
+                                            {selectedFeature.description}
+                                        </p>
+                                    </div>
+
+                                    {/* Close button */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            closeDialog();
+                                        }}
+                                        className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200"
+                                        aria-label="Close"
+                                    >
+                                        <CloseOutlined className="text-sm" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })()}
         </section>
     );
 }
+

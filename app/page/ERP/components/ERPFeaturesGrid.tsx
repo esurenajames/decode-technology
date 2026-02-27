@@ -1,51 +1,111 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
     BankOutlined, AccountBookOutlined, MoneyCollectOutlined, FileDoneOutlined, CreditCardOutlined, PieChartOutlined,
     TeamOutlined, UserAddOutlined, RiseOutlined, ClockCircleOutlined, CalendarOutlined, ReadOutlined,
     InboxOutlined, AppstoreOutlined, NodeIndexOutlined, ShoppingCartOutlined, ShopOutlined, CarOutlined,
     ContactsOutlined, LineChartOutlined, NotificationOutlined, CustomerServiceOutlined, ToolOutlined, TagOutlined,
     CheckSquareOutlined, FieldTimeOutlined, FlagOutlined, BarChartOutlined, FundProjectionScreenOutlined,
-    DashboardOutlined, ExportOutlined, LockOutlined, FileTextFilled, RobotFilled, MessageFilled
+    DashboardOutlined, ExportOutlined, LockOutlined, FileTextFilled, RobotFilled, MessageFilled,
+    CloseOutlined
 } from '@ant-design/icons';
 
 const smallFeatures = [
-    { name: 'Finance', icon: BankOutlined },
-    { name: 'Accounting', icon: AccountBookOutlined },
-    { name: 'Payroll', icon: MoneyCollectOutlined },
-    { name: 'Invoicing', icon: FileDoneOutlined },
-    { name: 'Expenses', icon: CreditCardOutlined },
-    { name: 'Budgeting', icon: PieChartOutlined },
-    { name: 'HR', icon: TeamOutlined },
-    { name: 'Recruitment', icon: UserAddOutlined },
-    { name: 'Performance', icon: RiseOutlined },
-    { name: 'Attendance', icon: ClockCircleOutlined },
-    { name: 'Leave Mgmt', icon: CalendarOutlined },
-    { name: 'Training', icon: ReadOutlined },
-    { name: 'Inventory', icon: InboxOutlined },
-    { name: 'Warehousing', icon: AppstoreOutlined },
-    { name: 'Supply Chain', icon: NodeIndexOutlined },
-    { name: 'Purchasing', icon: ShoppingCartOutlined },
-    { name: 'Vendors', icon: ShopOutlined },
-    { name: 'Logistics', icon: CarOutlined },
-    { name: 'CRM', icon: ContactsOutlined },
-    { name: 'Sales', icon: LineChartOutlined },
-    { name: 'Marketing', icon: NotificationOutlined },
-    { name: 'Support', icon: CustomerServiceOutlined },
-    { name: 'Helpdesk', icon: ToolOutlined },
-    { name: 'Ticketing', icon: TagOutlined },
-    { name: 'Security', icon: LockOutlined }, // Replaced Projects to avoid duplication
-    { name: 'Tasks', icon: CheckSquareOutlined },
-    { name: 'Timesheets', icon: FieldTimeOutlined },
-    { name: 'Milestones', icon: FlagOutlined },
-    { name: 'Reporting', icon: BarChartOutlined },
-    { name: 'Analytics', icon: FundProjectionScreenOutlined },
-    { name: 'Dashboards', icon: DashboardOutlined },
-    { name: 'Export', icon: ExportOutlined },
+    { name: 'Finance', icon: BankOutlined, description: 'Manage your company\'s financial health with real-time cash flow tracking, multi-currency support, and automated financial reporting across all departments.' },
+    { name: 'Accounting', icon: AccountBookOutlined, description: 'Streamline your bookkeeping with automated journal entries, bank reconciliation, and compliance-ready financial statements for hassle-free audits.' },
+    { name: 'Payroll', icon: MoneyCollectOutlined, description: 'Process employee salaries, deductions, bonuses, and tax filings accurately and on time with automated payroll calculations and direct deposits.' },
+    { name: 'Invoicing', icon: FileDoneOutlined, description: 'Create professional invoices, track payments, and send automated reminders to ensure timely collections and improved cash flow.' },
+    { name: 'Expenses', icon: CreditCardOutlined, description: 'Track and manage employee expenses with receipt scanning, approval workflows, and policy enforcement to control company spending.' },
+    { name: 'Budgeting', icon: PieChartOutlined, description: 'Plan and monitor budgets across departments with forecasting tools, variance analysis, and real-time spending alerts.' },
+    { name: 'HR', icon: TeamOutlined, description: 'Centralize all human resource operations including employee records, organizational charts, and compliance documentation in one unified platform.' },
+    { name: 'Recruitment', icon: UserAddOutlined, description: 'Attract and hire top talent with job posting management, applicant tracking, interview scheduling, and onboarding automation.' },
+    { name: 'Performance', icon: RiseOutlined, description: 'Drive employee growth with goal setting, performance reviews, 360-degree feedback, and development planning tools.' },
+    { name: 'Attendance', icon: ClockCircleOutlined, description: 'Monitor employee attendance with biometric integration, geo-fencing, shift management, and overtime tracking in real time.' },
+    { name: 'Leave Mgmt', icon: CalendarOutlined, description: 'Simplify leave requests and approvals with configurable leave policies, holiday calendars, and automatic balance calculations.' },
+    { name: 'Training', icon: ReadOutlined, description: 'Develop your workforce with learning management, course assignments, certification tracking, and skill gap analysis tools.' },
+    { name: 'Inventory', icon: InboxOutlined, description: 'Maintain optimal stock levels with real-time inventory tracking, automated reorder points, batch management, and multi-warehouse support.' },
+    { name: 'Warehousing', icon: AppstoreOutlined, description: 'Optimize warehouse operations with bin management, pick-pack-ship workflows, barcode scanning, and space utilization analytics.' },
+    { name: 'Supply Chain', icon: NodeIndexOutlined, description: 'Gain end-to-end visibility into your supply chain with demand forecasting, supplier collaboration, and logistics optimization.' },
+    { name: 'Purchasing', icon: ShoppingCartOutlined, description: 'Streamline procurement with purchase requisitions, vendor comparisons, approval workflows, and automated purchase order generation.' },
+    { name: 'Vendors', icon: ShopOutlined, description: 'Manage supplier relationships with vendor scorecards, contract management, payment tracking, and performance evaluation tools.' },
+    { name: 'Logistics', icon: CarOutlined, description: 'Coordinate shipping and delivery operations with route optimization, carrier management, shipment tracking, and delivery scheduling.' },
+    { name: 'CRM', icon: ContactsOutlined, description: 'Build stronger customer relationships with contact management, interaction history, pipeline tracking, and customer segmentation.' },
+    { name: 'Sales', icon: LineChartOutlined, description: 'Accelerate revenue growth with lead management, opportunity tracking, quotation builder, and sales forecasting dashboards.' },
+    { name: 'Marketing', icon: NotificationOutlined, description: 'Launch and manage marketing campaigns across channels with audience targeting, content scheduling, and ROI measurement tools.' },
+    { name: 'Support', icon: CustomerServiceOutlined, description: 'Deliver exceptional customer service with multi-channel support, knowledge base, SLA management, and customer satisfaction tracking.' },
+    { name: 'Helpdesk', icon: ToolOutlined, description: 'Resolve issues efficiently with ticket routing, priority management, escalation rules, and self-service portal for common queries.' },
+    { name: 'Ticketing', icon: TagOutlined, description: 'Track and manage service requests with customizable ticket workflows, automated assignments, and resolution time analytics.' },
+    { name: 'Security', icon: LockOutlined, description: 'Protect your business data with role-based access control, audit trails, encryption, and compliance monitoring across all modules.' },
+    { name: 'Tasks', icon: CheckSquareOutlined, description: 'Organize and track work with task assignments, priority levels, due dates, dependencies, and progress monitoring for teams.' },
+    { name: 'Timesheets', icon: FieldTimeOutlined, description: 'Log and track billable hours with project-based timesheets, approval workflows, and integration with payroll and invoicing.' },
+    { name: 'Milestones', icon: FlagOutlined, description: 'Set and track project milestones with deadline monitoring, progress indicators, and automated notifications for stakeholders.' },
+    { name: 'Reporting', icon: BarChartOutlined, description: 'Generate comprehensive reports with drag-and-drop report builder, scheduled delivery, and cross-module data consolidation.' },
+    { name: 'Analytics', icon: FundProjectionScreenOutlined, description: 'Unlock business insights with advanced analytics, trend analysis, predictive modeling, and interactive data visualizations.' },
+    { name: 'Dashboards', icon: DashboardOutlined, description: 'Monitor KPIs at a glance with customizable dashboards, real-time widgets, and role-specific views for every team member.' },
+    { name: 'Export', icon: ExportOutlined, description: 'Export your data in multiple formats including PDF, Excel, and CSV with customizable templates and scheduled exports.' },
 ];
 
+const coreFeatures = [
+    { key: 'projects', name: 'HR and Payroll System', icon: TeamOutlined, color: 'text-orange-500', description: 'A comprehensive human resources and payroll management system that handles employee lifecycle, salary processing, tax compliance, benefits administration, and workforce analytics—all in one integrated platform.' },
+    { key: 'docs', name: 'Inventory System', icon: InboxOutlined, color: 'text-blue-500', description: 'End-to-end inventory management with real-time stock tracking, automated reorder points, multi-warehouse support, batch and serial number tracking, and demand forecasting to optimize your supply chain.' },
+    { key: 'brain', name: 'Purchasing System', icon: ShoppingCartOutlined, color: 'text-pink-500', description: 'Streamline your entire procurement process from requisition to payment with vendor management, purchase order automation, approval workflows, and spend analytics for smarter purchasing decisions.' },
+    { key: 'chat', name: 'Sales System', icon: LineChartOutlined, color: 'text-purple-600', description: 'Drive revenue growth with a powerful sales management system featuring lead tracking, pipeline management, quotation builder, sales forecasting, and performance dashboards for your entire sales team.' },
+];
+
+interface SelectedFeature {
+    name: string;
+    icon: React.ElementType;
+    description: string;
+    color?: string;
+}
+
 export default function FeaturesGrid() {
+    const [selectedFeature, setSelectedFeature] = useState<SelectedFeature | null>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    const closeDialog = useCallback(() => {
+        setIsVisible(false);
+        setTimeout(() => setSelectedFeature(null), 300);
+    }, []);
+
+    // Close on scroll
+    useEffect(() => {
+        if (!selectedFeature) return;
+
+        const handleScroll = () => {
+            closeDialog();
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [selectedFeature, closeDialog]);
+
+    const handleFeatureClick = (feature: SelectedFeature) => {
+        if (selectedFeature?.name === feature.name && isVisible) {
+            closeDialog();
+            return;
+        }
+        setSelectedFeature(feature);
+        // Small delay to trigger animation
+        requestAnimationFrame(() => {
+            setIsVisible(true);
+        });
+    };
+
+    const handleCoreClick = (coreType: string) => {
+        const core = coreFeatures.find(c => c.key === coreType);
+        if (core) {
+            handleFeatureClick({
+                name: core.name,
+                icon: core.icon,
+                description: core.description,
+                color: core.color,
+            });
+        }
+    };
+
     // We construct a flat array of 36 items for our 8-col grid CSS mapping:
     // This allows exact placement in the DOM.
     const gridItems = [];
@@ -59,7 +119,7 @@ export default function FeaturesGrid() {
     }
 
     return (
-        <section className="w-full py-24 bg-white overflow-hidden relative">
+        <section ref={sectionRef} className="w-full py-24 bg-white overflow-hidden relative">
             <div className="max-w-6xl mx-auto px-4 relative z-10">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight">
@@ -90,10 +150,10 @@ export default function FeaturesGrid() {
                                 const isBrain = item.coreType === 'brain';
                                 const isChat = item.coreType === 'chat';
 
-                                let wrapperClass = "col-span-2 row-span-2 hidden md:flex flex-col relative overflow-hidden bg-white hover:shadow-lg transition-all duration-300";
+                                let wrapperClass = "col-span-2 row-span-2 hidden md:flex flex-col relative overflow-hidden bg-white hover:shadow-lg transition-all duration-300 cursor-pointer";
 
                                 return (
-                                    <div key={index} className={wrapperClass}>
+                                    <div key={index} className={wrapperClass} onClick={() => handleCoreClick(item.coreType!)}>
 
                                         {isProjects && (
                                             <>
@@ -202,15 +262,22 @@ export default function FeaturesGrid() {
                             }
 
                             // Render small feature items
-                            const Icon = item.feature?.icon as React.ElementType;
+                            const feature = item.feature!;
+                            const Icon = feature.icon as React.ElementType;
                             return (
                                 <div
                                     key={index}
                                     className="bg-white p-6 md:p-8 flex flex-col items-center justify-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer group aspect-[1/1]"
+                                    onClick={() => handleFeatureClick({
+                                        name: feature.name,
+                                        icon: feature.icon,
+                                        description: feature.description,
+                                        color: 'text-primary',
+                                    })}
                                 >
                                     <Icon className="text-2xl text-gray-400 group-hover:text-primary transition-colors duration-300" />
                                     <span className="text-xs font-semibold text-gray-400 group-hover:text-primary transition-colors duration-300 text-center">
-                                        {item.feature?.name}
+                                        {feature.name}
                                     </span>
                                 </div>
                             );
@@ -218,6 +285,62 @@ export default function FeaturesGrid() {
                     </div>
                 </div>
             </div>
+
+            {/* Bottom Dialog / Sheet */}
+            {selectedFeature && (() => {
+                const DialogIcon = selectedFeature.icon;
+                return (
+                    <div
+                        className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
+                        style={{ perspective: '800px' }}
+                    >
+                        <div
+                            className="pointer-events-auto w-full max-w-2xl mx-4 mb-6 rounded-2xl bg-white border border-gray-200 shadow-[0_-8px_40px_rgba(0,0,0,0.12)] overflow-hidden"
+                            style={{
+                                transform: isVisible
+                                    ? 'translateY(0) scale(1)'
+                                    : 'translateY(100%) scale(0.95)',
+                                opacity: isVisible ? 1 : 0,
+                                transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+                            }}
+                        >
+                            {/* Accent bar */}
+                            <div className="h-1 w-full bg-gradient-to-r from-primary via-blue-400 to-primary" />
+
+                            <div className="p-5 md:p-6">
+                                <div className="flex items-start gap-4">
+                                    {/* Icon */}
+                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center">
+                                        <DialogIcon className={`text-2xl ${selectedFeature.color || 'text-primary'}`} />
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg font-bold text-[#19253b] mb-1.5 leading-tight">
+                                            {selectedFeature.name}
+                                        </h3>
+                                        <p className="text-sm text-[#6b7f9e] leading-relaxed">
+                                            {selectedFeature.description}
+                                        </p>
+                                    </div>
+
+                                    {/* Close button */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            closeDialog();
+                                        }}
+                                        className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200"
+                                        aria-label="Close"
+                                    >
+                                        <CloseOutlined className="text-sm" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })()}
         </section>
     );
 }
