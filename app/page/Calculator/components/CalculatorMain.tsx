@@ -182,16 +182,15 @@ export default function CalculatorMain() {
                                         <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-1 flex items-center gap-2">Allowances & Additional Pay</h4>
                                         <p className="text-xs text-gray-500">Add extra compensation elements like variable allowances, overtime, and night differentials.</p>
                                     </div>
-                                    <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
-                                        <div className="flex flex-col md:flex-row gap-6">
-                                            <Form.Item name="taxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Taxable Allowance</span>} className="mb-0 flex-1">
-                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
-                                            </Form.Item>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                        <Form.Item name="taxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Taxable Allowance</span>} className="mb-0 flex-1">
+                                            <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
+                                        </Form.Item>
 
-                                            <Form.Item name="nonTaxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Non-Taxable Allowance</span>} className="mb-0 flex-1">
-                                                <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
-                                            </Form.Item>
-                                        </div>
+                                        <Form.Item name="nonTaxableAllowance" label={<span className="text-gray-500 font-bold uppercase tracking-wider text-[10px]">Non-Taxable Allowance</span>} className="mb-0 flex-1">
+                                            <InputNumber className="!w-full border-gray-200 hover:border-blue-400 focus:border-blue-500" size="large" placeholder="0.00" precision={2} formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any} />
+                                        </Form.Item>
+
                                     </div>
                                 </div>
 
