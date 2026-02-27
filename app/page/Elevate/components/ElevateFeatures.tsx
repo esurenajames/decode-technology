@@ -91,7 +91,7 @@ export default function ElevateFeatures() {
 
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h2 className="text-6xl font-bold text-white leading-[1.05] tracking-tight">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white leading-[1.05] tracking-tight">
                         Empower Your Workforce <br /> With Advanced Training Tools
                     </h2>
                 </div>

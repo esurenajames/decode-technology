@@ -19,7 +19,7 @@ import logo5 from '../../../assets/BCG-removebg-preview.png';
 
 export default function SDHero() {
     return (
-        <section className="relative w-full min-h-[90vh] bg-[#F5F7FA] flex flex-col justify-between pt-32 overflow-hidden">
+        <section className="relative w-full min-h-[100vh] md:min-h-[90vh] bg-[#F5F7FA] flex flex-col justify-between pt-0 md:pt-32 overflow-hidden">
 
             <div className="flex-1 max-w-[1400px] mx-auto w-full px-6 lg:px-12 grid lg:grid-cols-2 gap-12 lg:gap-8 pb-10">
 

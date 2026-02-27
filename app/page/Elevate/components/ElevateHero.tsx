@@ -43,10 +43,21 @@ export default function ElevateHero() {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen max-h-[90vh] bg-white overflow-hidden flex flex-col pt-20">
+        <section ref={containerRef} className="relative w-full min-h-[60vh] lg:h-screen lg:max-h-[90vh] bg-white overflow-hidden flex flex-col pt-20">
 
-            {/* Split Background - Right Side Navy */}
-            <div className="absolute top-0 right-0 w-full lg:w-[38%] h-full bg-primary z-0">
+            {/* Mobile: bottom strip background */}
+            <div className="absolute bottom-0 left-0 right-0 h-[35%] bg-primary lg:hidden z-0 overflow-hidden">
+                <Image
+                    src={heroBg}
+                    alt="Background"
+                    fill
+                    className="object-cover opacity-20 mix-blend-overlay"
+                    priority
+                />
+            </div>
+
+            {/* Desktop: Right Side Navy */}
+            <div className="hidden lg:block absolute top-0 right-0 w-[38%] h-full bg-primary z-0">
                 <Image
                     src={heroBg}
                     alt="Background"
@@ -57,14 +68,14 @@ export default function ElevateHero() {
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#19253b] to-transparent" />
             </div>
 
-            <div className="container mx-auto px-8 relative z-10 flex flex-col items-center justify-center h-full">
+            <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col items-center justify-center h-full">
                 <div className="w-full flex flex-col items-center">
                     <div ref={contentRef} className="text-center w-full max-w-6xl mx-auto mb-16 relative">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
                             Redefine Training. <span className="text-primary italic">Elevate</span>{' '}
                             <span className="lg:text-white text-[#1a1a1a]">Potential.</span>
                         </h1>
-                        <p className="text-gray-600 text-lg font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+                        <p className="text-gray-600 text-base md:text-lg font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
                             With Elevate, training becomes simple enabling your team to <br className="hidden md:block" />
                             develop faster and perform at a higher level.
                         </p>
@@ -79,8 +90,8 @@ export default function ElevateHero() {
                         </div>
                     </div>
 
-                    {/* Dashboard/Devices Mockup Section */}
-                    <div ref={deviceRef} className="relative w-full max-w-5xl mx-auto z-10 -mb-2">
+                    {/* Dashboard/Devices Mockup Section — desktop only */}
+                    <div ref={deviceRef} className="hidden lg:block relative w-full max-w-5xl mx-auto z-10 -mb-2">
                         <div className="relative w-full aspect-[16/9]">
                             <Image
                                 src={deviceImg}
