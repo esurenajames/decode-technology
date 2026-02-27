@@ -33,6 +33,7 @@ export default function AIChatbotNavbar() {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [selectedLang, setSelectedLang] = useState(LANGUAGES[0]);
     const [showBottomBar, setShowBottomBar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -58,9 +59,14 @@ export default function AIChatbotNavbar() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [lastScrollY]);
 
-    // Close mobile menu on resize to desktop
+    // Track mobile breakpoint + close menu on resize to desktop
     useEffect(() => {
-        const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
+        const onResize = () => {
+            const mobile = window.innerWidth < 1024;
+            setIsMobile(mobile);
+            if (!mobile) setMobileOpen(false);
+        };
+        onResize();
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
@@ -143,24 +149,28 @@ export default function AIChatbotNavbar() {
                                 </button>
                             </Dropdown>
 
-                            <button
-                                onClick={() => navigateTo('#demo')}
-                                className="bg-white text-black px-6 py-2 rounded-lg font-bold text-sm hover:bg-gray-200 transition-all ml-2 whitespace-nowrap hidden lg:inline-flex border-none cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-                            >
-                                Book a Demo
-                            </button>
+                            {!isMobile && (
+                                <button
+                                    onClick={() => navigateTo('#demo')}
+                                    className="bg-white text-black px-6 py-2 rounded-lg font-bold text-sm hover:bg-gray-200 transition-all ml-2 whitespace-nowrap border-none cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                >
+                                    Book a Demo
+                                </button>
+                            )}
 
                             {/* Hamburger button — mobile only */}
-                            <button
-                                onClick={() => setMobileOpen(!mobileOpen)}
-                                className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-transparent border-none cursor-pointer text-white hover:bg-white/10 transition-colors"
-                                aria-label="Toggle menu"
-                            >
-                                {mobileOpen
-                                    ? <CloseOutlined className="text-xl" />
-                                    : <MenuOutlined className="text-xl" />
-                                }
-                            </button>
+                            {isMobile && (
+                                <button
+                                    onClick={() => setMobileOpen(!mobileOpen)}
+                                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-transparent border-none cursor-pointer text-white hover:bg-white/10 transition-colors"
+                                    aria-label="Toggle menu"
+                                >
+                                    {mobileOpen
+                                        ? <CloseOutlined className="text-xl" />
+                                        : <MenuOutlined className="text-xl" />
+                                    }
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

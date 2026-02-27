@@ -33,6 +33,7 @@ export default function Navbar() {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [selectedLang, setSelectedLang] = useState(LANGUAGES[0]);
     const [showBottomBar, setShowBottomBar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -58,9 +59,14 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [lastScrollY]);
 
-    // Close mobile menu on resize to desktop
+    // Track mobile breakpoint + close menu on resize to desktop
     useEffect(() => {
-        const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
+        const onResize = () => {
+            const mobile = window.innerWidth < 1024;
+            setIsMobile(mobile);
+            if (!mobile) setMobileOpen(false);
+        };
+        onResize();
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
@@ -143,24 +149,28 @@ export default function Navbar() {
                                 </button>
                             </Dropdown>
 
-                            <button
-                                onClick={() => navigateTo('#contact')}
-                                className="glow-btn ml-2 whitespace-nowrap hidden lg:inline-flex"
-                            >
-                                <span>Get a Quote</span>
-                            </button>
+                            {!isMobile && (
+                                <button
+                                    onClick={() => navigateTo('#contact')}
+                                    className="glow-btn ml-2 whitespace-nowrap"
+                                >
+                                    <span>Get a Quote</span>
+                                </button>
+                            )}
 
                             {/* Hamburger button — mobile only */}
-                            <button
-                                onClick={() => setMobileOpen(!mobileOpen)}
-                                className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-transparent border-none cursor-pointer text-primary hover:bg-primary/5 transition-colors"
-                                aria-label="Toggle menu"
-                            >
-                                {mobileOpen
-                                    ? <CloseOutlined className="text-xl" />
-                                    : <MenuOutlined className="text-xl" />
-                                }
-                            </button>
+                            {isMobile && (
+                                <button
+                                    onClick={() => setMobileOpen(!mobileOpen)}
+                                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-transparent border-none cursor-pointer text-primary hover:bg-primary/5 transition-colors"
+                                    aria-label="Toggle menu"
+                                >
+                                    {mobileOpen
+                                        ? <CloseOutlined className="text-xl" />
+                                        : <MenuOutlined className="text-xl" />
+                                    }
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
