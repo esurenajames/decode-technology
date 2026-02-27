@@ -71,7 +71,7 @@ export default function ElevateHero() {
             <div className="container mx-auto px-6 lg:px-8 relative z-10 flex flex-col items-center justify-center h-full">
                 <div className="w-full flex flex-col items-center">
                     <div ref={contentRef} className="text-center w-full max-w-6xl mx-auto mb-16 relative">
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
+                        <h1 className="text-3xl md:text-5xl font-bold text-[#1a1a1a] tracking-tight mb-4 leading-[1.1]">
                             Redefine Training. <span className="text-primary italic">Elevate</span>{' '}
                             <span className="lg:text-white text-[#1a1a1a]">Potential.</span>
                         </h1>
